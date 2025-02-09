@@ -1,8 +1,3 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
-
 package entities;
 
 import java.sql.Date;
@@ -33,7 +28,7 @@ public class Trajet {
     }
 
     public int getId() {
-        return this.id;
+        return id;
     }
 
     public void setId(int id) {
@@ -41,7 +36,7 @@ public class Trajet {
     }
 
     public int getAnnonceId() {
-        return this.annonceId;
+        return annonceId;
     }
 
     public void setAnnonceId(int annonceId) {
@@ -49,7 +44,7 @@ public class Trajet {
     }
 
     public int getAvailableSeats() {
-        return this.availableSeats;
+        return availableSeats;
     }
 
     public void setAvailableSeats(int availableSeats) {
@@ -57,7 +52,7 @@ public class Trajet {
     }
 
     public double getPrice() {
-        return this.price;
+        return price;
     }
 
     public void setPrice(double price) {
@@ -65,14 +60,21 @@ public class Trajet {
     }
 
     public Date getCreatedAt() {
-        return this.createdAt;
+        return createdAt;
     }
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 
+    @Override
     public String toString() {
-        return "Trajet{id=" + this.id + ", annonceId=" + this.annonceId + ", availableSeats=" + this.availableSeats + ", price=" + this.price + ", createdAt=" + this.createdAt + "}";
+        return "Trajet{" +
+                "id=" + id +
+                ", annonceId=" + annonceId +
+                ", availableSeats=" + availableSeats +
+                ", price=" + price +
+                ", createdAt=" + createdAt +
+                '}';
     }
 }
