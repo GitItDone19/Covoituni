@@ -41,12 +41,14 @@ public class ServiceUser implements IService<User> {
     }
 
     @Override
-    public void delete(int id) throws SQLException {
-        String sql = "DELETE FROM person WHERE id=?";
+
+    public void delete(User user) throws SQLException {
+        String sql = "DELETE FROM utilisateur WHERE id=?";
         PreparedStatement pst = connection.prepareStatement(sql);
-        pst.setInt(1, id);
+        pst.setInt(1, user.getId());  // Use the user object to get the ID
         pst.executeUpdate();
     }
+
 
     @Override
     public ArrayList<User> afficherAll() throws SQLException {

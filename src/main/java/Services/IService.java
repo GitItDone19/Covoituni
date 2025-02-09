@@ -1,12 +1,14 @@
 package Services;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.List;
 
 public interface IService<T> {
-    void ajouter(T t)throws SQLException;
-    void update(T t)throws SQLException;
-    void delete(int id) throws SQLException;
-    ArrayList<T> afficherAll() throws SQLException;
+    void ajouter(T t) throws SQLException;
 
+    void update(T t) throws SQLException;
+
+    void delete(T t) throws SQLException;
+
+    List<T> afficherAll() throws SQLException;
 }
