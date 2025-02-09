@@ -1,7 +1,11 @@
-package entities;
+package main;
 
 import Services.ServiceUser;
 import Services.TrajetService;
+import entities.MyConnection;
+import entities.Trajet;
+import entities.User;
+
 import java.sql.Date;
 
 public class Main {
