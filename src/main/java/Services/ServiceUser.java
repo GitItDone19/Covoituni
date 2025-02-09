@@ -1,6 +1,6 @@
 package Services;
 
-import entities.MyConnection;
+import main.MyConnection;
 import entities.User;
 
 import java.sql.*;

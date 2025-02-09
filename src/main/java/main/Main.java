@@ -1,8 +1,8 @@
-package entities;
+package main;
 
 import java.sql.Date;
 import Services.ServiceUser;
-import Services.TrajetService;
+import entities.User;
 
 
 public class Main {
@@ -14,15 +14,15 @@ public class Main {
 
 
 
-        User user = new User(1, "Smith", "John", "123", "john.smith@example.com", "password123", "conducteur", "ABC123");
+        User user = new User(2, "Smith", "John", "123", "john.smith@example.com", "password123", "conducteur", "ABC123");
 
 
         ServiceUser s = new ServiceUser();
-        TrajetService ts = new TrajetService();
+
         try{
-            Trajet trajet = new Trajet(1, 3, 15.5, new Date(System.currentTimeMillis()));
+
             s.ajouter(user);
-            ts.ajouter(trajet);
+
             
             System.out.println(s.afficherAll());
         }catch(Exception e){
