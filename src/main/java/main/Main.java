@@ -1,54 +1,30 @@
-package main;
+package entities;
 
-import java.sql.Date;
-<<<<<<< HEAD
-
-import Services.TrajetService;
-import entities.MyConnection;
-import entities.Trajet;
-=======
 import Services.ServiceUser;
-import entities.User;
->>>>>>> gestion_user
-
+import Services.TrajetService;
+import java.sql.Date;
 
 public class Main {
+    public Main() {
+    }
+
     public static void main(String[] args) {
         MyConnection mc = MyConnection.getInstance();
-        MyConnection mc2 =MyConnection.getInstance();;
+        MyConnection mc2 = MyConnection.getInstance();
         System.out.println(mc);
         System.out.println(mc2);
-
-
-
-<<<<<<< HEAD
-
-
-
-        TrajetService ts = new TrajetService();
-        try{
-            Trajet trajet = new Trajet(2, 3, 15.5, new Date(System.currentTimeMillis()));
-
-            ts.ajouter(trajet);
-=======
-        User user = new User(2, "Smith", "John", "123", "john.smith@example.com", "password123", "conducteur", "ABC123");
-
-
+        User user = new User(1, "Smith", "John", "123", "john.smith@example.com", "password123", "conducteur", "ABC123");
         ServiceUser s = new ServiceUser();
+        TrajetService ts = new TrajetService();
 
-        try{
-
+        try {
+            Trajet trajet = new Trajet(1, 3, (double)15.5F, new Date(System.currentTimeMillis()));
             s.ajouter(user);
-
->>>>>>> gestion_user
-            
-
-        }catch(Exception e){
+            ts.ajouter(trajet);
+            System.out.println(s.afficherAll());
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
-
-
 
     }
 }
