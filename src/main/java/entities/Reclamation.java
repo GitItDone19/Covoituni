@@ -83,11 +83,11 @@ public class Reclamation {
  
     public static void main(String[] args) {
       
-        Reclamation rec1 = new Reclamation("Probleme de temps", "Le conducteur arrive en retard", "Rouge007");
+        Reclamation rec1 = new Reclamation("Probleme de temps", "Le conducteur arrive en retard", "Ahmed");
         System.out.println(rec1);
 
 
-        Reclamation rec2 = new Reclamation("Probleme sanitaire", "Le conducteur fume dans la voiture",  "Cheikh408");
+        Reclamation rec2 = new Reclamation("Probleme sanitaire", "Le conducteur fume dans la voiture",  "AYedd");
         System.out.println(rec2);
     }
 }
