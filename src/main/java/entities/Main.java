@@ -1,6 +1,7 @@
 package entities;
-
-import Services.ServiceUser;
+import Services.ServiceReclamation;
+import Services.ServiceReclamation;
+import Services.ServiceReclamation;
 
 public class Main {
     public static void main(String[] args) {
@@ -9,12 +10,17 @@ public class Main {
         System.out.println(mc);
         System.out.println(mc2);
 
-        User user = new User(1, "Smith", "John", "123", "john.smith@example.com", "password123", "conducteur", "ABC123");
-        ServiceUser s = new ServiceUser();
+        Avis avis1 = new Avis("Excellent service !", 5, "Client123");
+        System.out.println(avis1);
+
+        Reclamation reclamation = new Reclamation("Problème de connexion",
+                "Je n'arrive pas à me connecter à mon compte.",
+                "user123");
+        ServiceReclamation rs =new ServiceReclamation();
         try{
-            s.ajouter(user);
-            
-            System.out.println(s.afficherAll());
+
+            rs.create(reclamation);
+            System.out.println(rs.readAll());
         }catch(Exception e){
             e.printStackTrace();
         }
