@@ -8,7 +8,7 @@ public class MyConnection {
     private Connection cnx;
 
     private MyConnection(){
-        String url="jdbc:mysql://localhost:3307/jdbcdemo";
+        String url="jdbc:mysql://localhost:3307/PI";
         String user = "root";
         String password = "";
 
