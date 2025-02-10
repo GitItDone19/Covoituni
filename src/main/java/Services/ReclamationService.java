@@ -1,9 +1,10 @@
-package services;
+package Services;
 import entities.Reclamation;
-import utils.MyConnection;
+import entities.MyConnection;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.Connection;
 
 public class ReclamationService  {
 
