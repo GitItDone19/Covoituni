@@ -1,5 +1,5 @@
 package entities;
-
+import entities.MyConnection ;
 import java.util.Date;
 
 public class Reclamation {
