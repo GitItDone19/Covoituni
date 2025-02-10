@@ -1,17 +1,17 @@
 package Services;
+
 import entities.Reclamation;
 import entities.MyConnection;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.sql.Connection;
 
-public class ReclamationService  {
+public class ServiceReclamation implements IServices<Reclamation> {
 
     private Connection cnx;
 
-    public ReclamationService() {
-        cnx = MyConnection.getInstance().getConnection();
+    public ServiceReclamation() {
+        cnx = MyConnection.getInstance().getCnx();
     }
 
     @Override
@@ -81,3 +81,5 @@ public class ReclamationService  {
         ps.executeUpdate();
     }
 }
+
+

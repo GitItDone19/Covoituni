@@ -3,7 +3,7 @@ package entities;
 import java.util.Date;
 
 public class Avis {
-    
+
     private static int dernierNumAvis = 0;
     private int numAvis;
     private String commentaire;
@@ -77,12 +77,5 @@ public class Avis {
                 ", username='" + username + '\'' +
                 '}';
     }
-
-    public static void main(String[] args) {
-        Avis avis1 = new Avis("Excellent service !", 5, "Client123");
-        System.out.println(avis1);
-
-        Avis avis2 = new Avis("Livraison retardée", 2, "Client456");
-        System.out.println(avis2);
-    }
 }
+
