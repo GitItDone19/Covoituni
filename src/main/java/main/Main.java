@@ -15,7 +15,7 @@ public class Main {
         TrajetService trajetService = new TrajetService();
 
         try {
-            // *** Étape 1 : Création de 3 annonces ***
+            // Insert dans tableau Annonce
             Annonce annonce1 = new Annonce(
                     "Trajet Tunis-Sousse", "Voyage confortable",
                     new Date(System.currentTimeMillis()),
@@ -43,7 +43,7 @@ public class Main {
 
             System.out.println(" 3 annonces ajoutées avec succès.");
 
-            // *** Étape 2 : Création de 3 trajets liés aux annonces ***
+            // insert dans tableau trajet
             Trajet trajet1 = new Trajet(annonce1.getId(), 3, 10.5, new Date(System.currentTimeMillis()));
             Trajet trajet2 = new Trajet(annonce2.getId(), 4, 25.5, new Date(System.currentTimeMillis()));
             Trajet trajet3 = new Trajet(annonce3.getId(), 5, 15.5, new Date(System.currentTimeMillis()));
@@ -54,7 +54,7 @@ public class Main {
 
             System.out.println(" 3 trajets ajoutés avec succès.");
 
-            // *** Affichage des annonces et trajets ***
+            // affiche tableau annoce et trajet
             System.out.println("\n Liste des annonces AVANT modification:");
             for (Annonce a : annonceService.readAll()) {
                 System.out.println(a);
@@ -65,7 +65,7 @@ public class Main {
                 System.out.println(t);
             }
 
-            // *** Étape 3 : Mise à jour d'une annonce et d'un trajet ***
+            // mise a jour tableau trajet et annoce
             annonce2.setDescription("Voyage premium avec sièges confortables.");
             annonce2.setStatus("CLOSED"); // Changer le statut de l'annonce
             annonceService.update(annonce2);
@@ -76,7 +76,7 @@ public class Main {
             trajetService.update(trajet2);
             System.out.println(" Trajet 2 mis à jour avec succès.");
 
-            // *** Affichage après mise à jour ***
+            // affiche aprs mise a jour
             System.out.println("\n Liste des annonces APRÈS modification:");
             for (Annonce a : annonceService.readAll()) {
                 System.out.println(a);
@@ -87,14 +87,14 @@ public class Main {
                 System.out.println(t);
             }
 
-            // *** Étape 4 : Suppression d'une annonce et d'un trajet ***
+            // Supprime ligne dans tableau trajet et annoce
             annonceService.delete(annonce3);
             System.out.println("\n Annonce 3 supprimée avec succès.");
 
             trajetService.delete(trajet3);
             System.out.println(" Trajet 3 supprimé avec succès.");
 
-            // *** Affichage après suppression ***
+            // affiche aprs supprime
             System.out.println("\n Liste finale des annonces:");
             for (Annonce a : annonceService.readAll()) {
                 System.out.println(a);
