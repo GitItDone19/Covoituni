@@ -1,34 +1,54 @@
 package main;
 
-import Services.ServiceUser;
-import Services.TrajetService;
-import entities.MyConnection;
-import entities.Trajet;
-import entities.User;
+import entities.Notification;
+import service.NotificationService;
 
-import java.sql.Date;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.List;
 
 public class Main {
-    public Main() {
-    }
-
     public static void main(String[] args) {
-        MyConnection mc = MyConnection.getInstance();
-        MyConnection mc2 = MyConnection.getInstance();
-        System.out.println(mc);
-        System.out.println(mc2);
-        User user = new User(1, "Smith", "John", "123", "john.smith@example.com", "password123", "conducteur", "ABC123");
-        ServiceUser s = new ServiceUser();
-        TrajetService ts = new TrajetService();
+        NotificationService notificationService = new NotificationService();
 
         try {
-            Trajet trajet = new Trajet(1, 3, (double)15.5F, new Date(System.currentTimeMillis()));
-            s.ajouter(user);
-            ts.ajouter(trajet);
-            System.out.println(s.afficherAll());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+            // *** Étape 1 : Ajouter 3 notifications ***
+            Notification notif1 = new Notification(1, 101, "Votre trajet est confirmé.", new Timestamp(System.currentTimeMillis()), false);
+            Notification notif2 = new Notification(2, 102, "Un nouveau trajet est disponible.", new Timestamp(System.currentTimeMillis()), false);
+            Notification notif3 = new Notification(3, 103, "Votre réservation a été annulée.", new Timestamp(System.currentTimeMillis()), false);
 
+            notificationService.create(notif1);
+            notificationService.create(notif2);
+            notificationService.create(notif3);
+
+            System.out.println(" 3 notifications ajoutées avec succès.");
+
+            // *** Étape 2 : Afficher toutes les notifications ***
+            System.out.println("\n Liste des notifications AVANT modification:");
+            List<Notification> notifications = notificationService.readAll();
+            for (Notification n : notifications) {
+                System.out.println(n);
+            }
+
+            // *** Étape 3 : Mise à jour d'une notification ***
+            notif2.setMessage("Un trajet que vous suivez a été modifié.");
+            notif2.setRead(true);
+            notificationService.update(notif2);
+            System.out.println("\n Notification 2 mise à jour avec succès.");
+
+            // *** Étape 4 : Suppression d'une notification ***
+            notificationService.delete(notif3);
+            System.out.println(" Notification 3 supprimée avec succès.");
+
+            // *** Étape 5 : Afficher toutes les notifications après modification ***
+            System.out.println("\n Liste des notifications APRÈS modification:");
+            notifications = notificationService.readAll();
+            for (Notification n : notifications) {
+                System.out.println(n);
+            }
+
+        } catch (SQLException e) {
+            System.err.println(" Erreur SQL : " + e.getMessage());
+        }
     }
 }
