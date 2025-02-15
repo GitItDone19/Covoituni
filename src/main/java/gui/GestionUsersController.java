@@ -8,24 +8,22 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuItem;
-import java.io.IOException;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 
 public class GestionUsersController implements Initializable {
     
+    @FXML private TextField tfUsername;
     @FXML private TextField tfNom;
     @FXML private TextField tfPrenom;
     @FXML private TextField tfTel;
@@ -36,7 +34,7 @@ public class GestionUsersController implements Initializable {
     @FXML private ComboBox<String> cbRechercheType;
     
     @FXML private TableView<User> tableUsers;
-    @FXML private TableColumn<User, Integer> colId;
+    @FXML private TableColumn<User, String> colUsername;
     @FXML private TableColumn<User, String> colNom;
     @FXML private TableColumn<User, String> colPrenom;
     @FXML private TableColumn<User, String> colTel;
@@ -57,7 +55,7 @@ public class GestionUsersController implements Initializable {
         
         try {
             // Get roles from database
-            ArrayList<Role> roles = serviceRole.afficherAll();
+            ArrayList<Role> roles = serviceRole.readAll();
             ArrayList<String> roleDisplayNames = new ArrayList<>();
             for (Role role : roles) {
                 roleDisplayNames.add(role.getDisplayName());
@@ -65,12 +63,12 @@ public class GestionUsersController implements Initializable {
             cbRole.setItems(FXCollections.observableArrayList(roleDisplayNames));
             
             // Initialize table columns
-            colId.setCellValueFactory(new PropertyValueFactory<>("id"));
+            colUsername.setCellValueFactory(new PropertyValueFactory<>("username"));
             colNom.setCellValueFactory(new PropertyValueFactory<>("nom"));
             colPrenom.setCellValueFactory(new PropertyValueFactory<>("prenom"));
             colTel.setCellValueFactory(new PropertyValueFactory<>("tel"));
             colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
-            colRole.setCellValueFactory(new PropertyValueFactory<>("roleDisplayName"));
+            colRole.setCellValueFactory(new PropertyValueFactory<>("roleCode"));
             
             refreshTable();
             
@@ -82,35 +80,21 @@ public class GestionUsersController implements Initializable {
                 }
             });
             
+            // Initialize search type combo box
+            cbRechercheType.setItems(FXCollections.observableArrayList(
+                "Nom d'utilisateur", "Nom", "Email", "Role"
+            ));
+            cbRechercheType.setValue("Nom d'utilisateur");
+            
+            // Setup search functionality
+            tfRecherche.textProperty().addListener((obs, oldValue, newValue) -> {
+                filterUsers(newValue);
+            });
+            
         } catch (SQLException e) {
             showAlert(Alert.AlertType.ERROR, "Erreur", 
                 "Erreur lors de l'initialisation: " + e.getMessage());
         }
-        
-        // Initialize search type combo box
-        cbRechercheType.setItems(FXCollections.observableArrayList(
-            "Nom", "Email", "Role"
-        ));
-        
-        // Initialize table columns with proper widths
-        colId.setPrefWidth(50);
-        colNom.setPrefWidth(100);
-        colPrenom.setPrefWidth(100);
-        colTel.setPrefWidth(100);
-        colEmail.setPrefWidth(150);
-        colRole.setPrefWidth(100);
-        
-        // Setup search functionality
-        tfRecherche.textProperty().addListener((obs, oldValue, newValue) -> {
-            filterUsers(newValue);
-        });
-        
-        // Add menu bar for logout
-        Menu fileMenu = new Menu("File");
-        MenuItem logoutItem = new MenuItem("Déconnexion");
-        logoutItem.setOnAction(e -> handleLogout());
-        fileMenu.getItems().add(logoutItem);
-        menuBar.getMenus().add(fileMenu);
     }
     
     @FXML
@@ -118,10 +102,24 @@ public class GestionUsersController implements Initializable {
         if (!validateInputs()) return;
         
         try {
+            // Check if username already exists
+            if (serviceUser.readAll().stream()
+                    .anyMatch(u -> u.getUsername().equals(tfUsername.getText()))) {
+                showAlert(Alert.AlertType.ERROR, "Erreur", "Ce nom d'utilisateur existe déjà");
+                return;
+            }
+            
+            // Check if email already exists
+            if (serviceUser.readAll().stream()
+                    .anyMatch(u -> u.getEmail().equals(tfEmail.getText()))) {
+                showAlert(Alert.AlertType.ERROR, "Erreur", "Cet email existe déjà");
+                return;
+            }
+            
             // Find role by display name
             String selectedDisplayName = cbRole.getValue();
             Role selectedRole = null;
-            for (Role role : serviceRole.afficherAll()) {
+            for (Role role : serviceRole.readAll()) {
                 if (role.getDisplayName().equals(selectedDisplayName)) {
                     selectedRole = role;
                     break;
@@ -134,31 +132,31 @@ public class GestionUsersController implements Initializable {
             }
             
             User newUser = new User(
-                0, // ID will be generated by database
-                tfNom.getText(),
-                tfPrenom.getText(),
-                tfTel.getText(),
-                tfEmail.getText(),
-                tfMdp.getText(),
-                selectedRole,  // Pass the Role object instead of code
-                generateVerificationCode()
+                tfUsername.getText(),    // username
+                tfNom.getText(),         // nom
+                tfPrenom.getText(),      // prenom
+                tfTel.getText(),         // tel
+                tfEmail.getText(),       // email
+                tfMdp.getText(),         // mdp
+                selectedRole.getCode(),  // roleCode
+                generateVerificationCode() // verificationcode
             );
             
-            serviceUser.ajouter(newUser);
+            serviceUser.create(newUser);
             showAlert(Alert.AlertType.INFORMATION, "Succès", "Utilisateur ajouté avec succès!");
             clearFields();
             refreshTable();
             
-        } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR, "Erreur", "Erreur lors de l'ajout: " + e.getMessage());
+        } catch (SQLException e) {
+            showAlert(Alert.AlertType.ERROR, "Erreur", 
+                "Erreur lors de l'ajout: " + e.getMessage());
         }
     }
     
     @FXML
     private void handleModifier() {
         if (selectedUser == null) {
-            showAlert(Alert.AlertType.WARNING, "Attention", 
-                "Veuillez sélectionner un utilisateur à modifier");
+            showAlert(Alert.AlertType.WARNING, "Attention", "Veuillez sélectionner un utilisateur");
             return;
         }
         
@@ -168,7 +166,7 @@ public class GestionUsersController implements Initializable {
             // Find role by display name
             String selectedDisplayName = cbRole.getValue();
             Role selectedRole = null;
-            for (Role role : serviceRole.afficherAll()) {
+            for (Role role : serviceRole.readAll()) {
                 if (role.getDisplayName().equals(selectedDisplayName)) {
                     selectedRole = role;
                     break;
@@ -180,12 +178,13 @@ public class GestionUsersController implements Initializable {
                 return;
             }
             
+            selectedUser.setUsername(tfUsername.getText());
             selectedUser.setNom(tfNom.getText());
             selectedUser.setPrenom(tfPrenom.getText());
             selectedUser.setTel(tfTel.getText());
             selectedUser.setEmail(tfEmail.getText());
             selectedUser.setMdp(tfMdp.getText());
-            selectedUser.setRole(selectedRole);
+            selectedUser.setRoleCode(selectedRole.getCode());
             
             serviceUser.update(selectedUser);
             showAlert(Alert.AlertType.INFORMATION, "Succès", "Utilisateur modifié avec succès!");
@@ -200,7 +199,7 @@ public class GestionUsersController implements Initializable {
     @FXML
     private void handleSupprimer() {
         if (selectedUser == null) {
-            showAlert(Alert.AlertType.WARNING, "Attention", "Veuillez sélectionner un utilisateur à supprimer");
+            showAlert(Alert.AlertType.WARNING, "Attention", "Veuillez sélectionner un utilisateur");
             return;
         }
         
@@ -214,62 +213,55 @@ public class GestionUsersController implements Initializable {
                 showAlert(Alert.AlertType.INFORMATION, "Succès", "Utilisateur supprimé avec succès!");
                 clearFields();
                 refreshTable();
-                
             } catch (SQLException e) {
-                showAlert(Alert.AlertType.ERROR, "Erreur", "Erreur lors de la suppression: " + e.getMessage());
+                showAlert(Alert.AlertType.ERROR, "Erreur", 
+                    "Erreur lors de la suppression: " + e.getMessage());
             }
         }
     }
     
-    @FXML
-    private void handleEffacer() {
-        clearFields();
-        selectedUser = null;
-        tableUsers.getSelectionModel().clearSelection();
-    }
-    
     private void refreshTable() {
         try {
-            usersList = FXCollections.observableArrayList(serviceUser.afficherAll());
+            usersList = FXCollections.observableArrayList(serviceUser.readAll());
             tableUsers.setItems(usersList);
         } catch (SQLException e) {
-            showAlert(Alert.AlertType.ERROR, "Erreur", "Erreur lors du chargement des utilisateurs: " + e.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Erreur", 
+                "Erreur lors du chargement des utilisateurs: " + e.getMessage());
         }
     }
     
     private void showUserDetails(User user) {
+        tfUsername.setText(user.getUsername());
         tfNom.setText(user.getNom());
         tfPrenom.setText(user.getPrenom());
         tfTel.setText(user.getTel());
         tfEmail.setText(user.getEmail());
         tfMdp.setText(user.getMdp());
-        cbRole.setValue(user.getRoleDisplayName());
+        
+        // Find and set role display name
+        try {
+            for (Role role : serviceRole.readAll()) {
+                if (role.getCode().equals(user.getRoleCode())) {
+                    cbRole.setValue(role.getDisplayName());
+                    break;
+                }
+            }
+        } catch (SQLException e) {
+            showAlert(Alert.AlertType.ERROR, "Erreur", 
+                "Erreur lors du chargement du rôle: " + e.getMessage());
+        }
     }
     
     private void clearFields() {
+        tfUsername.clear();
         tfNom.clear();
         tfPrenom.clear();
         tfTel.clear();
         tfEmail.clear();
         tfMdp.clear();
         cbRole.setValue(null);
-    }
-    
-    private boolean validateInputs() {
-        StringBuilder errors = new StringBuilder();
-        
-        if (tfNom.getText().isEmpty()) errors.append("Le nom est requis\n");
-        if (tfPrenom.getText().isEmpty()) errors.append("Le prénom est requis\n");
-        if (tfEmail.getText().isEmpty()) errors.append("L'email est requis\n");
-        if (tfMdp.getText().isEmpty()) errors.append("Le mot de passe est requis\n");
-        if (cbRole.getValue() == null) errors.append("Le rôle est requis\n");
-        
-        if (errors.length() > 0) {
-            showAlert(Alert.AlertType.WARNING, "Validation", errors.toString());
-            return false;
-        }
-        
-        return true;
+        selectedUser = null;
+        tableUsers.getSelectionModel().clearSelection();
     }
     
     private void filterUsers(String searchText) {
@@ -282,18 +274,60 @@ public class GestionUsersController implements Initializable {
             String searchType = cbRechercheType.getValue();
             String lowerCaseFilter = searchText.toLowerCase();
             
-            if (searchType == null || searchType.equals("Nom")) {
-                return user.getNom().toLowerCase().contains(lowerCaseFilter) ||
-                       user.getPrenom().toLowerCase().contains(lowerCaseFilter);
-            } else if (searchType.equals("Email")) {
-                return user.getEmail().toLowerCase().contains(lowerCaseFilter);
-            } else if (searchType.equals("Role")) {
-                return user.getRoleDisplayName().toLowerCase().contains(lowerCaseFilter);
+            switch (searchType) {
+                case "Nom d'utilisateur":
+                    return user.getUsername().toLowerCase().contains(lowerCaseFilter);
+                case "Nom":
+                    return user.getNom().toLowerCase().contains(lowerCaseFilter) ||
+                           user.getPrenom().toLowerCase().contains(lowerCaseFilter);
+                case "Email":
+                    return user.getEmail().toLowerCase().contains(lowerCaseFilter);
+                case "Role":
+                    return user.getRoleCode().toLowerCase().contains(lowerCaseFilter);
+                default:
+                    return true;
             }
-            return true;
         });
         
         tableUsers.setItems(filteredData);
+    }
+    
+    private boolean validateInputs() {
+        StringBuilder errors = new StringBuilder();
+        
+        if (tfUsername.getText().isEmpty()) errors.append("Le nom d'utilisateur est requis\n");
+        if (tfNom.getText().isEmpty()) errors.append("Le nom est requis\n");
+        if (tfPrenom.getText().isEmpty()) errors.append("Le prénom est requis\n");
+        if (tfTel.getText().isEmpty()) errors.append("Le téléphone est requis\n");
+        if (tfEmail.getText().isEmpty()) errors.append("L'email est requis\n");
+        if (tfMdp.getText().isEmpty()) errors.append("Le mot de passe est requis\n");
+        if (cbRole.getValue() == null) errors.append("Le rôle est requis\n");
+        
+        // Validate email format
+        if (!tfEmail.getText().isEmpty() && !tfEmail.getText().matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+            errors.append("Format d'email invalide\n");
+        }
+        
+        // Validate username format
+        if (!tfUsername.getText().isEmpty() && !tfUsername.getText().matches("^[a-zA-Z0-9_]+$")) {
+            errors.append("Le nom d'utilisateur ne peut contenir que des lettres, chiffres et underscore\n");
+        }
+        
+        // Validate phone number format
+        if (!tfTel.getText().isEmpty() && !tfTel.getText().matches("^[0-9]{8}$")) {
+            errors.append("Le numéro de téléphone doit contenir 8 chiffres\n");
+        }
+        
+        if (errors.length() > 0) {
+            showAlert(Alert.AlertType.WARNING, "Validation", errors.toString());
+            return false;
+        }
+        
+        return true;
+    }
+    
+    private String generateVerificationCode() {
+        return String.format("%06d", (int)(Math.random() * 1000000));
     }
     
     private void showAlert(Alert.AlertType type, String title, String content) {
@@ -303,11 +337,7 @@ public class GestionUsersController implements Initializable {
         alert.showAndWait();
     }
     
-    private String generateVerificationCode() {
-        // Generate a random 6-character verification code
-        return String.format("%06d", (int)(Math.random() * 1000000));
-    }
-    
+    @FXML
     private void handleLogout() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/LoginUser.fxml"));
@@ -315,7 +345,6 @@ public class GestionUsersController implements Initializable {
             Scene scene = new Scene(root);
             Stage stage = (Stage) menuBar.getScene().getWindow();
             stage.setScene(scene);
-            stage.setTitle("Connexion");
             stage.show();
         } catch (IOException e) {
             showAlert(Alert.AlertType.ERROR, "Erreur", 

@@ -1,23 +1,22 @@
-package services;
+package Services;
 
 import entities.Avis;
 import utils.MyConnection;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
 
-public class AvisService implements IAvisService {
-
-    private Connection cnx;
+public class AvisService implements IService<Avis> {
+    private Connection connection;
 
     public AvisService() {
-        cnx = MyConnection.getInstance().getConnection();
+        this.connection = MyConnection.getInstance().getCnx();
     }
 
     @Override
     public void create(Avis avis) throws SQLException {
-        String query = "INSERT INTO avis(commentaire, note, username, reponseAvis, dateAvis) VALUES(?, ?, ?, ?, ?)";
-        try (PreparedStatement ps = cnx.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+        String sql = "INSERT INTO avis (commentaire, note, username, reponse_avis, date_avis) VALUES (?, ?, ?, ?, ?)";
+        
+        try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, avis.getCommentaire());
             ps.setInt(2, avis.getNote());
             ps.setString(3, avis.getUsername());
@@ -25,7 +24,6 @@ public class AvisService implements IAvisService {
             ps.setTimestamp(5, new Timestamp(avis.getDateAvis().getTime()));
             ps.executeUpdate();
             
-            // Récupérer l'ID généré
             try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
                     avis.setNumAvis(generatedKeys.getInt(1));
@@ -36,8 +34,9 @@ public class AvisService implements IAvisService {
 
     @Override
     public void update(Avis avis) throws SQLException {
-        String query = "UPDATE avis SET commentaire = ?, note = ?, reponseAvis = ?, dateAvis = ? WHERE numAvis = ?";
-        try (PreparedStatement ps = cnx.prepareStatement(query)) {
+        String sql = "UPDATE avis SET commentaire=?, note=?, reponse_avis=?, date_avis=? WHERE num_avis=?";
+        
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, avis.getCommentaire());
             ps.setInt(2, avis.getNote());
             ps.setString(3, avis.getReponseAvis());
@@ -49,20 +48,21 @@ public class AvisService implements IAvisService {
 
     @Override
     public void delete(Avis avis) throws SQLException {
-        String query = "DELETE FROM avis WHERE numAvis = ?";
-        try (PreparedStatement ps = cnx.prepareStatement(query)) {
+        String sql = "DELETE FROM avis WHERE num_avis=?";
+        
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1, avis.getNumAvis());
             ps.executeUpdate();
         }
     }
 
     @Override
-    public List<Avis> readAll() throws SQLException {
-        List<Avis> avisList = new ArrayList<>();
-        String query = "SELECT * FROM avis ORDER BY dateAvis DESC";
+    public ArrayList<Avis> readAll() throws SQLException {
+        ArrayList<Avis> avisList = new ArrayList<>();
+        String sql = "SELECT * FROM avis ORDER BY date_avis DESC";
         
-        try (Statement st = cnx.createStatement();
-             ResultSet rs = st.executeQuery(query)) {
+        try (Statement st = connection.createStatement();
+             ResultSet rs = st.executeQuery(sql)) {
             
             while (rs.next()) {
                 Avis avis = new Avis(
@@ -70,20 +70,19 @@ public class AvisService implements IAvisService {
                     rs.getInt("note"),
                     rs.getString("username")
                 );
-                avis.setNumAvis(rs.getInt("numAvis"));
-                avis.setReponseAvis(rs.getString("reponseAvis"));
-                avis.setDateAvis(new Date(rs.getTimestamp("dateAvis").getTime()));
+                avis.setNumAvis(rs.getInt("num_avis"));
+                avis.setReponseAvis(rs.getString("reponse_avis"));
+                avis.setDateAvis(new java.util.Date(rs.getTimestamp("date_avis").getTime()));
                 avisList.add(avis);
             }
         }
-        
         return avisList;
     }
 
-    @Override
     public void reply(Avis avis, String response) throws SQLException {
-        String query = "UPDATE avis SET reponseAvis = ? WHERE numAvis = ?";
-        try (PreparedStatement ps = cnx.prepareStatement(query)) {
+        String sql = "UPDATE avis SET reponse_avis=? WHERE num_avis=?";
+        
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, response);
             ps.setInt(2, avis.getNumAvis());
             ps.executeUpdate();

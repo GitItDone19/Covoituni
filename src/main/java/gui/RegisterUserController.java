@@ -1,130 +1,94 @@
 package gui;
 
-import entities.Role;
 import entities.User;
 import Services.ServiceUser;
-import Services.ServiceRole;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class RegisterUserController implements Initializable {
     
     @FXML private TextField tfNom;
     @FXML private TextField tfPrenom;
-    @FXML private TextField tfTel;
+    @FXML private TextField tfUsername;
     @FXML private TextField tfEmail;
-    @FXML private PasswordField tfMdp;
-    @FXML private PasswordField tfConfirmMdp;
-    @FXML private ComboBox<String> cbRole;
+    @FXML private TextField tfTel;
+    @FXML private PasswordField tfPassword;
+    @FXML private PasswordField tfConfirmPassword;
+    @FXML private ComboBox<String> roleComboBox;
     
-    private ServiceUser serviceUser;
-    private ServiceRole serviceRole;
+    private final ServiceUser serviceUser = new ServiceUser();
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        serviceUser = new ServiceUser();
-        serviceRole = new ServiceRole();
-        
-        try {
-            // Get roles from database
-            ArrayList<Role> roles = serviceRole.afficherAll();
-            ArrayList<String> roleDisplayNames = new ArrayList<>();
-            for (Role role : roles) {
-                // Only show driver and passenger roles for registration
-                if (!role.getCode().equals(Role.ADMIN_CODE)) {
-                    roleDisplayNames.add(role.getDisplayName());
-                }
-            }
-            cbRole.setItems(FXCollections.observableArrayList(roleDisplayNames));
-            
-            // Set passenger as default role
-            for (String displayName : roleDisplayNames) {
-                if (displayName.equals("Passager")) {
-                    cbRole.setValue(displayName);
-                    break;
-                }
-            }
-        } catch (SQLException e) {
-            showAlert(Alert.AlertType.ERROR, "Erreur", 
-                "Erreur lors du chargement des rôles: " + e.getMessage());
-        }
+        // Initialize role combo box
+        roleComboBox.getItems().addAll("passager", "conducteur");
+        roleComboBox.setValue("passager");
     }
     
     @FXML
     private void handleRegister() {
-        if (!validateInputs()) return;
+        if (!validateInputs()) {
+            return;
+        }
         
         try {
-            // Check if email already exists
-            boolean emailExists = serviceUser.afficherAll().stream()
-                    .anyMatch(u -> u.getEmail().equals(tfEmail.getText()));
+            // Create user using setters instead of constructor
+            User user = new User();
+            user.setNom(tfNom.getText());
+            user.setPrenom(tfPrenom.getText());
+            user.setEmail(tfEmail.getText());
+            user.setMdp(tfPassword.getText());
+            user.setUsername(tfUsername.getText());
+            user.setTel(tfTel.getText());
+            user.setRoleCode(roleComboBox.getValue());
             
-            if (emailExists) {
-                showAlert(Alert.AlertType.WARNING, "Erreur", "Cet email est déjà utilisé");
-                return;
-            }
+            serviceUser.create(user);
+            showAlert(Alert.AlertType.INFORMATION, "Success", "Account created successfully!");
+            navigateToLogin();
             
-            // Find role by display name
-            String selectedDisplayName = cbRole.getValue();
-            Role selectedRole = null;
-            for (Role role : serviceRole.afficherAll()) {
-                if (role.getDisplayName().equals(selectedDisplayName)) {
-                    selectedRole = role;
-                    break;
-                }
-            }
-            
-            if (selectedRole == null) {
-                showAlert(Alert.AlertType.ERROR, "Erreur", "Rôle invalide");
-                return;
-            }
-            
-            User newUser = new User(
-                0,
-                tfNom.getText(),
-                tfPrenom.getText(),
-                tfTel.getText(),
-                tfEmail.getText(),
-                tfMdp.getText(),
-                selectedRole,  // Pass the Role object
-                generateVerificationCode()
-            );
-            
-            serviceUser.ajouter(newUser);
-            showAlert(Alert.AlertType.INFORMATION, "Succès", 
-                "Inscription réussie! Vous pouvez maintenant vous connecter.");
-            handleBack();
-            
-        } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR, "Erreur", 
-                "Erreur lors de l'inscription: " + e.getMessage());
+        } catch (SQLException e) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Registration failed: " + e.getMessage());
         }
     }
     
     private boolean validateInputs() {
-        StringBuilder errors = new StringBuilder();
+        if (tfNom.getText().isEmpty() || tfPrenom.getText().isEmpty() ||
+            tfUsername.getText().isEmpty() || tfEmail.getText().isEmpty() || 
+            tfPassword.getText().isEmpty() || tfConfirmPassword.getText().isEmpty() ||
+            tfTel.getText().isEmpty()) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Please fill all fields");
+            return false;
+        }
         
-        if (tfNom.getText().isEmpty()) errors.append("Le nom est requis\n");
-        if (tfPrenom.getText().isEmpty()) errors.append("Le prénom est requis\n");
-        if (tfEmail.getText().isEmpty()) errors.append("L'email est requis\n");
-        if (tfMdp.getText().isEmpty()) errors.append("Le mot de passe est requis\n");
-        if (!tfMdp.getText().equals(tfConfirmMdp.getText())) 
-            errors.append("Les mots de passe ne correspondent pas\n");
-        if (cbRole.getValue() == null) errors.append("Le rôle est requis\n");
+        if (!tfPassword.getText().equals(tfConfirmPassword.getText())) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Passwords do not match");
+            return false;
+        }
         
-        if (errors.length() > 0) {
-            showAlert(Alert.AlertType.WARNING, "Validation", errors.toString());
+        try {
+            // Check if email exists by checking all users
+            boolean emailExists = serviceUser.readAll().stream()
+                .anyMatch(u -> u.getEmail().equals(tfEmail.getText()));
+            
+            if (emailExists) {
+                showAlert(Alert.AlertType.ERROR, "Error", "Email already registered");
+                return false;
+            }
+        } catch (SQLException e) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Database error: " + e.getMessage());
+            return false;
+        }
+        
+        // Validate phone number format (optional)
+        if (!tfTel.getText().matches("\\d{8}")) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Le numéro de téléphone doit contenir 8 chiffres");
             return false;
         }
         
@@ -132,16 +96,16 @@ public class RegisterUserController implements Initializable {
     }
     
     @FXML
-    private void handleBack() {
+    private void handleBack() {  // Changed from handleLogin to handleBack
+        navigateToLogin();
+    }
+    
+    private void navigateToLogin() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/LoginUser.fxml"));
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-            Stage stage = (Stage) tfNom.getScene().getWindow();
-            stage.setScene(scene);
-            stage.show();
+            Parent root = FXMLLoader.load(getClass().getResource("/LoginUser.fxml"));
+            tfUsername.getScene().setRoot(root);
         } catch (IOException e) {
-            showAlert(Alert.AlertType.ERROR, "Erreur", "Erreur de navigation: " + e.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Error", "Navigation error: " + e.getMessage());
         }
     }
     
@@ -150,9 +114,5 @@ public class RegisterUserController implements Initializable {
         alert.setTitle(title);
         alert.setContentText(content);
         alert.showAndWait();
-    }
-    
-    private String generateVerificationCode() {
-        return String.format("%06d", (int)(Math.random() * 1000000));
     }
 } 

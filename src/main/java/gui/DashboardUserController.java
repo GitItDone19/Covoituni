@@ -32,24 +32,24 @@ public class DashboardUserController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         serviceUser = new ServiceUser();
+        updateUI();
     }
     
     public void setCurrentUser(User user) {
-        try {
-            this.currentUser = user;
-            if (currentUser != null) {
-                lblWelcome.setText("Bienvenue, " + currentUser.getPrenom());
-                lblUserName.setText(currentUser.getPrenom() + " " + currentUser.getNom());
-                lblUserRole.setText(currentUser.getRoleDisplayName());
-                updateUIBasedOnRole();
-                updateDashboardStats();
-            } else {
-                showAlert(Alert.AlertType.ERROR, "Erreur", "Utilisateur non trouvé");
-                handleLogout();
-            }
-        } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR, "Erreur", 
-                "Erreur lors de l'initialisation: " + e.getMessage());
+        this.currentUser = user;
+        updateUI();
+    }
+    
+    private void updateUI() {
+        if (currentUser != null) {
+            lblWelcome.setText("Bienvenue, " + currentUser.getPrenom());
+            lblUserName.setText(currentUser.getPrenom() + " " + currentUser.getNom());
+            lblUserRole.setText(currentUser.getRoleCode());
+            updateUIBasedOnRole();
+            updateDashboardStats();
+        } else {
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Utilisateur non trouvé");
+            handleLogout();
         }
     }
     
@@ -137,8 +137,7 @@ public class DashboardUserController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/MesTrajects.fxml"));
             Parent root = loader.load();
             
-            MesTrajetsController controller = loader.getController();
-            controller.setCurrentUser(currentUser);
+
             
             Scene scene = new Scene(root);
             Stage stage = (Stage) lblWelcome.getScene().getWindow();

@@ -30,11 +30,14 @@
 .button-primary {
     -fx-background-color: -fx-primary;
     -fx-text-fill: -fx-white;
+    -fx-font-weight: bold;
 }
 
 .button-secondary {
-    -fx-background-color: rgba(255, 255, 255, 0.1);
-    -fx-text-fill: -fx-secondary;
+    -fx-background-color: transparent;
+    -fx-text-fill: -fx-primary;
+    -fx-border-color: -fx-primary;
+    -fx-border-radius: 3px;
 }
 
 .button-secondary:hover {
@@ -211,4 +214,10 @@
 .stat-label {
     -fx-font-size: 16px;
     -fx-text-fill: -fx-dark-gray;
+}
+
+.root {
+    -fx-primary: #2196f3;
+    -fx-secondary: #1976d2;
+    -fx-light-gray: #d3d3d3;
 } 

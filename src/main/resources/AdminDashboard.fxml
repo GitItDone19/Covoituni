@@ -33,6 +33,8 @@
             <VBox spacing="10" prefWidth="200">
                 <Button text="Users Management" onAction="#handleUsersManagement" 
                         maxWidth="Infinity" styleClass="button-primary"/>
+                <Button text="Reclamations" onAction="#handleReclamations" 
+                        maxWidth="Infinity" styleClass="button-primary"/>
                 <Button text="Trips Management" onAction="#handleTripsManagement" 
                         maxWidth="Infinity" styleClass="button-primary"/>
                 <Button text="Statistics" onAction="#handleStatistics" 

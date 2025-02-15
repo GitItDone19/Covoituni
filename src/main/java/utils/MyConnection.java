@@ -4,31 +4,40 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-//Singleton Design Pattern
 public class MyConnection {
-
-    private final String URL = "jdbc:mysql://localhost:3306/PI";
-    private final String USER = "root";
-    private final String PASS = "";
-    private Connection connection;
     private static MyConnection instance;
+    private Connection cnx;
 
-    private MyConnection(){
+    private MyConnection() {
+        String url = "jdbc:mysql://localhost:3307/jdbcdemo";
+        String user = "root";
+        String password = "";
+
         try {
-            connection = DriverManager.getConnection(URL, USER, PASS);
-            System.out.println("Connection established");
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
+            // Register JDBC driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            
+            // Create connection
+            cnx = DriverManager.getConnection(url, user, password);
+            System.out.println("Database connection established successfully!");
+        } catch (ClassNotFoundException | SQLException e) {
+            System.err.println("Database connection failed: " + e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 
-    public static MyConnection getInstance(){
-        if(instance == null)
+    public static MyConnection getInstance() {
+        if (instance == null) {
             instance = new MyConnection();
+        }
         return instance;
     }
 
-    public Connection getConnection() {
-        return connection;
+    public Connection getCnx() {
+        return cnx;
+    }
+
+    public void setCnx(Connection cnx) {
+        this.cnx = cnx;
     }
 }

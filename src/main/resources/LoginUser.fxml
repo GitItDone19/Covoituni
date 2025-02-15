@@ -26,7 +26,7 @@
             <padding>
                 <Insets top="50" right="50" bottom="50" left="50"/>
             </padding>
-            
+
             <Label text="Login" styleClass="title-label"/>
             
             <VBox spacing="10">

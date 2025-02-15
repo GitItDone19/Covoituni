@@ -20,6 +20,7 @@ import java.util.ResourceBundle;
 
 public class AjouterUserController implements Initializable {
     
+    @FXML private TextField tfUsername;
     @FXML private TextField tfNom;
     @FXML private TextField tfPrenom;
     @FXML private TextField tfTel;
@@ -37,7 +38,7 @@ public class AjouterUserController implements Initializable {
         
         try {
             // Get roles from database
-            ArrayList<Role> roles = serviceRole.afficherAll();
+            ArrayList<Role> roles = serviceRole.readAll();
             ArrayList<String> roleDisplayNames = new ArrayList<>();
             for (Role role : roles) {
                 roleDisplayNames.add(role.getDisplayName());
@@ -54,10 +55,24 @@ public class AjouterUserController implements Initializable {
         if (!validateInputs()) return;
         
         try {
+            // Check if username already exists
+            if (serviceUser.readAll().stream()
+                    .anyMatch(u -> u.getUsername().equals(tfUsername.getText()))) {
+                showAlert(Alert.AlertType.ERROR, "Erreur", "Ce nom d'utilisateur existe déjà");
+                return;
+            }
+            
+            // Check if email already exists
+            if (serviceUser.readAll().stream()
+                    .anyMatch(u -> u.getEmail().equals(tfEmail.getText()))) {
+                showAlert(Alert.AlertType.ERROR, "Erreur", "Cet email existe déjà");
+                return;
+            }
+            
             // Find role by display name
             String selectedDisplayName = cbRole.getValue();
             Role selectedRole = null;
-            for (Role role : serviceRole.afficherAll()) {
+            for (Role role : serviceRole.readAll()) {
                 if (role.getDisplayName().equals(selectedDisplayName)) {
                     selectedRole = role;
                     break;
@@ -69,22 +84,23 @@ public class AjouterUserController implements Initializable {
                 return;
             }
             
+            // Create new user
             User newUser = new User(
-                0,
-                tfNom.getText(),
-                tfPrenom.getText(),
-                tfTel.getText(),
-                tfEmail.getText(),
-                tfMdp.getText(),
-                selectedRole,
-                generateVerificationCode()
+                tfUsername.getText(),    // username
+                tfNom.getText(),         // nom
+                tfPrenom.getText(),      // prenom
+                tfTel.getText(),         // tel
+                tfEmail.getText(),       // email
+                tfMdp.getText(),         // mdp
+                selectedRole.getCode(),  // roleCode
+                generateVerificationCode() // verificationcode
             );
             
-            serviceUser.ajouter(newUser);
+            serviceUser.create(newUser);
             showAlert(Alert.AlertType.INFORMATION, "Succès", "Utilisateur ajouté avec succès!");
             clearFields();
             
-        } catch (Exception e) {
+        } catch (SQLException e) {
             showAlert(Alert.AlertType.ERROR, "Erreur", 
                 "Erreur lors de l'ajout: " + e.getMessage());
         }
@@ -101,15 +117,17 @@ public class AjouterUserController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ViewUsers.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
-            Stage stage = (Stage) tfNom.getScene().getWindow();
+            Stage stage = (Stage) tfUsername.getScene().getWindow();
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
-            showAlert(Alert.AlertType.ERROR, "Erreur", "Erreur de navigation: " + e.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Erreur", 
+                "Erreur de navigation: " + e.getMessage());
         }
     }
     
     private void clearFields() {
+        tfUsername.clear();
         tfNom.clear();
         tfPrenom.clear();
         tfTel.clear();
@@ -121,11 +139,28 @@ public class AjouterUserController implements Initializable {
     private boolean validateInputs() {
         StringBuilder errors = new StringBuilder();
         
+        if (tfUsername.getText().isEmpty()) errors.append("Le nom d'utilisateur est requis\n");
         if (tfNom.getText().isEmpty()) errors.append("Le nom est requis\n");
         if (tfPrenom.getText().isEmpty()) errors.append("Le prénom est requis\n");
+        if (tfTel.getText().isEmpty()) errors.append("Le téléphone est requis\n");
         if (tfEmail.getText().isEmpty()) errors.append("L'email est requis\n");
         if (tfMdp.getText().isEmpty()) errors.append("Le mot de passe est requis\n");
         if (cbRole.getValue() == null) errors.append("Le rôle est requis\n");
+        
+        // Validate email format
+        if (!tfEmail.getText().isEmpty() && !tfEmail.getText().matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+            errors.append("Format d'email invalide\n");
+        }
+        
+        // Validate username format (alphanumeric and underscore only)
+        if (!tfUsername.getText().isEmpty() && !tfUsername.getText().matches("^[a-zA-Z0-9_]+$")) {
+            errors.append("Le nom d'utilisateur ne peut contenir que des lettres, chiffres et underscore\n");
+        }
+        
+        // Validate phone number format
+        if (!tfTel.getText().isEmpty() && !tfTel.getText().matches("^[0-9]{8}$")) {
+            errors.append("Le numéro de téléphone doit contenir 8 chiffres\n");
+        }
         
         if (errors.length() > 0) {
             showAlert(Alert.AlertType.WARNING, "Validation", errors.toString());
