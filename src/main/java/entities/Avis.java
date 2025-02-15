@@ -4,7 +4,6 @@ import java.util.Date;
 
 public class Avis {
 
-    private static int dernierNumAvis = 0;
     private int numAvis;
     private String commentaire;
     private int note;
@@ -13,7 +12,6 @@ public class Avis {
     private String username;
 
     public Avis(String commentaire, int note, String username) {
-        this.numAvis = ++dernierNumAvis;
         this.commentaire = commentaire;
         this.note = note;
         this.reponseAvis = "En attente de modération";
@@ -21,9 +19,23 @@ public class Avis {
         this.username = username;
     }
 
+    // Constructeur complet pour la récupération depuis la base de données
+    public Avis(int numAvis, String commentaire, int note, String reponseAvis, Date dateAvis, String username) {
+        this.numAvis = numAvis;
+        this.commentaire = commentaire;
+        this.note = note;
+        this.reponseAvis = reponseAvis;
+        this.dateAvis = dateAvis;
+        this.username = username;
+    }
+
     // Getters et Setters
     public int getNumAvis() {
         return numAvis;
+    }
+
+    public void setNumAvis(int numAvis) {
+        this.numAvis = numAvis;
     }
 
     public String getCommentaire() {
@@ -77,5 +89,4 @@ public class Avis {
                 ", username='" + username + '\'' +
                 '}';
     }
-}
-
+} 

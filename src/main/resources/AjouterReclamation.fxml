@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.AjouterReclamation">
+   <children>
+      <VBox alignment="CENTER" spacing="20" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0">
+         <padding>
+            <Insets top="20" right="40" bottom="20" left="40"/>
+         </padding>
+         
+         <Label text="Nouvelle Réclamation" styleClass="title-label"/>
+         
+         <VBox spacing="5">
+            <Label text="Description"/>
+            <TextArea fx:id="descriptionArea" promptText="Décrivez votre problème..." prefWidth="500" prefHeight="150" wrapText="true"/>
+         </VBox>
+         
+         <HBox spacing="15" alignment="CENTER">
+            <Button onAction="#ajouter" text="Soumettre la réclamation" prefWidth="200"/>
+            <Button onAction="#afficher" text="Voir les réclamations" prefWidth="200"/>
+         </HBox>
+      </VBox>
+   </children>
+</AnchorPane> 

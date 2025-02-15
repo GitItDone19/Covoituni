@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane prefHeight="700.0" prefWidth="1000.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.AdminDashboard">
+   <children>
+      <VBox spacing="20" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0">
+         <padding>
+            <Insets top="20" right="40" bottom="20" left="40"/>
+         </padding>
+         
+         <HBox alignment="CENTER_LEFT" spacing="20">
+            <Label text="Dashboard Admin" styleClass="title-label"/>
+            <Region HBox.hgrow="ALWAYS" />
+            <ComboBox fx:id="filterStatus" promptText="Filtrer par statut"/>
+         </HBox>
+         
+         <HBox spacing="20">
+            <VBox styleClass="stat-box" prefWidth="200">
+               <Label text="Total Réclamations" styleClass="stat-label"/>
+               <Label fx:id="totalLabel" text="0" styleClass="stat-value"/>
+            </VBox>
+            <VBox styleClass="stat-box" prefWidth="200">
+               <Label text="En Attente" styleClass="stat-label"/>
+               <Label fx:id="pendingLabel" text="0" styleClass="stat-value"/>
+            </VBox>
+            <VBox styleClass="stat-box" prefWidth="200">
+               <Label text="En Cours" styleClass="stat-label"/>
+               <Label fx:id="inProgressLabel" text="0" styleClass="stat-value"/>
+            </VBox>
+            <VBox styleClass="stat-box" prefWidth="200">
+               <Label text="Résolues" styleClass="stat-label"/>
+               <Label fx:id="resolvedLabel" text="0" styleClass="stat-value"/>
+            </VBox>
+         </HBox>
+         
+         <ListView fx:id="listView" VBox.vgrow="ALWAYS" styleClass="reclamation-list"/>
+      </VBox>
+   </children>
+</AnchorPane> 
