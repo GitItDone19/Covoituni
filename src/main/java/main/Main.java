@@ -1,36 +1,32 @@
 package main;
 
-import java.sql.Date;
-import Services.ServiceUser;
-import entities.User;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import Services.ServiceRole;
 
+public class Main extends Application {
 
-public class Main {
-    public static void main(String[] args) {
-        MyConnection mc = MyConnection.getInstance();
-        MyConnection mc2 =MyConnection.getInstance();;
-        System.out.println(mc);
-        System.out.println(mc2);
-
-
-
-        User user = new User(2, "Smith", "John", "123", "john.smith@example.com", "password123", "conducteur", "ABC123");
-
-
-        ServiceUser s = new ServiceUser();
-
-        try{
-
-            s.ajouter(user);
-
+    @Override
+    public void start(Stage stage) {
+        try {
+            // Initialize roles first
+            ServiceRole serviceRole = new ServiceRole();
+            serviceRole.initializeDefaultRoles();
             
-            System.out.println(s.afficherAll());
-        }catch(Exception e){
+            Parent root = FXMLLoader.load(getClass().getResource("/LoginUser.fxml"));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Covoituni - Connexion");
+            stage.show();
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
-
-
-
     }
-}
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+} 
