@@ -5,7 +5,7 @@ import utils.MyConnection;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class AvisService implements IService<Avis> {
+public class AvisService implements IServices<Avis> {
     private Connection connection;
 
     public AvisService() {

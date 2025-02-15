@@ -5,7 +5,7 @@ import utils.MyConnection;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class TrajetService implements IService<Trajet> {
+public class TrajetService implements IServices<Trajet> {
     private Connection connection;
 
     public TrajetService() {

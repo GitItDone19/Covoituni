@@ -5,7 +5,7 @@ import utils.MyConnection;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class AnnonceService implements IService<Annonce> {
+public class AnnonceService implements IServices<Annonce> {
     private Connection connection;
 
     public AnnonceService() {
