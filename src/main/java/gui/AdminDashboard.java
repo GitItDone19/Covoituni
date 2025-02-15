@@ -6,49 +6,45 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.scene.layout.Priority;
-import services.ReclamationService;
+import Services.ReclamationService;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.ResourceBundle;
 
-public class AdminDashboard {
-
-    private final ReclamationService rs = new ReclamationService();
-
+public class AdminDashboard implements Initializable {
     @FXML
     private ListView<Reclamation> listView;
-
     @FXML
     private ComboBox<String> filterStatus;
-
     @FXML
     private Label totalLabel;
-
     @FXML
     private Label pendingLabel;
-
     @FXML
     private Label inProgressLabel;
-
     @FXML
     private Label resolvedLabel;
 
-    @FXML
-    void initialize() {
-        // Configuration du filtre
-        filterStatus.getItems().addAll("Tous", "EN_ATTENTE", "EN_COURS", "RESOLUE");
+    private final ReclamationService rs = new ReclamationService();
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        // Initialize filter options
+        filterStatus.getItems().addAll("Tous", "EN_COURS", "RESOLUE");
         filterStatus.setValue("Tous");
         filterStatus.setOnAction(e -> refreshList());
 
-        // Configuration de la ListView
+        // Configure ListView cell factory
         listView.setCellFactory(param -> new ListCell<Reclamation>() {
             @Override
             protected void updateItem(Reclamation reclamation, boolean empty) {
@@ -56,11 +52,11 @@ public class AdminDashboard {
                 if (empty || reclamation == null) {
                     setGraphic(null);
                 } else {
-                    // Création de la carte pour chaque réclamation
+                    // Create card for each reclamation
                     VBox card = new VBox(10);
                     card.getStyleClass().add("reclamation-card");
-                    
-                    // En-tête de la carte
+
+                    // Header with ID and Date
                     HBox header = new HBox(10);
                     Label idLabel = new Label("#" + reclamation.getId());
                     idLabel.getStyleClass().add("card-id");
@@ -69,40 +65,27 @@ public class AdminDashboard {
                     Region spacer = new Region();
                     HBox.setHgrow(spacer, Priority.ALWAYS);
                     header.getChildren().addAll(idLabel, spacer, dateLabel);
-                    
+
                     // Description
                     Label descLabel = new Label(reclamation.getDescription());
                     descLabel.getStyleClass().add("card-description");
                     descLabel.setWrapText(true);
+
+                    // Status and Actions
+                    HBox actionsBox = new HBox(10);
+                    actionsBox.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
+
+                    Label statusLabel = new Label("Status: " + reclamation.getStatus());
+                    statusLabel.getStyleClass().add("status-field");
                     
-                    // Zone de statut
-                    HBox statusBox = new HBox(10);
-                    statusBox.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
-                    
-                    ComboBox<String> statusCombo = new ComboBox<>();
-                    statusCombo.getItems().addAll("EN_ATTENTE", "EN_COURS", "RESOLUE");
-                    statusCombo.setValue(reclamation.getStatus());
-                    statusCombo.getStyleClass().add("status-combo");
-                    
-                    Button saveBtn = new Button("Mettre à jour");
-                    saveBtn.getStyleClass().add("save-button");
-                    saveBtn.setOnAction(event -> {
-                        String newStatus = statusCombo.getValue();
-                        if (newStatus != null && !newStatus.equals(reclamation.getStatus())) {
-                            reclamation.setStatus(newStatus);
-                            try {
-                                rs.update(reclamation);
-                                refreshList();
-                            } catch (SQLException e) {
-                                showError(e.getMessage());
-                            }
-                        }
-                    });
-                    
-                    statusBox.getChildren().addAll(statusCombo, saveBtn);
-                    
-                    // Assemblage de la carte
-                    card.getChildren().addAll(header, descLabel, statusBox);
+                    Button detailsBtn = new Button("Détails");
+                    detailsBtn.getStyleClass().add("details-button");
+                    detailsBtn.setOnAction(event -> openReclamationDetails(reclamation));
+
+                    actionsBox.getChildren().addAll(statusLabel, detailsBtn);
+
+                    // Assemble card
+                    card.getChildren().addAll(header, descLabel, actionsBox);
                     setGraphic(card);
                 }
             }
@@ -111,31 +94,16 @@ public class AdminDashboard {
         refreshList();
     }
 
-    @FXML
-    void gererAvis(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/VoirAvis.fxml"));
-            Parent root = loader.load();
-            listView.getScene().setRoot(root);
-        } catch (IOException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.setContentText("Erreur lors du chargement de la page : " + e.getMessage());
-            alert.showAndWait();
-        }
-    }
-
     private void refreshList() {
         try {
             List<Reclamation> allReclamations = rs.readAll();
             ObservableList<Reclamation> filteredList = FXCollections.observableArrayList();
             
-            int total = 0, pending = 0, inProgress = 0, resolved = 0;
+            int total = 0, inProgress = 0, resolved = 0;
             
             for (Reclamation r : allReclamations) {
                 total++;
                 switch (r.getStatus()) {
-                    case "EN_ATTENTE": pending++; break;
                     case "EN_COURS": inProgress++; break;
                     case "RESOLUE": resolved++; break;
                 }
@@ -146,9 +114,8 @@ public class AdminDashboard {
                 }
             }
             
-            // Mise à jour des statistiques
+            // Update statistics
             totalLabel.setText(String.valueOf(total));
-            pendingLabel.setText(String.valueOf(pending));
             inProgressLabel.setText(String.valueOf(inProgress));
             resolvedLabel.setText(String.valueOf(resolved));
             
@@ -156,6 +123,31 @@ public class AdminDashboard {
             
         } catch (SQLException e) {
             showError(e.getMessage());
+        }
+    }
+
+    private void openReclamationDetails(Reclamation reclamation) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ReclamationDetails.fxml"));
+            Parent root = loader.load();
+            
+            ReclamationDetails controller = loader.getController();
+            controller.setReclamation(reclamation);
+            
+            listView.getScene().setRoot(root);
+        } catch (IOException e) {
+            showError("Erreur lors de l'ouverture des détails: " + e.getMessage());
+        }
+    }
+
+    @FXML
+    void gererAvis(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/VoirAvis.fxml"));
+            Parent root = loader.load();
+            listView.getScene().setRoot(root);
+        } catch (IOException e) {
+            showError("Erreur lors du chargement de la page: " + e.getMessage());
         }
     }
 

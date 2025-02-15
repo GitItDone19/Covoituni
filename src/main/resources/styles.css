@@ -231,4 +231,20 @@
     -fx-font-size: 18px;
     -fx-font-weight: bold;
     -fx-text-fill: white;
+}
+
+.message-text {
+    -fx-background-color: #f8f9fa;
+    -fx-padding: 10px;
+    -fx-border-color: #dee2e6;
+    -fx-border-radius: 4px;
+}
+
+.label-field {
+    -fx-font-weight: bold;
+}
+
+.label-title {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
 } 
