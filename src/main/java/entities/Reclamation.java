@@ -1,44 +1,81 @@
 package entities;
 
-import Services.IServices;
+import java.sql.Date;
 
-import java.util.Date;
-
-public class Reclamation  {
-    private int numRec; // Sera rempli par la base de données (AUTO_INCREMENT)
-    private String titre;
-    private String sujet;
-    private String reponseRec;
+public class Reclamation {
+    private int id;
+    private String description;
+    private String status; // "EN_ATTENTE", "EN_COURS", "RESOLUE"
     private Date dateReclamation;
-    private String username;
+    private int userId; // L'utilisateur qui a fait la réclamation
 
-    // Constructeur
-    public Reclamation(String titre, String sujet, String username) {
-        this.titre = titre;
-        this.sujet = sujet;
-        this.username = username;
-        this.reponseRec = "En cours de traitement"; // Valeur par défaut
-        this.dateReclamation = new Date(); // Peut être remplacé par la date de la base
+    public Reclamation() {
     }
 
-    // Getters & Setters
-    public int getNumRec() { return numRec; }
-    public void setNumRec(int numRec) { this.numRec = numRec; }
-    public String getTitre() { return titre; }
-    public void setTitre(String titre) { this.titre = titre; }
-    public String getSujet() { return sujet; }
-    public void setSujet(String sujet) { this.sujet = sujet; }
-    public String getReponseRec() { return reponseRec; }
-    public void setReponseRec(String reponseRec) { this.reponseRec = reponseRec; }
-    public Date getDateReclamation() { return dateReclamation; }
-    public void setDateReclamation(Date dateReclamation) { this.dateReclamation = dateReclamation; }
-    public String getUsername() { return username; }
-    public void setUsername(String username) { this.username = username; }
+    public Reclamation(String description, String status, Date dateReclamation, int userId) {
+        this.description = description;
+        this.status = status;
+        this.dateReclamation = dateReclamation;
+        this.userId = userId;
+    }
+
+    public Reclamation(int id, String description, String status, Date dateReclamation, int userId) {
+        this.id = id;
+        this.description = description;
+        this.status = status;
+        this.dateReclamation = dateReclamation;
+        this.userId = userId;
+    }
+
+    // Getters et Setters
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Date getDateReclamation() {
+        return dateReclamation;
+    }
+
+    public void setDateReclamation(Date dateReclamation) {
+        this.dateReclamation = dateReclamation;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
 
     @Override
     public String toString() {
-        return "Reclamation [numRec=" + numRec + ", titre=" + titre + ", sujet=" + sujet
-                + ", reponseRec=" + reponseRec + ", dateReclamation=" + dateReclamation
-                + ", username=" + username + "]";
+        return "Reclamation{" +
+                "id=" + id +
+                ", description='" + description + '\'' +
+                ", status='" + status + '\'' +
+                ", dateReclamation=" + dateReclamation +
+                ", userId=" + userId +
+                '}';
     }
-}
+} 
