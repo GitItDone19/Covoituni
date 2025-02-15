@@ -23,10 +23,6 @@
                <Label fx:id="totalLabel" text="0" styleClass="stat-value"/>
             </VBox>
             <VBox styleClass="stat-box" prefWidth="200">
-               <Label text="En Attente" styleClass="stat-label"/>
-               <Label fx:id="pendingLabel" text="0" styleClass="stat-value"/>
-            </VBox>
-            <VBox styleClass="stat-box" prefWidth="200">
                <Label text="En Cours" styleClass="stat-label"/>
                <Label fx:id="inProgressLabel" text="0" styleClass="stat-value"/>
             </VBox>

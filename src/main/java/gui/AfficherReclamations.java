@@ -7,86 +7,93 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
-import services.ReclamationService;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import Services.ReclamationService;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 public class AfficherReclamations {
 
     private final ReclamationService rs = new ReclamationService();
 
     @FXML
-    private TableView<Reclamation> tableView;
-
-    @FXML
-    private TableColumn<Reclamation, Integer> idCol;
-
-    @FXML
-    private TableColumn<Reclamation, String> descriptionCol;
-
-    @FXML
-    private TableColumn<Reclamation, String> statusCol;
-
-    @FXML
-    private TableColumn<Reclamation, String> dateCol;
-
-    @FXML
-    private TableColumn<Reclamation, Void> actionsCol;
+    private ListView<Reclamation> listView;
 
     @FXML
     void initialize() {
-        idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-        descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
-        statusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
-        dateCol.setCellValueFactory(new PropertyValueFactory<>("dateReclamation"));
-
-        // Personnalisation des boutons d'action
-        actionsCol.setCellFactory(param -> new TableCell<>() {
-            private final Button editBtn = new Button("✏");
-            private final Button deleteBtn = new Button("🗑");
-            private final HBox box = new HBox(5, editBtn, deleteBtn);
-
-            {
-                editBtn.getStyleClass().add("edit-button");
-                deleteBtn.getStyleClass().add("delete-button");
-                
-                editBtn.setStyle("-fx-background-color: #FFA500; -fx-min-width: 40px;");
-                deleteBtn.setStyle("-fx-background-color: #FF4444; -fx-min-width: 40px;");
-                
-                box.setAlignment(javafx.geometry.Pos.CENTER);
-
-                editBtn.setOnAction(event -> {
-                    Reclamation reclamation = getTableView().getItems().get(getIndex());
-                    // Logique de modification
-                });
-
-                deleteBtn.setOnAction(event -> {
-                    Reclamation reclamation = getTableView().getItems().get(getIndex());
-                    try {
-                        rs.delete(reclamation);
-                        refreshTable();
-                    } catch (SQLException e) {
-                        showError(e.getMessage());
-                    }
-                });
-            }
-
+        // Configure ListView cell factory
+        listView.setCellFactory(param -> new ListCell<Reclamation>() {
             @Override
-            protected void updateItem(Void item, boolean empty) {
-                super.updateItem(item, empty);
-                setGraphic(empty ? null : box);
+            protected void updateItem(Reclamation reclamation, boolean empty) {
+                super.updateItem(reclamation, empty);
+                if (empty || reclamation == null) {
+                    setGraphic(null);
+                } else {
+                    // Create card for each reclamation
+                    VBox card = new VBox(10);
+                    card.getStyleClass().add("reclamation-card");
+                    
+                    // Header with ID and Date
+                    HBox header = new HBox(10);
+                    Label idLabel = new Label("#" + reclamation.getId());
+                    idLabel.getStyleClass().add("card-id");
+                    Label dateLabel = new Label(reclamation.getDateReclamation().toString());
+                    dateLabel.getStyleClass().add("card-date");
+                    Region spacer = new Region();
+                    HBox.setHgrow(spacer, Priority.ALWAYS);
+                    header.getChildren().addAll(idLabel, spacer, dateLabel);
+                    
+                    // Description
+                    Label descLabel = new Label(reclamation.getDescription());
+                    descLabel.getStyleClass().add("card-description");
+                    descLabel.setWrapText(true);
+                    
+                    // Status and Actions
+                    HBox actionsBox = new HBox(10);
+                    actionsBox.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
+                    
+                    Label statusLabel = new Label("Status: " + reclamation.getStatus());
+                    statusLabel.getStyleClass().add("status-field");
+                    
+                    Button editBtn = new Button("✏");
+                    Button deleteBtn = new Button("🗑");
+                    editBtn.getStyleClass().add("edit-button");
+                    deleteBtn.getStyleClass().add("delete-button");
+                    
+                    editBtn.setOnAction(event -> {
+                        // Edit logic here
+                    });
+                    
+                    deleteBtn.setOnAction(event -> {
+                        try {
+                            rs.delete(reclamation);
+                            refreshList();
+                        } catch (SQLException e) {
+                            showError(e.getMessage());
+                        }
+                    });
+                    
+                    actionsBox.getChildren().addAll(statusLabel, editBtn, deleteBtn);
+                    
+                    // Assemble card
+                    card.getChildren().addAll(header, descLabel, actionsBox);
+                    setGraphic(card);
+                }
             }
         });
 
-        refreshTable();
+        refreshList();
     }
 
-    private void refreshTable() {
+    private void refreshList() {
         try {
-            tableView.setItems(FXCollections.observableArrayList(rs.readAll()));
+            List<Reclamation> reclamations = rs.readAll();
+            listView.setItems(FXCollections.observableArrayList(reclamations));
         } catch (SQLException e) {
             showError(e.getMessage());
         }
@@ -103,9 +110,9 @@ public class AfficherReclamations {
     void retourAjout(ActionEvent event) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/AjouterReclamation.fxml"));
-            tableView.getScene().setRoot(root);
+            listView.getScene().setRoot(root);
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            showError("Erreur lors du chargement de la page: " + e.getMessage());
         }
     }
 } 

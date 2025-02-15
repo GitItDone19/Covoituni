@@ -8,17 +8,21 @@ public class Reclamation {
     private String status; // "EN_ATTENTE", "EN_COURS", "RESOLUE"
     private Date dateReclamation;
     private int userId; // L'utilisateur qui a fait la réclamation
+    private String adminReply;
 
+    // Default constructor
     public Reclamation() {
     }
 
-    public Reclamation(String description, String status, Date dateReclamation, int userId) {
+    // Constructor for creating new reclamation
+    public Reclamation(String description, String status, int userId) {
         this.description = description;
         this.status = status;
-        this.dateReclamation = dateReclamation;
         this.userId = userId;
+        this.dateReclamation = new Date(System.currentTimeMillis());
     }
 
+    // Constructor for database retrieval
     public Reclamation(int id, String description, String status, Date dateReclamation, int userId) {
         this.id = id;
         this.description = description;
@@ -27,7 +31,7 @@ public class Reclamation {
         this.userId = userId;
     }
 
-    // Getters et Setters
+    // Getters and Setters
     public int getId() {
         return id;
     }
@@ -68,6 +72,14 @@ public class Reclamation {
         this.userId = userId;
     }
 
+    public String getAdminReply() {
+        return adminReply;
+    }
+
+    public void setAdminReply(String adminReply) {
+        this.adminReply = adminReply;
+    }
+
     @Override
     public String toString() {
         return "Reclamation{" +
@@ -76,6 +88,7 @@ public class Reclamation {
                 ", status='" + status + '\'' +
                 ", dateReclamation=" + dateReclamation +
                 ", userId=" + userId +
+                ", adminReply='" + adminReply + '\'' +
                 '}';
     }
 } 

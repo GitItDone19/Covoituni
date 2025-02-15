@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane prefHeight="500.0" prefWidth="800.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ReclamationDetails">
+   <VBox spacing="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="20" AnchorPane.bottomAnchor="20">
+      <Label text="Détails de la Réclamation" styleClass="title-label"/>
+      
+      <GridPane vgap="10" hgap="10">
+         <columnConstraints>
+            <ColumnConstraints minWidth="100" />
+            <ColumnConstraints hgrow="ALWAYS" />
+         </columnConstraints>
+         
+         <Label text="ID:" styleClass="label-field" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+         <Label fx:id="idLabel" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+         
+         <Label text="Date:" styleClass="label-field" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+         <Label fx:id="dateLabel" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+         
+         <Label text="Message client:" styleClass="label-field" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+         <Label fx:id="descriptionLabel" wrapText="true" styleClass="message-text"
+                GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+      </GridPane>
+      
+      <VBox spacing="10">
+         <Label text="Changer le statut:" styleClass="label-title"/>
+         <ComboBox fx:id="statusComboBox" promptText="Choisir un statut"/>
+      </VBox>
+      
+      <VBox spacing="10">
+         <Label text="Réponse admin:" styleClass="label-title"/>
+         <TextArea fx:id="replyTextArea" promptText="Entrez votre réponse..." prefRowCount="5" wrapText="true"/>
+      </VBox>
+      
+      <HBox spacing="10" alignment="CENTER">
+         <Button fx:id="saveButton" text="Enregistrer" onAction="#handleSave" styleClass="primary-button"/>
+         <Button fx:id="cancelButton" text="Retour" onAction="#handleCancel" styleClass="secondary-button"/>
+      </HBox>
+   </VBox>
+</AnchorPane> 

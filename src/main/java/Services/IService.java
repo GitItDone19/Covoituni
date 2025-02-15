@@ -1,4 +1,4 @@
-package services;
+package Services;
 
 import java.sql.SQLException;
 import java.util.List;

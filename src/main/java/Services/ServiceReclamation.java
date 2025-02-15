@@ -1,84 +1,81 @@
 package Services;
 
 import entities.Reclamation;
-import entities.MyConnection;
+import utils.MyConnection;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ServiceReclamation implements IServices<Reclamation> {
+public class ServiceReclamation implements IService<Reclamation> {
 
     private Connection cnx;
 
     public ServiceReclamation() {
-        cnx = MyConnection.getInstance().getCnx();
+        cnx = MyConnection.getInstance().getConnection();
     }
 
     @Override
     public void create(Reclamation reclamation) throws SQLException {
-        String query = "INSERT INTO reclamation(titre, sujet, username, reponseRec, dateReclamation) " +
-                "VALUES(?, ?, ?, ?, ?)";
+        String query = "INSERT INTO reclamation(description, status, date_reclamation, user_id) " +
+                "VALUES(?, ?, ?, ?)";
         PreparedStatement ps = cnx.prepareStatement(query);
-        ps.setString(1, reclamation.getTitre());
-        ps.setString(2, reclamation.getSujet());
-        ps.setString(3, reclamation.getUsername());
-        ps.setString(4, reclamation.getReponseRec());
-        ps.setTimestamp(5, new Timestamp(reclamation.getDateReclamation().getTime()));
+        ps.setString(1, reclamation.getDescription());
+        ps.setString(2, reclamation.getStatus());
+        ps.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
+        ps.setInt(4, reclamation.getUserId());
         ps.executeUpdate();
     }
 
     @Override
     public void update(Reclamation reclamation) throws SQLException {
-        String query = "UPDATE reclamation SET titre = ?, sujet = ?, reponseRec = ?, dateReclamation = ? WHERE numRec = ?";
+        String query = "UPDATE reclamation SET status = ?, admin_reply = ? WHERE id = ?";
         PreparedStatement ps = cnx.prepareStatement(query);
-        ps.setString(1, reclamation.getTitre());
-        ps.setString(2, reclamation.getSujet());
-        ps.setString(3, reclamation.getReponseRec());
-        ps.setTimestamp(4, new Timestamp(reclamation.getDateReclamation().getTime()));
-        ps.setInt(5, reclamation.getNumRec());
+        ps.setString(1, reclamation.getStatus());
+        ps.setString(2, reclamation.getAdminReply());
+        ps.setInt(3, reclamation.getId());
         ps.executeUpdate();
     }
 
     @Override
     public void delete(Reclamation reclamation) throws SQLException {
-        String query = "DELETE FROM reclamation WHERE numRec = ?";
+        String query = "DELETE FROM reclamation WHERE id = ?";
         PreparedStatement ps = cnx.prepareStatement(query);
-        ps.setInt(1, reclamation.getNumRec());
+        ps.setInt(1, reclamation.getId());
         ps.executeUpdate();
     }
 
     @Override
     public List<Reclamation> readAll() throws SQLException {
         List<Reclamation> reclamations = new ArrayList<>();
-        String query = "SELECT * FROM reclamation";
-        Statement st = cnx.createStatement();
-        ResultSet rs = st.executeQuery(query);
-
-        while (rs.next()) {
-            int numRec = rs.getInt("numRec");
-            String titre = rs.getString("titre");
-            String sujet = rs.getString("sujet");
-            String reponseRec = rs.getString("reponseRec");
-            Timestamp dateReclamationTimestamp = rs.getTimestamp("dateReclamation");
-            String username = rs.getString("username");
-
-            Reclamation reclamation = new Reclamation(titre, sujet, username);
-            reclamation.setNumRec(numRec);
-            reclamation.setReponseRec(reponseRec);
-            reclamation.setDateReclamation(new Date(dateReclamationTimestamp.getTime()));
-            reclamations.add(reclamation);
+        String query = "SELECT * FROM reclamation ORDER BY date_reclamation DESC";
+        
+        try (Statement st = cnx.createStatement();
+             ResultSet rs = st.executeQuery(query)) {
+            
+            while (rs.next()) {
+                Reclamation r = new Reclamation(
+                    rs.getInt("id"),
+                    rs.getString("description"),
+                    rs.getString("status"),
+                    rs.getDate("date_reclamation"),
+                    rs.getInt("user_id")
+                );
+                r.setAdminReply(rs.getString("admin_reply"));
+                reclamations.add(r);
+            }
         }
-
         return reclamations;
     }
 
-    // Méthode pour répondre à une réclamation
+    // Updated reply method to use correct column names and id
     public void reply(Reclamation reclamation, String response) throws SQLException {
-        String query = "UPDATE reclamation SET reponseRec = ? WHERE numRec = ?";
-        PreparedStatement ps = cnx.prepareStatement(query);
-        ps.setString(1, response);
-        ps.setInt(2, reclamation.getNumRec());
-        ps.executeUpdate();
+        String query = "UPDATE reclamation SET admin_reply = ?, status = ? WHERE id = ?";
+        try (PreparedStatement ps = cnx.prepareStatement(query)) {
+            ps.setString(1, response);
+            ps.setString(2, "RESOLUE");  // Update status when admin replies
+            ps.setInt(3, reclamation.getId());  // Changed from getNumRec to getId
+            ps.executeUpdate();
+        }
     }
 }
 

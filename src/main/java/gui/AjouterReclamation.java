@@ -6,12 +6,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
-import services.ReclamationService;
+import Services.ReclamationService;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.sql.SQLException;
-import java.time.LocalDate;
 
 public class AjouterReclamation {
 
@@ -32,9 +30,8 @@ public class AjouterReclamation {
 
         Reclamation r = new Reclamation(
             descriptionArea.getText(),
-            "EN_ATTENTE",  // Statut par défaut
-            Date.valueOf(LocalDate.now()),  // Date actuelle
-            1  // userId temporaire
+            "EN_COURS",
+            1
         );
 
         try {
@@ -62,7 +59,10 @@ public class AjouterReclamation {
             Parent root = FXMLLoader.load(getClass().getResource("/AfficherReclamations.fxml"));
             descriptionArea.getScene().setRoot(root);
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setContentText("Erreur lors du chargement de la page: " + e.getMessage());
+            alert.showAndWait();
         }
     }
 } 
