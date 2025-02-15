@@ -18,10 +18,12 @@ public class User {
     private String tel;
     private String email ;
     private String mdp;
-    private String role;
+    private Role role;
     private String verificationCode;
+    private double rating;
+    private int tripsCount;
 
-    public User(int id, String nom, String prenom, String tel, String email, String mdp, String role, String verificationCode) {
+    public User(int id, String nom, String prenom, String tel, String email, String mdp, Role role, String verificationCode) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -30,6 +32,8 @@ public class User {
         this.mdp = mdp;
         this.role = role;
         this.verificationCode = verificationCode;
+        this.rating = 5.0;
+        this.tripsCount = 0;
     }
 
     public int getId() {
@@ -56,12 +60,28 @@ public class User {
         return mdp;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
     public String getVerificationCode() {
         return verificationCode;
+    }
+
+    public String getRoleCode() {
+        return role != null ? role.getCode() : null;
+    }
+
+    public String getRoleDisplayName() {
+        return role != null ? role.getDisplayName() : "";
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public int getTripsCount() {
+        return tripsCount;
     }
 
     public void setId(int id) {
@@ -77,8 +97,7 @@ public class User {
     }
 
     public void setTel(String tel) {
-
-    this.tel = tel;
+        this.tel = tel;
     }
 
     public void setEmail(String email) {
@@ -89,12 +108,20 @@ public class User {
         this.mdp = mdp;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 
     public void setVerificationCode(String verificationCode) {
         this.verificationCode = verificationCode;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
+
+    public void setTripsCount(int tripsCount) {
+        this.tripsCount = tripsCount;
     }
 
     @Override
@@ -106,8 +133,10 @@ public class User {
                 ", tel=" + tel +
                 ", email='" + email + '\'' +
                 ", mdp='" + mdp + '\'' +
-                ", role='" + role + '\'' +
+                ", role=" + role +
                 ", verificationCode='" + verificationCode + '\'' +
+                ", rating=" + rating +
+                ", tripsCount=" + tripsCount +
                 '}';
     }
 }
