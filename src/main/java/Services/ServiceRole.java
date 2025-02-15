@@ -5,7 +5,7 @@ import utils.MyConnection;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class ServiceRole implements IService<Role> {
+public class ServiceRole implements IServices<Role> {
     private Connection connection;
     
     public ServiceRole() {

@@ -5,7 +5,7 @@ import utils.MyConnection;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class ReclamationService implements IService<Reclamation> {
+public class ReclamationService implements IServices<Reclamation> {
     private Connection connection;
 
     public ReclamationService() {

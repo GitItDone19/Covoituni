@@ -5,7 +5,7 @@ import entities.User;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class ServiceUser implements IService<User> {
+public class ServiceUser implements IServices<User> {
     private Connection connection;
 
     public ServiceUser() {
