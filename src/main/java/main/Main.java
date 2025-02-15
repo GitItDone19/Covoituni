@@ -1,34 +1,32 @@
 package main;
 
-import Services.ServiceUser;
-import Services.TrajetService;
-import entities.MyConnection;
-import entities.Trajet;
-import entities.User;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import Services.ServiceRole;
 
-import java.sql.Date;
+public class Main extends Application {
 
-public class Main {
-    public Main() {
-    }
-
-    public static void main(String[] args) {
-        MyConnection mc = MyConnection.getInstance();
-        MyConnection mc2 = MyConnection.getInstance();
-        System.out.println(mc);
-        System.out.println(mc2);
-        User user = new User(1, "Smith", "John", "123", "john.smith@example.com", "password123", "conducteur", "ABC123");
-        ServiceUser s = new ServiceUser();
-        TrajetService ts = new TrajetService();
-
+    @Override
+    public void start(Stage stage) {
         try {
-            Trajet trajet = new Trajet(1, 3, (double)15.5F, new Date(System.currentTimeMillis()));
-            s.ajouter(user);
-            ts.ajouter(trajet);
-            System.out.println(s.afficherAll());
+            // Initialize roles first
+            ServiceRole serviceRole = new ServiceRole();
+            serviceRole.initializeDefaultRoles();
+            
+            Parent root = FXMLLoader.load(getClass().getResource("/LoginUser.fxml"));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Covoituni - Connexion");
+            stage.show();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
-}
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+} 

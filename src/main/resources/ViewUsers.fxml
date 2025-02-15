@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="gui.ViewUsersController" spacing="10" padding="20">
+    
+    <HBox spacing="10">
+        <TextField fx:id="tfRecherche" promptText="Rechercher..." HBox.hgrow="ALWAYS"/>
+        <ComboBox fx:id="cbRechercheType" promptText="Type de recherche"/>
+    </HBox>
+    
+    <TableView fx:id="tableUsers" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="colId" text="ID"/>
+            <TableColumn fx:id="colNom" text="Nom"/>
+            <TableColumn fx:id="colPrenom" text="Prénom"/>
+            <TableColumn fx:id="colTel" text="Téléphone"/>
+            <TableColumn fx:id="colEmail" text="Email"/>
+            <TableColumn fx:id="colRole" text="Rôle"/>
+        </columns>
+    </TableView>
+    
+    <HBox spacing="10">
+        <Button text="Retour" onAction="#handleBack"/>
+    </HBox>
+</VBox> 
