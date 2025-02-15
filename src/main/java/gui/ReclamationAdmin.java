@@ -12,14 +12,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.Priority;
-import services.ReclamationService;
+import Services.ReclamationService;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-public class AdminDashboard {
+public class ReclamationAdmin {
 
     private final ReclamationService rs = new ReclamationService();
 

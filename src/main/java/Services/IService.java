@@ -1,7 +1,7 @@
-package services;
+package Services;
 
 import java.sql.SQLException;
-import java.util.List;
+import java.util.ArrayList;
 
 public interface IService<T> {
 
@@ -11,5 +11,5 @@ public interface IService<T> {
 
     void delete(T t) throws SQLException;
 
-    List<T> readAll() throws SQLException;
+    ArrayList<T> readAll() throws SQLException;
 }

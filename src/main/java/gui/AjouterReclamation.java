@@ -6,7 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
-import services.ReclamationService;
+import Services.ReclamationService;
 
 import java.io.IOException;
 import java.sql.Date;

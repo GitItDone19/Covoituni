@@ -1,5 +1,7 @@
 package entities;
 
+import java.sql.Timestamp;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -13,31 +15,43 @@ package entities;
 public class User {
 
     private int id;
+    private String username;
     private String nom;
     private String prenom;
     private String tel;
-    private String email ;
+    private String email;
     private String mdp;
-    private Role role;
-    private String verificationCode;
+    private String roleCode;
+    private String verificationcode;
     private double rating;
     private int tripsCount;
+    private Timestamp createdAt;
 
-    public User(int id, String nom, String prenom, String tel, String email, String mdp, Role role, String verificationCode) {
-        this.id = id;
+    public User() {
+        this.rating = 5.0;
+        this.tripsCount = 0;
+    }
+
+    public User(String username, String nom, String prenom, String tel, String email, 
+                String mdp, String roleCode, String verificationcode) {
+        this.username = username;
         this.nom = nom;
         this.prenom = prenom;
         this.tel = tel;
         this.email = email;
         this.mdp = mdp;
-        this.role = role;
-        this.verificationCode = verificationCode;
+        this.roleCode = roleCode;
+        this.verificationcode = verificationcode;
         this.rating = 5.0;
         this.tripsCount = 0;
     }
 
     public int getId() {
         return id;
+    }
+
+    public String getUsername() {
+        return username;
     }
 
     public String getNom() {
@@ -60,20 +74,12 @@ public class User {
         return mdp;
     }
 
-    public Role getRole() {
-        return role;
-    }
-
-    public String getVerificationCode() {
-        return verificationCode;
-    }
-
     public String getRoleCode() {
-        return role != null ? role.getCode() : null;
+        return roleCode;
     }
 
-    public String getRoleDisplayName() {
-        return role != null ? role.getDisplayName() : "";
+    public String getVerificationcode() {
+        return verificationcode;
     }
 
     public double getRating() {
@@ -84,8 +90,16 @@ public class User {
         return tripsCount;
     }
 
+    public Timestamp getCreatedAt() {
+        return createdAt;
+    }
+
     public void setId(int id) {
         this.id = id;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public void setNom(String nom) {
@@ -108,12 +122,12 @@ public class User {
         this.mdp = mdp;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setRoleCode(String roleCode) {
+        this.roleCode = roleCode;
     }
 
-    public void setVerificationCode(String verificationCode) {
-        this.verificationCode = verificationCode;
+    public void setVerificationcode(String verificationcode) {
+        this.verificationcode = verificationcode;
     }
 
     public void setRating(double rating) {
@@ -124,17 +138,20 @@ public class User {
         this.tripsCount = tripsCount;
     }
 
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
+                ", username='" + username + '\'' +
                 ", nom='" + nom + '\'' +
                 ", prenom='" + prenom + '\'' +
-                ", tel=" + tel +
+                ", tel='" + tel + '\'' +
                 ", email='" + email + '\'' +
-                ", mdp='" + mdp + '\'' +
-                ", role=" + role +
-                ", verificationCode='" + verificationCode + '\'' +
+                ", roleCode='" + roleCode + '\'' +
                 ", rating=" + rating +
                 ", tripsCount=" + tripsCount +
                 '}';

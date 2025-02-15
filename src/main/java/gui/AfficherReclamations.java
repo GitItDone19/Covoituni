@@ -9,7 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
-import services.ReclamationService;
+import Services.ReclamationService;
 
 import java.io.IOException;
 import java.sql.SQLException;

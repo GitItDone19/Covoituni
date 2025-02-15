@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" stylesheets="@styles/global.css"
+            xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="gui.AdminReclamationsController">
+    
+    <VBox spacing="20" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" 
+          AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+        
+        <!-- Top Bar -->
+        <HBox styleClass="top-bar" alignment="CENTER_LEFT" spacing="20">
+            <Button text="Back" onAction="#handleBack" styleClass="button-secondary"/>
+            <Label text="Reclamations Management" styleClass="title-label"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <ComboBox fx:id="filterStatus" promptText="Filter by Status"/>
+        </HBox>
+        
+        <!-- Stats Bar -->
+        <HBox spacing="20" alignment="CENTER">
+            <Label fx:id="totalLabel" text="Total: 0"/>
+            <Label fx:id="pendingLabel" text="Pending: 0"/>
+        </HBox>
+        
+        <!-- Reclamations List -->
+        <ListView fx:id="listView" VBox.vgrow="ALWAYS"/>
+    </VBox>
+</AnchorPane> 

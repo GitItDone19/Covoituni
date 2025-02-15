@@ -1,5 +1,6 @@
 package gui;
 
+import entities.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -10,6 +11,7 @@ import javafx.stage.Stage;
 import Services.ServiceUser;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class AdminDashboardController implements Initializable {
@@ -30,11 +32,11 @@ public class AdminDashboardController implements Initializable {
     private void loadStatistics() {
         try {
             // Load total users
-            int totalUsers = serviceUser.afficherAll().size();
+            int totalUsers = serviceUser.readAll().size();
             lblTotalUsers.setText(String.valueOf(totalUsers));
             
             // Load total drivers
-            long totalDrivers = serviceUser.afficherAll().stream()
+            long totalDrivers = serviceUser.readAll().stream()
                     .filter(u -> "conducteur".equals(u.getRoleCode()))
                     .count();
             lblTotalDrivers.setText(String.valueOf(totalDrivers));
@@ -42,7 +44,7 @@ public class AdminDashboardController implements Initializable {
             // TODO: Load total trips when trip service is implemented
             lblTotalTrips.setText("0");
             
-        } catch (Exception e) {
+        } catch (SQLException e) {
             showAlert(Alert.AlertType.ERROR, "Error", 
                 "Failed to load statistics: " + e.getMessage());
         }
@@ -50,45 +52,36 @@ public class AdminDashboardController implements Initializable {
     
     @FXML
     private void handleUsersManagement() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GestionUsers.fxml"));
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-            Stage stage = (Stage) lblTotalUsers.getScene().getWindow();
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            showAlert(Alert.AlertType.ERROR, "Error", 
-                "Failed to load users management: " + e.getMessage());
-        }
+        navigateTo("/GestionUsers.fxml");
+    }
+    
+    @FXML
+    private void handleReclamations() {
+        navigateTo("/AdminReclamations.fxml");
     }
     
     @FXML
     private void handleTripsManagement() {
-        // TODO: Implement trips management
-        showAlert(Alert.AlertType.INFORMATION, "Info", 
-            "Trips management feature coming soon!");
+        navigateTo("/GestionTrips.fxml");
     }
     
     @FXML
     private void handleStatistics() {
-        // TODO: Implement detailed statistics view
-        showAlert(Alert.AlertType.INFORMATION, "Info", 
-            "Detailed statistics feature coming soon!");
+        navigateTo("/Statistics.fxml");
     }
     
     @FXML
     private void handleLogout() {
+        navigateTo("/LoginUser.fxml");
+    }
+    
+    private void navigateTo(String fxmlPath) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/LoginUser.fxml"));
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-            Stage stage = (Stage) lblTotalUsers.getScene().getWindow();
-            stage.setScene(scene);
-            stage.show();
+            Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
+            // Use lblTotalUsers to get the scene since we know it exists
+            lblTotalUsers.getScene().setRoot(root);
         } catch (IOException e) {
-            showAlert(Alert.AlertType.ERROR, "Error", 
-                "Failed to logout: " + e.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Error", "Navigation error: " + e.getMessage());
         }
     }
     
