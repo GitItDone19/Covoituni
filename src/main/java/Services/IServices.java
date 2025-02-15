@@ -1,9 +1,9 @@
-package services;
+package Services;
 
 import java.sql.SQLException;
 import java.util.List;
 
-public interface IService<T> {
+public interface IServices<T> {
 
     void create(T t) throws SQLException;
 
