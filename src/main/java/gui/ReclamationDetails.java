@@ -9,10 +9,13 @@ import Services.ReclamationService;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 
 public class ReclamationDetails {
     @FXML
     private Label idLabel;
+    @FXML
+    private Label usernameLabel;
     @FXML
     private Label dateLabel;
     @FXML
@@ -34,12 +37,20 @@ public class ReclamationDetails {
     public void setReclamation(Reclamation reclamation) {
         this.reclamation = reclamation;
         
-        // Populate fields
         idLabel.setText(String.valueOf(reclamation.getId()));
-        dateLabel.setText(reclamation.getDateReclamation().toString());
+        usernameLabel.setText(reclamation.getUsername());
+        dateLabel.setText(formatDate(reclamation.getDateReclamation()));
         descriptionLabel.setText(reclamation.getDescription());
+        
         statusComboBox.setValue(reclamation.getStatus());
-        replyTextArea.setText(reclamation.getAdminReply());
+        if (reclamation.getAdminReply() != null) {
+            replyTextArea.setText(reclamation.getAdminReply());
+        }
+    }
+    
+    private String formatDate(java.sql.Date date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        return sdf.format(date);
     }
     
     @FXML

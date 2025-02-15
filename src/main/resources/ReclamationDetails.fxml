@@ -14,15 +14,18 @@
             <ColumnConstraints hgrow="ALWAYS" />
          </columnConstraints>
          
-         <Label text="ID:" styleClass="label-field" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+         <Label text="Numéro:" styleClass="label-field" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
          <Label fx:id="idLabel" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
          
-         <Label text="Date:" styleClass="label-field" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-         <Label fx:id="dateLabel" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+         <Label text="Client:" styleClass="label-field" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+         <Label fx:id="usernameLabel" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
          
-         <Label text="Message client:" styleClass="label-field" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+         <Label text="Date:" styleClass="label-field" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+         <Label fx:id="dateLabel" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+         
+         <Label text="Message:" styleClass="label-field" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
          <Label fx:id="descriptionLabel" wrapText="true" styleClass="message-text"
-                GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                GridPane.rowIndex="3" GridPane.columnIndex="1"/>
       </GridPane>
       
       <VBox spacing="10">

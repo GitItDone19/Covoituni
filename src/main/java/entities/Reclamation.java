@@ -9,6 +9,7 @@ public class Reclamation {
     private Date dateReclamation;
     private int userId; // L'utilisateur qui a fait la réclamation
     private String adminReply;
+    private String username; // Add this field
 
     // Default constructor
     public Reclamation() {
@@ -80,6 +81,14 @@ public class Reclamation {
         this.adminReply = adminReply;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     @Override
     public String toString() {
         return "Reclamation{" +
@@ -89,6 +98,7 @@ public class Reclamation {
                 ", dateReclamation=" + dateReclamation +
                 ", userId=" + userId +
                 ", adminReply='" + adminReply + '\'' +
+                ", username='" + username + '\'' +
                 '}';
     }
 } 

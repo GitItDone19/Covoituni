@@ -214,7 +214,7 @@
 
 .card-username {
     -fx-font-weight: bold;
-    -fx-text-fill: #34BE82;
+    -fx-text-fill: #888888;
 }
 
 .card-rating {
@@ -247,4 +247,19 @@
 .label-title {
     -fx-font-size: 14px;
     -fx-font-weight: bold;
+}
+
+.status-badge {
+    -fx-padding: 5px 10px;
+    -fx-background-radius: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.status-badge.en-cours {
+    -fx-background-color: #FFA500;
+}
+
+.status-badge.resolue {
+    -fx-background-color: #34BE82;
 } 

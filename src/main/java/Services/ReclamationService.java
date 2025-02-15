@@ -49,7 +49,10 @@ public class ReclamationService implements IReclamationService {
     @Override
     public List<Reclamation> readAll() throws SQLException {
         List<Reclamation> reclamations = new ArrayList<>();
-        String query = "SELECT * FROM reclamation ORDER BY date_reclamation DESC";
+        String query = "SELECT r.*, u.email as username " +
+                      "FROM reclamation r " +
+                      "LEFT JOIN users u ON r.user_id = u.id " +
+                      "ORDER BY r.date_reclamation DESC";
         
         try (Statement st = cnx.createStatement();
              ResultSet rs = st.executeQuery(query)) {
@@ -63,6 +66,7 @@ public class ReclamationService implements IReclamationService {
                     rs.getInt("user_id")
                 );
                 r.setAdminReply(rs.getString("admin_reply"));
+                r.setUsername(rs.getString("username"));
                 reclamations.add(r);
             }
         }
@@ -72,7 +76,11 @@ public class ReclamationService implements IReclamationService {
     @Override
     public List<Reclamation> getReclamationsByStatus(String status) throws SQLException {
         List<Reclamation> reclamations = new ArrayList<>();
-        String query = "SELECT * FROM reclamation WHERE status = ? ORDER BY date_reclamation DESC";
+        String query = "SELECT r.*, u.email as username " +
+                      "FROM reclamation r " +
+                      "LEFT JOIN users u ON r.user_id = u.id " +
+                      "WHERE r.status = ? " +
+                      "ORDER BY r.date_reclamation DESC";
         
         try (PreparedStatement ps = cnx.prepareStatement(query)) {
             ps.setString(1, status);
@@ -87,6 +95,7 @@ public class ReclamationService implements IReclamationService {
                     rs.getInt("user_id")
                 );
                 r.setAdminReply(rs.getString("admin_reply"));
+                r.setUsername(rs.getString("username"));
                 reclamations.add(r);
             }
         }
