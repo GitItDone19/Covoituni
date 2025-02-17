@@ -1,20 +1,27 @@
 package entities;
-import Services.ServiceReclamation;
 import utils.MyConnection;
+import Services.Reclamation.ReclamationService;
 
 public class Main {
     public static void main(String[] args) {
         MyConnection mc = MyConnection.getInstance();
         System.out.println("Testing database connection...");
 
-        // Create a new reclamation
+        // Create a test user first
+        User user = new User();
+        user.setId(1);
+        user.setNom("Test");
+        user.setPrenom("User");
+        user.setEmail("test@example.com");
+
+        // Create a new reclamation with User object
         Reclamation reclamation = new Reclamation(
             "Problème de connexion",  // description
             "EN_COURS",               // status
-            1                         // userId
+            user                      // user object instead of userId
         );
 
-        ServiceReclamation rs = new ServiceReclamation();
+        ReclamationService rs = new ReclamationService();
         try {
             rs.create(reclamation);
             System.out.println("Reclamation created successfully!");

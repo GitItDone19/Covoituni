@@ -262,4 +262,84 @@
 
 .status-badge.resolue {
     -fx-background-color: #34BE82;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    -fx-background-color: #2d2d2d;
+    -fx-border-color: #34BE82;
+    -fx-border-width: 0 1 0 0;
+}
+
+.sidebar-title {
+    -fx-fill: #34BE82;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+.nav-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 10 15;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+    -fx-min-width: 180px;
+}
+
+.nav-button:hover {
+    -fx-background-color: #34BE82;
+}
+
+.logout-button {
+    -fx-background-color: #d32f2f;
+    -fx-text-fill: white;
+}
+
+.logout-button:hover {
+    -fx-background-color: #b71c1c;
+}
+
+.profile-section {
+    -fx-padding: 20;
+}
+
+.secondary-button {
+    -fx-background-color: #6c757d;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 10 20;
+    -fx-background-radius: 5;
+}
+
+.secondary-button:hover {
+    -fx-background-color: #5a6268;
+}
+
+.star-button {
+    -fx-background-color: transparent;
+    -fx-padding: 5;
+}
+
+.star-button:hover {
+    -fx-cursor: hand;
+}
+
+.star-selected {
+    -fx-effect: dropshadow(gaussian, gold, 10, 0, 0, 0);
+}
+
+.submit-button {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 10 20 10 20;
+}
+
+.submit-button:hover {
+    -fx-background-color: #45a049;
+}
+
+.rating-spinner {
+    -fx-pref-width: 100px;
 } 

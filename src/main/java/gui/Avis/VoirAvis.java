@@ -1,4 +1,4 @@
-package gui;
+package gui.Avis;
 
 import entities.Avis;
 import javafx.collections.FXCollections;
@@ -12,7 +12,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import Services.AvisService;
+import Services.Avis.AvisService;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -56,11 +56,15 @@ public class VoirAvis {
                     
                     // En-tête
                     HBox header = new HBox(10);
-                    Label userLabel = new Label(avis.getUsername());
+                    // Get user's full name
+                    String userName = avis.getUser() != null ? 
+                        avis.getUser().getNom() + " " + avis.getUser().getPrenom() : 
+                        "Utilisateur inconnu";
+                    Label userLabel = new Label(userName);
                     userLabel.getStyleClass().add("card-username");
                     
                     // Note avec étoiles
-                    Label noteLabel = new Label("★".repeat(avis.getNote()));
+                    Label noteLabel = new Label("★".repeat(avis.getRating()));
                     noteLabel.getStyleClass().add("card-rating");
                     
                     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -77,11 +81,13 @@ public class VoirAvis {
                     commentLabel.setWrapText(true);
                     
                     // Réponse (si elle existe)
-                    if (!avis.getReponseAvis().equals("En attente de modération")) {
+                    if (avis.getReponseAvis() != null && !avis.getReponseAvis().isEmpty()) {
+                        VBox reponseBox = new VBox(5);
+                        reponseBox.getStyleClass().add("reponse-box");
                         Label reponseLabel = new Label("Réponse: " + avis.getReponseAvis());
-                        reponseLabel.getStyleClass().add("card-response");
                         reponseLabel.setWrapText(true);
-                        card.getChildren().addAll(header, commentLabel, reponseLabel);
+                        reponseBox.getChildren().add(reponseLabel);
+                        card.getChildren().addAll(header, commentLabel, reponseBox);
                     } else {
                         card.getChildren().addAll(header, commentLabel);
                     }
@@ -97,7 +103,7 @@ public class VoirAvis {
     @FXML
     void retourAjout(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterAvis.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/User/AjouterAvis.fxml"));
             Parent root = loader.load();
             listView.getScene().setRoot(root);
         } catch (IOException e) {
@@ -105,6 +111,16 @@ public class VoirAvis {
             alert.setTitle("Erreur");
             alert.setContentText("Erreur lors du chargement de la page : " + e.getMessage());
             alert.showAndWait();
+        }
+    }
+
+    @FXML
+    void retourDashboard(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/ClientDashboard.fxml"));
+            listView.getScene().setRoot(root);
+        } catch (IOException e) {
+            showError("Erreur lors du chargement de la page: " + e.getMessage());
         }
     }
 
@@ -119,12 +135,12 @@ public class VoirAvis {
             
             for (Avis a : allAvis) {
                 total++;
-                sumNotes += a.getNote();
-                if (a.getNote() == 5) fiveStars++;
+                sumNotes += a.getRating();
+                if (a.getRating() == 5) fiveStars++;
                 
                 String filter = filterNote.getValue();
                 if (filter.equals("Tous") || 
-                    filter.equals(a.getNote() + " étoile" + (a.getNote() > 1 ? "s" : ""))) {
+                    filter.equals(a.getRating() + " étoile" + (a.getRating() > 1 ? "s" : ""))) {
                     filteredList.add(a);
                 }
             }

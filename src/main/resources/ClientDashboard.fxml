@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
+
+<HBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="gui.Reclamation.ClientDashboardController" stylesheets="@styles.css">
+    
+    <!-- Left Sidebar -->
+    <VBox styleClass="sidebar" prefWidth="200" spacing="10">
+        <padding>
+            <Insets top="20" right="10" bottom="20" left="10"/>
+        </padding>
+        
+        <!-- Profile Section -->
+        <VBox alignment="CENTER" spacing="10" styleClass="profile-section">
+            <Text text="Menu Utulisateur " styleClass="sidebar-title"/>
+        </VBox>
+        
+        <Separator/>
+        
+        <!-- Navigation Buttons -->
+        <Button text="Mes Réclamations" onAction="#showReclamations" 
+                styleClass="nav-button" maxWidth="Infinity"/>
+        <Button text="Nouvelle Réclamation" onAction="#showAddReclamation" 
+                styleClass="nav-button" maxWidth="Infinity"/>
+        <Button text="Ajouter Avis" onAction="#showAjouterAvis" 
+                styleClass="nav-button" maxWidth="Infinity"/>
+        <Region VBox.vgrow="ALWAYS"/>
+        <Button text="Déconnexion" onAction="#handleLogout" 
+                styleClass="logout-button" maxWidth="Infinity"/>
+    </VBox>
+    
+    <!-- Main Content Area -->
+    <StackPane HBox.hgrow="ALWAYS" fx:id="contentArea">
+        <padding>
+            <Insets top="20" right="20" bottom="20" left="20"/>
+        </padding>
+    </StackPane>
+</HBox> 

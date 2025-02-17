@@ -1,11 +1,12 @@
-package gui;
+package gui.Admin;
 
 import entities.Reclamation;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
-import Services.ReclamationService;
+import javafx.event.ActionEvent;
+import Services.Reclamation.ReclamationService;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -30,7 +31,7 @@ public class ReclamationDetails {
     
     @FXML
     public void initialize() {
-        // Initialize status options (only EN_COURS and RESOLUE)
+        // Initialize status options
         statusComboBox.getItems().addAll("EN_COURS", "RESOLUE");
     }
     
@@ -39,22 +40,21 @@ public class ReclamationDetails {
         
         idLabel.setText(String.valueOf(reclamation.getId()));
         usernameLabel.setText(reclamation.getUsername());
-        dateLabel.setText(formatDate(reclamation.getDateReclamation()));
-        descriptionLabel.setText(reclamation.getDescription());
         
+        // Format the date
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        dateLabel.setText(sdf.format(reclamation.getDate()));
+        
+        descriptionLabel.setText(reclamation.getDescription());
         statusComboBox.setValue(reclamation.getStatus());
+        
         if (reclamation.getAdminReply() != null) {
             replyTextArea.setText(reclamation.getAdminReply());
         }
     }
     
-    private String formatDate(java.sql.Date date) {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-        return sdf.format(date);
-    }
-    
     @FXML
-    private void handleSave() {
+    private void handleSave(ActionEvent event) {
         if (statusComboBox.getValue() == null || replyTextArea.getText().trim().isEmpty()) {
             showError("Veuillez remplir tous les champs");
             return;
@@ -65,17 +65,17 @@ public class ReclamationDetails {
         
         try {
             reclamationService.update(reclamation);
-            showInfo("Réponse enregistrée avec succès");
-            handleCancel(); // Return to dashboard
+            showSuccess("Réponse enregistrée avec succès");
+            retourDashboard();
         } catch (SQLException e) {
             showError(e.getMessage());
         }
     }
     
     @FXML
-    private void handleCancel() {
+    private void retourDashboard() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AdminDashboard.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Admin/DashboardReclamationAdmin.fxml"));
             Parent root = loader.load();
             replyTextArea.getScene().setRoot(root);
         } catch (IOException e) {
@@ -90,7 +90,7 @@ public class ReclamationDetails {
         alert.showAndWait();
     }
     
-    private void showInfo(String message) {
+    private void showSuccess(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Succès");
         alert.setContentText(message);

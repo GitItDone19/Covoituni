@@ -1,8 +1,7 @@
 package gui;
 
 import entities.Reclamation;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import gui.Reclamation.ReclamationDetails;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,7 +13,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import Services.ReclamationService;
+import Services.Reclamation.ReclamationService;
 
 import java.io.IOException;
 import java.net.URL;
@@ -70,7 +69,7 @@ public class AdminDashboard implements Initializable {
                         reclamation.getStatus().toLowerCase().replace("_", "-")
                     );
 
-                    Label dateLabel = new Label(formatDate(reclamation.getDateReclamation()));
+                    Label dateLabel = new Label(formatDate(reclamation.getDate()));
                     dateLabel.getStyleClass().add("card-date");
 
                     Region spacer = new Region();
@@ -130,7 +129,7 @@ public class AdminDashboard implements Initializable {
 
     private void showDetails(Reclamation reclamation) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ReclamationDetails.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Admin/ReclamationDetails.fxml"));
             Parent root = loader.load();
             
             ReclamationDetails controller = loader.getController();
@@ -148,7 +147,7 @@ public class AdminDashboard implements Initializable {
     @FXML
     void gererAvis(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/VoirAvis.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Admin/VoirAvis.fxml"));
             Parent root = loader.load();
             reclamationList.getScene().setRoot(root);
         } catch (IOException e) {

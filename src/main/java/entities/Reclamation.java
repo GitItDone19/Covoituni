@@ -1,35 +1,35 @@
 package entities;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Reclamation {
     private int id;
     private String description;
     private String status; // "EN_ATTENTE", "EN_COURS", "RESOLUE"
-    private Date dateReclamation;
-    private int userId; // L'utilisateur qui a fait la réclamation
+    private java.sql.Date date;
+    private User user;  // Changed from userId and username to User object
     private String adminReply;
-    private String username; // Add this field
 
     // Default constructor
     public Reclamation() {
+        this.date = new java.sql.Date(System.currentTimeMillis());
     }
 
     // Constructor for creating new reclamation
-    public Reclamation(String description, String status, int userId) {
+    public Reclamation(String description, String status, User user) {
         this.description = description;
         this.status = status;
-        this.userId = userId;
-        this.dateReclamation = new Date(System.currentTimeMillis());
+        this.user = user;
+        this.date = new java.sql.Date(System.currentTimeMillis());
     }
 
     // Constructor for database retrieval
-    public Reclamation(int id, String description, String status, Date dateReclamation, int userId) {
+    public Reclamation(int id, String description, String status, Date date, User user) {
         this.id = id;
         this.description = description;
         this.status = status;
-        this.dateReclamation = dateReclamation;
-        this.userId = userId;
+        this.date = new java.sql.Date(date.getTime());
+        this.user = user;
     }
 
     // Getters and Setters
@@ -57,20 +57,29 @@ public class Reclamation {
         this.status = status;
     }
 
-    public Date getDateReclamation() {
-        return dateReclamation;
+    public java.sql.Date getDate() {
+        return date;
     }
 
-    public void setDateReclamation(Date dateReclamation) {
-        this.dateReclamation = dateReclamation;
+    public void setDate(java.sql.Date date) {
+        this.date = date;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    // Convenience methods to get user details
     public int getUserId() {
-        return userId;
+        return user != null ? user.getId() : 0;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public String getUsername() {
+        return user != null ? user.getNom() + " " + user.getPrenom() : "";
     }
 
     public String getAdminReply() {
@@ -81,24 +90,15 @@ public class Reclamation {
         this.adminReply = adminReply;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     @Override
     public String toString() {
         return "Reclamation{" +
                 "id=" + id +
                 ", description='" + description + '\'' +
                 ", status='" + status + '\'' +
-                ", dateReclamation=" + dateReclamation +
-                ", userId=" + userId +
+                ", date=" + date +
+                ", user=" + user +
                 ", adminReply='" + adminReply + '\'' +
-                ", username='" + username + '\'' +
                 '}';
     }
 } 
