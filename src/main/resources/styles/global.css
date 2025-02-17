@@ -42,15 +42,26 @@
 }
 
 .button-outline {
-    -fx-background-color: transparent;
-    -fx-border-color: -fx-primary;
-    -fx-border-width: 2px;
-    -fx-border-radius: 8px;
-    -fx-text-fill: -fx-primary;
+    -fx-background-color: -fx-secondary;  /* Dark blue background */
+    -fx-text-fill: white;                 /* White text */
+    -fx-font-weight: bold;
+    -fx-background-radius: 5px;
+    -fx-padding: 8 20;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;        /* Remove border */
 }
 
 .button-outline:hover {
-    -fx-background-color: derive(-fx-primary, 95%);
+    -fx-background-color: derive(-fx-secondary, 10%);  /* Slightly lighter on hover */
+}
+
+.button-danger {
+    -fx-background-color: #E74C3C;
+    -fx-text-fill: white;
+}
+
+.button-danger:hover {
+    -fx-background-color: #C0392B;
 }
 
 /* Text Field Styles */
@@ -69,6 +80,13 @@
     -fx-border-width: 2px;
 }
 
+.text-field:error, .password-field:error {
+    -fx-border-color: #FF3B30;
+    -fx-border-width: 2px;
+    -fx-border-radius: 8px;
+    -fx-effect: dropshadow(gaussian, rgba(255, 59, 48, 0.2), 4, 0, 0, 0);
+}
+
 /* ComboBox Styles */
 .combo-box {
     -fx-background-color: -fx-light-gray;
@@ -80,6 +98,13 @@
     -fx-border-color: -fx-primary;
     -fx-border-width: 2px;
     -fx-border-radius: 5px;
+}
+
+.combo-box:error {
+    -fx-border-color: #FF3B30;
+    -fx-border-width: 2px;
+    -fx-border-radius: 8px;
+    -fx-effect: dropshadow(gaussian, rgba(255, 59, 48, 0.2), 4, 0, 0, 0);
 }
 
 /* Table Styles */
@@ -172,26 +197,112 @@
 /* Sidebar Style */
 .sidebar {
     -fx-background-color: -fx-secondary;
-    -fx-padding: 20px 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 0);
+    -fx-min-width: 280px;  /* Increased from 250px */
+    -fx-pref-width: 280px; /* Increased from 250px */
+}
+
+.logo-container {
+    -fx-padding: 0 0 20 0;
+}
+
+.logo-title {
+    -fx-font-family: 'Poppins';
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.logo-subtitle {
+    -fx-font-family: 'Poppins';
+    -fx-font-size: 14px;
+    -fx-text-fill: #ffffff80;
+}
+
+.nav-section-label {
+    -fx-font-family: 'Poppins';
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff60;
+    -fx-padding: 20 0 10 15;
 }
 
 .sidebar-button {
-    -fx-background-color: transparent;
-    -fx-text-fill: -fx-white;
-    -fx-alignment: CENTER_LEFT;
-    -fx-padding: 15px;
+    -fx-background-color: rgba(255, 255, 255, 0.05);
+    -fx-text-fill: white;
+    -fx-font-family: 'Poppins';
     -fx-font-size: 14px;
-    -fx-graphic-text-gap: 15px;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 15 20;
+    -fx-background-radius: 10;
+    -fx-spacing: 15;
+    -fx-min-height: 45px;
+    -fx-cursor: hand;
+    -fx-max-width: Infinity;  /* Make button fill width */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 4, 0, 0, 0);
 }
 
 .sidebar-button:hover {
     -fx-background-color: rgba(255, 255, 255, 0.1);
-    -fx-background-radius: 8px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 8, 0, 0, 0);
+    -fx-translate-x: 3;  /* Slight movement on hover */
+}
+
+.sidebar-button:pressed {
+    -fx-background-color: rgba(255, 255, 255, 0.15);
+    -fx-translate-x: 1;
 }
 
 .sidebar-button.active {
-    -fx-background-color: rgba(255, 255, 255, 0.15);
-    -fx-background-radius: 8px;
+    -fx-background-color: #ffffff20;
+}
+
+.sidebar-icon {
+    -fx-fill: white;
+}
+
+.admin-info {
+    -fx-background-color: #ffffff10;
+    -fx-padding: 15;
+    -fx-spacing: 15;
+    -fx-background-radius: 12;
+}
+
+.admin-avatar {
+    -fx-fill: #E74C3C;
+}
+
+.admin-name {
+    -fx-font-family: 'Poppins';
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.admin-email {
+    -fx-font-family: 'Poppins';
+    -fx-font-size: 12px;
+    -fx-text-fill: #ffffff80;
+}
+
+.logout-button {
+    -fx-background-color: rgba(231, 76, 60, 0.9);
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-background-radius: 10;
+    -fx-padding: 12 20;
+    -fx-spacing: 10;
+    -fx-cursor: hand;
+}
+
+.logout-button:hover {
+    -fx-background-color: #E74C3C;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 8, 0, 0, 0);
+}
+
+.reservations-list {
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
 }
 
 /* Statistics Card */
@@ -211,4 +322,286 @@
 .stat-label {
     -fx-font-size: 16px;
     -fx-text-fill: -fx-dark-gray;
+}
+
+/* Additional Styles */
+.sidebar-separator {
+    -fx-background-color: rgba(255, 255, 255, 0.15);
+    -fx-pref-height: 1px;
+    -fx-padding: 0 15;
+    -fx-opacity: 0.8;
+}
+
+.user-name {
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.user-email {
+    -fx-text-fill: rgba(255, 255, 255, 0.8);
+    -fx-font-size: 13px;
+}
+
+.section-title {
+    -fx-font-family: 'Poppins';
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.stat-card {
+    -fx-background-color: white;
+    -fx-padding: 20px;
+    -fx-background-radius: 12px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 10, 0, 0, 2);
+}
+
+.stat-card:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.12), 15, 0, 0, 4);
+}
+
+.reservations-list {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.reservations-list .list-cell {
+    -fx-background-color: transparent;
+    -fx-padding: 10px;
+    -fx-border-color: #f0f0f0;
+    -fx-border-width: 0 0 1 0;
+}
+
+.reservations-list .list-cell:hover {
+    -fx-background-color: #f8f9fa;
+}
+
+.table-column {
+    -fx-alignment: CENTER-LEFT;
+    -fx-padding: 5 10 5 10;
+}
+
+.custom-list-view {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-font-size: 14px;
+}
+
+.custom-list-view .list-cell {
+    -fx-background-color: white;
+    -fx-padding: 15px;
+    -fx-border-color: #f0f0f0;
+    -fx-border-width: 0 0 1 0;
+}
+
+.custom-list-view .list-cell:hover {
+    -fx-background-color: derive(-fx-primary, 95%);
+}
+
+.custom-list-view .list-cell:selected {
+    -fx-background-color: derive(-fx-primary, 90%);
+    -fx-text-fill: -fx-secondary;
+    -fx-font-weight: bold;
+}
+
+.details-card {
+    -fx-background-color: white;
+    -fx-background-radius: 8px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 10, 0, 0, 2);
+    -fx-padding: 15px;
+}
+
+.root {
+    -fx-background-color: -fx-light-gray;
+}
+
+.border-pane {
+    -fx-background-color: -fx-light-gray;
+}
+
+.main-content {
+    -fx-background-color: -fx-light-gray;
+    -fx-fill-width: true;
+}
+
+/* Enhanced Styles */
+.page-title {
+    -fx-font-family: 'Poppins';
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+}
+
+.page-subtitle {
+    -fx-font-family: 'Poppins';
+    -fx-font-size: 14px;
+}
+
+.header-section {
+    -fx-padding: 0 0 20 0;
+}
+
+.stats-section {
+    -fx-padding: 20 0;
+}
+
+.content-section {
+    -fx-background-color: transparent;
+}
+
+.list-card {
+    -fx-background-color: white;
+    -fx-background-radius: 12px;
+    -fx-padding: 20px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 10, 0, 0, 2);
+}
+
+.details-card-enhanced {
+    -fx-background-color: white;
+    -fx-background-radius: 12px;
+    -fx-padding: 20px;
+    -fx-spacing: 20px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 10, 0, 0, 2);
+}
+
+.search-field-enhanced {
+    -fx-background-color: white;
+    -fx-background-radius: 20px;
+    -fx-padding: 8px 15px;
+    -fx-pref-height: 40px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 5, 0, 0, 1);
+}
+
+.text-field-enhanced {
+    -fx-background-color: -fx-light-gray;
+    -fx-background-radius: 8px;
+    -fx-padding: 12px;
+    -fx-font-size: 14px;
+}
+
+.stat-mini-card {
+    -fx-background-color: -fx-light-gray;
+    -fx-background-radius: 8px;
+    -fx-padding: 10px;
+    -fx-alignment: center;
+}
+
+.stat-value-accent {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-primary;
+}
+
+.separator-enhanced {
+    -fx-padding: 10 0;
+    -fx-opacity: 0.2;
+}
+
+.button-primary-enhanced {
+    -fx-background-color: -fx-primary;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8px;
+    -fx-padding: 12px 20px;
+    -fx-cursor: hand;
+}
+
+.button-danger-enhanced {
+    -fx-background-color: #E74C3C;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8px;
+    -fx-padding: 12px 20px;
+    -fx-cursor: hand;
+}
+
+.button-outline-enhanced {
+    -fx-background-color: transparent;
+    -fx-border-color: -fx-primary;
+    -fx-border-width: 2px;
+    -fx-border-radius: 8px;
+    -fx-text-fill: -fx-primary;
+    -fx-font-weight: bold;
+    -fx-padding: 12px 20px;
+    -fx-cursor: hand;
+}
+
+.custom-list-view-enhanced {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 10px;
+}
+
+.custom-list-view-enhanced .list-cell {
+    -fx-background-color: transparent;
+    -fx-padding: 15px;
+    -fx-border-color: transparent transparent #f0f0f0 transparent;
+}
+
+.custom-list-view-enhanced .list-cell:hover {
+    -fx-background-color: derive(-fx-primary, 95%);
+    -fx-background-radius: 8px;
+}
+
+.custom-list-view-enhanced .list-cell:selected {
+    -fx-background-color: derive(-fx-primary, 90%);
+    -fx-background-radius: 8px;
+    -fx-text-fill: -fx-secondary;
+    -fx-font-weight: bold;
+}
+
+.button-link {
+    -fx-background-color: transparent;
+    -fx-text-fill: -fx-primary;
+    -fx-font-weight: bold;
+    -fx-padding: 5 10;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+}
+
+.button-link:hover {
+    -fx-underline: false;
+    -fx-effect: none;
+}
+
+/* Enhanced Sidebar Title */
+.sidebar-title {
+    -fx-font-family: 'Poppins';
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+/* Enhanced User Info Section */
+.user-info {
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+    -fx-padding: 20;
+    -fx-spacing: 15;
+    -fx-background-radius: 15;
+}
+
+/* Update the VBox containing the buttons */
+.sidebar VBox {
+    -fx-fill-width: true;  /* Make VBox fill sidebar width */
+}
+
+/* Update button container padding */
+.sidebar > VBox > VBox {  /* Target the navigation buttons VBox */
+    -fx-padding: 0 5;     /* Add some padding to prevent buttons from touching edges */
+}
+
+.validation-error {
+    -fx-text-fill: #FF3B30;
+    -fx-font-size: 12px;
+    -fx-padding: 4 0 0 0;
+}
+
+.register-title {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1C2A48;
+}
+
+.register-subtitle {
+    -fx-font-size: 16px;
+    -fx-text-fill: derive(#1C2A48, 20%);
 } 

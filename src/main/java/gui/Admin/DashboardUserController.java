@@ -1,4 +1,4 @@
-package gui;
+package gui.Admin;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,21 +10,34 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import entities.User;
-import Services.ServiceUser;
-import entities.Role;
+import entities.User.User;
+import User.ServiceUser;
+import entities.User.Role;
 
 public class DashboardUserController implements Initializable {
     
+    @FXML private Label lblUserName;
+    @FXML private Label lblUserEmail;
+    @FXML private ListView<String> listViewReservations;
     @FXML private Label lblWelcome;
     @FXML private Label lblTrajetsCount;
     @FXML private Label lblCO2Economy;
     @FXML private TableView tableRecentTrips;
     @FXML private Button btnMesTrajects;
-    @FXML private Label lblUserName;
     @FXML private Label lblUserRole;
     @FXML private Label lblRating;
     @FXML private Label lblSavings;
+    
+    // Add profile editing fields
+    @FXML private TextField tfNom;
+    @FXML private TextField tfPrenom;
+    @FXML private TextField tfTel;
+    @FXML private TextField tfEmail;
+    @FXML private TextField tfUsername;
+    @FXML private PasswordField tfCurrentPassword;
+    @FXML private PasswordField tfNewPassword;
+    @FXML private PasswordField tfConfirmPassword;
+    @FXML private Label lblRole;
     
     private User currentUser;
     private ServiceUser serviceUser;
@@ -40,9 +53,12 @@ public class DashboardUserController implements Initializable {
             if (currentUser != null) {
                 lblWelcome.setText("Bienvenue, " + currentUser.getPrenom());
                 lblUserName.setText(currentUser.getPrenom() + " " + currentUser.getNom());
+                lblUserEmail.setText(currentUser.getEmail());
                 lblUserRole.setText(currentUser.getRoleDisplayName());
                 updateUIBasedOnRole();
                 updateDashboardStats();
+                populateProfileFields();
+                loadReservations();
             } else {
                 showAlert(Alert.AlertType.ERROR, "Erreur", "Utilisateur non trouvé");
                 handleLogout();
@@ -131,39 +147,128 @@ public class DashboardUserController implements Initializable {
         }
     }
     
+    private void loadReservations() {
+        // TODO: Load actual reservations
+        listViewReservations.getItems().addAll(
+            "Réservation #1 - En attente",
+            "Réservation #2 - Confirmée",
+            "Réservation #3 - Terminée"
+        );
+    }
+    
     @FXML
-    private void handleMesTrajects() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/MesTrajects.fxml"));
-            Parent root = loader.load();
-            
-            MesTrajetsController controller = loader.getController();
-            controller.setCurrentUser(currentUser);
-            
-            Scene scene = new Scene(root);
-            Stage stage = (Stage) lblWelcome.getScene().getWindow();
-            stage.setScene(scene);
-            stage.setTitle("Covoituni - Mes Trajets");
-            stage.show();
-        } catch (IOException e) {
-            showAlert(Alert.AlertType.ERROR, "Erreur", 
-                "Erreur de navigation: " + e.getMessage());
-        }
+    private void handleSearchAnnonces() {
+        // TODO: Implement search annonces navigation
+        showAlert(Alert.AlertType.INFORMATION, "Info", "Recherche d'annonces - À implémenter");
+    }
+    
+    @FXML
+    private void handleViewReservations() {
+        // TODO: Implement reservations view
+        showAlert(Alert.AlertType.INFORMATION, "Info", "Voir réservations - À implémenter");
+    }
+    
+    @FXML
+    private void handleViewProfile() {
+        // TODO: Implement profile view
+        showAlert(Alert.AlertType.INFORMATION, "Info", "Voir profil - À implémenter");
+    }
+    
+    @FXML
+    private void handleViewEvents() {
+        // TODO: Implement special events view
+        showAlert(Alert.AlertType.INFORMATION, "Info", "Événements spéciaux - À implémenter");
+    }
+    
+    @FXML
+    private void handleGiveReview() {
+        // TODO: Implement review submission
+        showAlert(Alert.AlertType.INFORMATION, "Info", "Donner un avis - À implémenter");
+    }
+    
+    @FXML
+    private void handleMakeReclamation() {
+        // TODO: Implement reclamation submission
+        showAlert(Alert.AlertType.INFORMATION, "Info", "Faire une réclamation - À implémenter");
     }
     
     @FXML
     private void handleLogout() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/LoginUser.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Users/LoginUser.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
-            Stage stage = (Stage) lblWelcome.getScene().getWindow();
+            Stage stage = (Stage) lblUserName.getScene().getWindow();
             stage.setScene(scene);
             stage.setTitle("Covoituni - Connexion");
             stage.show();
         } catch (IOException e) {
             showAlert(Alert.AlertType.ERROR, "Erreur", 
                 "Erreur lors de la déconnexion: " + e.getMessage());
+        }
+    }
+    
+    @FXML
+    private void handleEditProfile() {
+        try {
+            if (!validateProfileInputs()) return;
+            
+            currentUser.setNom(tfNom.getText());
+            currentUser.setPrenom(tfPrenom.getText());
+            currentUser.setTel(tfTel.getText());
+            currentUser.setEmail(tfEmail.getText());
+            currentUser.setUsername(tfUsername.getText());
+            
+            if (!tfNewPassword.getText().isEmpty()) {
+                if (!tfCurrentPassword.getText().equals(currentUser.getMdp())) {
+                    showAlert(Alert.AlertType.ERROR, "Erreur", "Mot de passe actuel incorrect");
+                    return;
+                }
+                currentUser.setMdp(tfNewPassword.getText());
+            }
+            
+            serviceUser.update(currentUser);
+            showAlert(Alert.AlertType.INFORMATION, "Succès", "Profil mis à jour avec succès!");
+            
+            // Refresh dashboard with updated info
+            setCurrentUser(currentUser);
+            
+        } catch (Exception e) {
+            showAlert(Alert.AlertType.ERROR, "Erreur", 
+                "Erreur lors de la mise à jour: " + e.getMessage());
+        }
+    }
+    
+    private boolean validateProfileInputs() {
+        StringBuilder errors = new StringBuilder();
+        
+        if (tfNom.getText().isEmpty()) errors.append("Le nom est requis\n");
+        if (tfPrenom.getText().isEmpty()) errors.append("Le prénom est requis\n");
+        if (tfEmail.getText().isEmpty()) errors.append("L'email est requis\n");
+        
+        if (!tfNewPassword.getText().isEmpty()) {
+            if (tfCurrentPassword.getText().isEmpty()) 
+                errors.append("Le mot de passe actuel est requis\n");
+            if (!tfNewPassword.getText().equals(tfConfirmPassword.getText()))
+                errors.append("Les nouveaux mots de passe ne correspondent pas\n");
+        }
+        
+        if (errors.length() > 0) {
+            showAlert(Alert.AlertType.WARNING, "Validation", errors.toString());
+            return false;
+        }
+        
+        return true;
+    }
+    
+    private void populateProfileFields() {
+        if (currentUser != null) {
+            tfNom.setText(currentUser.getNom());
+            tfPrenom.setText(currentUser.getPrenom());
+            tfTel.setText(currentUser.getTel());
+            tfEmail.setText(currentUser.getEmail());
+            tfUsername.setText(currentUser.getUsername());
+            lblRole.setText(currentUser.getRoleDisplayName());
         }
     }
     

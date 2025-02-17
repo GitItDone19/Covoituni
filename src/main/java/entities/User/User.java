@@ -1,4 +1,4 @@
-package entities;
+package entities.User;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -22,6 +22,7 @@ public class User {
     private String verificationCode;
     private double rating;
     private int tripsCount;
+    private String username;
 
     public User(int id, String nom, String prenom, String tel, String email, String mdp, Role role, String verificationCode) {
         this.id = id;
@@ -34,6 +35,7 @@ public class User {
         this.verificationCode = verificationCode;
         this.rating = 5.0;
         this.tripsCount = 0;
+        this.username = email.split("@")[0];
     }
 
     public int getId() {
@@ -84,6 +86,10 @@ public class User {
         return tripsCount;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -124,6 +130,10 @@ public class User {
         this.tripsCount = tripsCount;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -137,6 +147,7 @@ public class User {
                 ", verificationCode='" + verificationCode + '\'' +
                 ", rating=" + rating +
                 ", tripsCount=" + tripsCount +
+                ", username='" + username + '\'' +
                 '}';
     }
 }

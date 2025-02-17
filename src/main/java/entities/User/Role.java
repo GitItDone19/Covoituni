@@ -1,4 +1,4 @@
-package entities;
+package entities.User;
 
 public class Role {
     private int id;

@@ -1,10 +1,10 @@
-package Services;
+package User;
 
-import entities.Role;
+import Services.IService;
+import entities.User.Role;
 import main.MyConnection;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ServiceRole implements IService<Role> {
     private Connection connection;
@@ -14,7 +14,7 @@ public class ServiceRole implements IService<Role> {
     }
     
     @Override
-    public void ajouter(Role role) throws SQLException {
+    public void create(Role role) throws SQLException {
         String sql = "INSERT INTO role (code, display_name) VALUES (?, ?)";
         PreparedStatement pst = connection.prepareStatement(sql);
         pst.setString(1, role.getCode());
@@ -41,7 +41,7 @@ public class ServiceRole implements IService<Role> {
     }
     
     @Override
-    public ArrayList<Role> afficherAll() throws SQLException {
+    public ArrayList<Role> readAll() throws SQLException {
         ArrayList<Role> roles = new ArrayList<>();
         String sql = "SELECT * FROM role";
         Statement st = connection.createStatement();
@@ -76,11 +76,11 @@ public class ServiceRole implements IService<Role> {
     
     public void initializeDefaultRoles() throws SQLException {
         // Check if roles exist
-        if (afficherAll().isEmpty()) {
+        if (readAll().isEmpty()) {
             // Add default roles
-            ajouter(new Role(0, Role.ADMIN_CODE, "Administrateur"));
-            ajouter(new Role(0, Role.DRIVER_CODE, "Conducteur"));
-            ajouter(new Role(0, Role.PASSENGER_CODE, "Passager"));
+            create(new Role(0, Role.ADMIN_CODE, "Administrateur"));
+            create(new Role(0, Role.DRIVER_CODE, "Conducteur"));
+            create(new Role(0, Role.PASSENGER_CODE, "Passager"));
         }
     }
 } 

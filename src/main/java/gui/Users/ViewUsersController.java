@@ -1,7 +1,7 @@
-package gui;
+package gui.Users;
 
-import entities.User;
-import Services.ServiceUser;
+import entities.User.User;
+import User.ServiceUser;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -129,7 +129,7 @@ public class ViewUsersController implements Initializable {
     
     private void refreshTable() {
         try {
-            usersList = FXCollections.observableArrayList(serviceUser.afficherAll());
+            usersList = FXCollections.observableArrayList(serviceUser.readAll());
             tableUsers.setItems(usersList);
         } catch (SQLException e) {
             showAlert(Alert.AlertType.ERROR, "Erreur", "Erreur lors du chargement des utilisateurs: " + e.getMessage());

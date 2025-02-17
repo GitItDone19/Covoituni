@@ -1,8 +1,9 @@
-package gui;
+package gui.Users;
 
-import entities.Role;
-import entities.User;
-import Services.ServiceUser;
+import entities.User.Role;
+import entities.User.User;
+import User.ServiceUser;
+import gui.Users.DashboardUserController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -14,7 +15,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-import javafx.application.Platform;
 
 public class LoginUserController implements Initializable {
     
@@ -31,21 +31,42 @@ public class LoginUserController implements Initializable {
     
     @FXML
     private void handleLogin() {
-        String email = tfEmail.getText();
-        String password = tfPassword.getText();
+        // Clear previous styling
+        tfEmail.setStyle("");
+        tfPassword.setStyle("");
         
-        if (email.isEmpty() || password.isEmpty()) {
-            showAlert(Alert.AlertType.WARNING, "Validation", "Veuillez remplir tous les champs");
+        StringBuilder errors = new StringBuilder();
+        
+        // Email validation
+        String email = tfEmail.getText().trim();
+        if (email.isEmpty()) {
+            errors.append("L'email est requis\n");
+            tfEmail.setStyle("-fx-border-color: red;");
+        } else if (!email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+            errors.append("Format d'email invalide\n");
+            tfEmail.setStyle("-fx-border-color: red;");
+        }
+        
+        // Password validation
+        String password = tfPassword.getText();
+        if (password.isEmpty()) {
+            errors.append("Le mot de passe est requis\n");
+            tfPassword.setStyle("-fx-border-color: red;");
+        }
+        
+        if (errors.length() > 0) {
+            showAlert(Alert.AlertType.WARNING, "Validation", errors.toString());
             return;
         }
         
+        // Continue with login process
         try {
             boolean isAdmin = false;
             boolean loginSuccess = false;
             User loggedInUser = null;
             
             try {
-                for (User user : serviceUser.afficherAll()) {
+                for (User user : serviceUser.readAll()) {
                     if (user.getEmail().equals(email) && user.getMdp().equals(password)) {
                         loginSuccess = true;
                         isAdmin = user.getRoleCode().equals(Role.ADMIN_CODE);
@@ -54,7 +75,8 @@ public class LoginUserController implements Initializable {
                     }
                 }
             } catch (SQLException e) {
-                showAlert(Alert.AlertType.ERROR, "Erreur", "Erreur de base de données: " + e.getMessage());
+                showAlert(Alert.AlertType.ERROR, "Erreur", 
+                    "Erreur de base de données: " + e.getMessage());
                 return;
             }
             
@@ -65,10 +87,13 @@ public class LoginUserController implements Initializable {
                     loadDashboard(loggedInUser);
                 }
             } else {
-                showAlert(Alert.AlertType.ERROR, "Erreur", "Email ou mot de passe incorrect");
+                showAlert(Alert.AlertType.ERROR, "Erreur", 
+                    "Email ou mot de passe incorrect");
+                tfPassword.clear();
             }
         } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR, "Erreur", "Erreur de connexion: " + e.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Erreur", 
+                "Erreur de connexion: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -76,7 +101,7 @@ public class LoginUserController implements Initializable {
     @FXML
     private void handleRegister() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/RegisterUser.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Users/RegisterUser.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
             Stage stage = (Stage) tfEmail.getScene().getWindow();
@@ -87,9 +112,23 @@ public class LoginUserController implements Initializable {
         }
     }
     
+    @FXML
+    private void handleForgotPassword() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/Users/ForgotPassword.fxml"));
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) tfEmail.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            showAlert(Alert.AlertType.ERROR, "Erreur", 
+                "Erreur de navigation: " + e.getMessage());
+        }
+    }
+    
     private void loadGestionUsers() {
         try {
-            URL fxmlUrl = getClass().getResource("/AdminDashboard.fxml");
+            URL fxmlUrl = getClass().getResource("/Admin/AdminDashboard.fxml");
             if (fxmlUrl == null) {
                 showAlert(Alert.AlertType.ERROR, "Erreur", "Fichier AdminDashboard.fxml introuvable");
                 return;
@@ -100,11 +139,11 @@ public class LoginUserController implements Initializable {
             Scene scene = new Scene(root);
             Stage stage = (Stage) tfEmail.getScene().getWindow();
             stage.setScene(scene);
+            stage.setMaximized(true);  // Make sure it stays fullscreen
             stage.show();
         } catch (IOException e) {
             showAlert(Alert.AlertType.ERROR, "Erreur", 
-                "Erreur de navigation: " + e.getMessage() + "\nCause: " + e.getCause());
-            e.printStackTrace();
+                "Erreur de navigation: " + e.getMessage());
         }
     }
     
@@ -115,9 +154,10 @@ public class LoginUserController implements Initializable {
                 return;
             }
             
-            URL fxmlUrl = getClass().getResource("/DashboardUser.fxml");
+            URL fxmlUrl = getClass().getResource("/Users/DashboardUser.fxml");
             if (fxmlUrl == null) {
-                showAlert(Alert.AlertType.ERROR, "Erreur", "Fichier FXML introuvable");
+                showAlert(Alert.AlertType.ERROR, "Erreur", 
+                    "Fichier DashboardUser.fxml introuvable dans /Users/");
                 return;
             }
             
@@ -131,10 +171,11 @@ public class LoginUserController implements Initializable {
             Stage stage = (Stage) tfEmail.getScene().getWindow();
             stage.setScene(scene);
             stage.setTitle("Covoituni - Tableau de bord");
+            stage.setMaximized(true);  // Add this to ensure full screen
             stage.show();
         } catch (IOException e) {
             showAlert(Alert.AlertType.ERROR, "Erreur", 
-                "Erreur de navigation: " + e.getMessage() + "\nCause: " + e.getCause());
+                "Erreur de navigation: " + e.getMessage());
             e.printStackTrace();
         }
     }
