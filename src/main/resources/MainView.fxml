@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+    Vue principale de l'application
+    Contient la barre de navigation latérale et la zone de contenu principal
+-->
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<HBox xmlns="http://javafx.com/javafx/21.0.2"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="services.MainViewController"
+      stylesheets="@styles/bolt-style.css">
+
+    <!-- Menu latéral -->
+    <VBox styleClass="sidebar">
+        <padding>
+            <Insets top="20.0" right="10.0" bottom="20.0" left="10.0"/>
+        </padding>
+        <spacing>5</spacing>
+        
+        <Hyperlink text="Annonces" 
+                   onAction="#showAnnonces"
+                   styleClass="nav-link"/>
+        
+        <Hyperlink text="Trajets" 
+                   onAction="#showTrajets"
+                   styleClass="nav-link"/>
+        
+        <Hyperlink text="Ajouter Annonce" 
+                   onAction="#showAjouterAnnonce"
+                   styleClass="nav-link"/>
+        
+        <Hyperlink text="Ajouter Trajet" 
+                   onAction="#showAjouterTrajet"
+                   styleClass="nav-link"/>
+        
+        <Hyperlink text="Mes Réservations" 
+                   onAction="#showReservations"
+                   styleClass="nav-link"/>
+    </VBox>
+
+    <!-- Contenu principal -->
+    <VBox fx:id="mainContent" 
+          HBox.hgrow="ALWAYS" 
+          styleClass="main-container">
+        <padding>
+            <Insets top="20.0" right="20.0" bottom="20.0" left="20.0"/>
+        </padding>
+    </VBox>
+</HBox>
