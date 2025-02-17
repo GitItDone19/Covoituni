@@ -1,0 +1,294 @@
+/* ================== */
+/* 🌟 Thème principal */
+/* ================== */
+* {
+    /* Couleurs principales de l'application */
+    -bolt-green: #34D186;     /* Couleur principale */
+    -bolt-dark: #2F313F;      /* Couleur sombre pour texte */
+    -bolt-gray: #7A7D8C;      /* Couleur grise pour texte secondaire */
+    -bolt-light-bg: #F8F9FA;  /* Couleur de fond claire */
+    -bolt-border: #E9ECEF;    /* Couleur des bordures */
+}
+
+/* ====================== */
+/* 🌟 Style général 🌟 */
+/* ====================== */
+.root {
+    -fx-background-color: white;
+    -fx-font-family: "Segoe UI", "Arial", sans-serif;
+}
+
+/* =============================== */
+/* 📦 Conteneurs et organisation 📦 */
+/* =============================== */
+.main-container {
+    -fx-background-color: white;
+    -fx-padding: 20;
+    -fx-spacing: 15;
+}
+
+.form-container {
+    -fx-spacing: 16;
+    -fx-padding: 24;
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.04), 8, 0, 0, 2);
+}
+
+/* ====================== */
+/* 📌 En-têtes 📌 */
+/* ====================== */
+.header-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2F313F;
+}
+
+/* ================================ */
+/* 📝 Champs de formulaire 📝 */
+/* ================================ */
+.form-field {
+    -fx-spacing: 8;
+}
+
+.label-title {
+    -fx-font-size: 14;
+    -fx-text-fill: -bolt-gray;
+    -fx-font-weight: bold;
+}
+
+/* Champs de texte, ComboBox et TextArea */
+.text-field, .text-area, .date-picker, .combo-box {
+    -fx-background-color: -bolt-light-bg;
+    -fx-background-radius: 8;
+    -fx-border-color: -bolt-border;
+    -fx-border-radius: 8;
+    -fx-padding: 12 16;
+    -fx-font-size: 14;
+}
+
+/* Style des champs quand ils sont sélectionnés */
+.text-field:focused, .text-area:focused, .date-picker:focused, .combo-box:focused {
+    -fx-border-color: -bolt-green;
+    -fx-effect: dropshadow(gaussian, rgba(52,209,134,0.1), 4, 0, 0, 0);
+}
+
+/* ========================== */
+/* 🎛️ ComboBox Personnalisée 🎛️ */
+/* ========================== */
+.combo-box {
+    -fx-background-color: white;
+    -fx-border-color: #2C3E50; /* Bordure plus foncée */
+    -fx-border-radius: 5;
+    -fx-padding: 5;
+    -fx-font-size: 14px;
+    -fx-text-fill: #2C3E50; /* Texte foncé */
+}
+
+/* Style des éléments de la liste */
+.combo-box .list-cell {
+    -fx-text-fill: #2C3E50; /* Texte foncé */
+    -fx-font-size: 14px;
+}
+
+/* Style du menu déroulant */
+.combo-box-popup .list-view {
+    -fx-background-color: white; /* Fond blanc */
+    -fx-border-color: #2C3E50;
+}
+
+/* Style des options dans la liste déroulante */
+.combo-box-popup .list-cell {
+    -fx-background-color: white;
+    -fx-text-fill: #2C3E50; /* Texte foncé */
+}
+
+/* Effet lorsque l'option est survolée */
+.combo-box-popup .list-cell:hover {
+    -fx-background-color: #3498DB; /* Bleu clair */
+    -fx-text-fill: white; /* Texte blanc */
+}
+
+/* Effet lorsque l'option est sélectionnée */
+.combo-box-popup .list-cell:selected {
+    -fx-background-color: #2C3E50; /* Fond sombre */
+    -fx-text-fill: white; /* Texte blanc */
+}
+
+/* ====================== */
+/* 🔘 Boutons 🔘 */
+/* ====================== */
+.button {
+    -fx-padding: 12 24;
+    -fx-background-radius: 8;
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+/* Bouton principal */
+.button-primary {
+    -fx-background-color: -bolt-green;
+    -fx-text-fill: white;
+}
+
+.button-primary:hover {
+    -fx-background-color: derive(-bolt-green, 10%);
+}
+
+/* Bouton secondaire */
+.button-secondary {
+    -fx-background-color: -bolt-light-bg;
+    -fx-text-fill: -bolt-dark;
+    -fx-border-color: -bolt-border;
+}
+
+.button-secondary:hover {
+    -fx-background-color: derive(-bolt-light-bg, -2%);
+}
+
+/* ========================= */
+/* 🖥️ ListView Personnalisée 🖥️ */
+/* ========================= */
+.list-view {
+    -fx-background-color: transparent;
+    -fx-padding: 10;
+    -fx-background-insets: 0;
+    -fx-border-width: 0;
+}
+
+.list-cell {
+    -fx-background-color: transparent;
+    -fx-padding: 8 0;
+}
+
+/* ==================== */
+/* 🏠 Barre latérale 🏠 */
+/* ==================== */
+.sidebar {
+    -fx-background-color: #F8F9FA;
+    -fx-padding: 20;
+    -fx-spacing: 10;
+    -fx-min-width: 220;
+    -fx-pref-width: 220;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 0);
+}
+
+/* ======================== */
+/* 📝 Menu latéral 📝 */
+/* ======================== */
+.sidebar .menu-button {
+    -fx-alignment: CENTER_LEFT;
+    -fx-min-width: 200;
+    -fx-pref-width: 200;
+}
+
+.sidebar .menu-button:hover {
+    -fx-background-color: derive(-bolt-light-bg, -2%);
+}
+
+.sidebar .menu-button:pressed {
+    -fx-background-color: derive(-bolt-green, 85%);
+    -fx-text-fill: -bolt-green;
+}
+
+/* ============================ */
+/* 🎯 Petits boutons 🎯 */
+/* ============================ */
+.small-button {
+    -fx-padding: 8 16;
+    -fx-font-size: 12;
+}
+
+/* Boutons de suppression */
+.button-danger {
+    -fx-background-color: #FF4757;
+    -fx-text-fill: white;
+}
+
+.button-danger:hover {
+    -fx-background-color: derive(#FF4757, 10%);
+}
+
+/* Style pour le bouton de réservation */
+.button-reserve {
+    -fx-background-color: #27AE60;
+    -fx-text-fill: white;
+}
+
+.button-reserve:hover {
+    -fx-background-color: #219A52;
+}
+
+.button-reserve:pressed {
+    -fx-background-color: #1E8449;
+}
+
+/* ====================== */
+/* 🎨 Styles généraux 🎨 */
+/* ====================== */
+
+/* Style pour le conteneur principal */
+.main-container {
+    -fx-background-color: white;
+    -fx-padding: 20;
+}
+
+/* ====================== */
+/* 🔘 Boutons 🔘 */
+/* ====================== */
+
+/* Style pour les boutons standard */
+.button {
+    /* ... styles ... */
+}
+
+/* Style pour les boutons principaux */
+.button-primary {
+    /* ... styles ... */
+}
+
+/* ... autres styles ... */
+
+/* Styles pour les boutons de navigation */
+.nav-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #2F313F;
+    -fx-font-size: 14px;
+    -fx-padding: 10 20;
+    -fx-min-width: 200;
+    -fx-alignment: CENTER_LEFT;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+.nav-button:hover {
+    -fx-background-color: #34D18622;
+}
+
+.nav-button:pressed {
+    -fx-background-color: #34D18644;
+}
+
+.nav-button:focused {
+    -fx-background-color: #34D18633;
+}
+
+/* Style pour la zone de contenu principal */
+.main-content {
+    -fx-background-color: white;
+    -fx-padding: 20;
+}
+
+/* Style pour les titres */
+.header-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2F313F;
+}
+
+/* Style pour les conteneurs */
+.main-container {
+    -fx-background-color: white;
+    -fx-padding: 20;
+}
