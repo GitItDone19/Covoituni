@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+    Vue d'ajout d'une nouvelle annonce
+    Permet aux utilisateurs de créer une nouvelle annonce de covoiturage
+-->
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+
+<VBox xmlns="http://javafx.com/javafx/21.0.2"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="services.Annonce.AjouterAnnonceController"
+      stylesheets="@../styles/bolt-style.css"
+      styleClass="main-container"
+      prefWidth="600"
+      prefHeight="600">
+
+    <!-- Conteneur principal du formulaire -->
+    <VBox styleClass="form-container">
+        <!-- En-tête du formulaire -->
+        <Label text="Ajouter une nouvelle annonce" styleClass="header-title"/>
+        
+        <!-- Informations de base -->
+        <VBox styleClass="form-field">
+            <Label text="Titre" styleClass="label-title"/>
+            <TextField fx:id="titreField" promptText="Titre de l'annonce"/>
+        </VBox>
+
+        <VBox styleClass="form-field">
+            <Label text="Description" styleClass="label-title"/>
+            <TextArea fx:id="descriptionField" promptText="Description de l'annonce" prefRowCount="3"/>
+        </VBox>
+
+        <!-- Informations du conducteur et du véhicule -->
+        <VBox styleClass="form-field">
+            <Label text="Driver ID" styleClass="label-title"/>
+            <TextField fx:id="driverIdField" promptText="ID du conducteur"/>
+        </VBox>
+
+        <VBox styleClass="form-field">
+            <Label text="Car ID" styleClass="label-title"/>
+            <TextField fx:id="carIdField" promptText="ID de la voiture"/>
+        </VBox>
+
+        <!-- Sélection du trajet -->
+        <VBox styleClass="form-field">
+            <Label text="Trajet" styleClass="label-title"/>
+            <ComboBox fx:id="trajetComboBox" promptText="Sélectionner un trajet" maxWidth="Infinity"/>
+        </VBox>
+
+        <!-- Statut de l'annonce -->
+        <VBox styleClass="form-field">
+            <Label text="Status" styleClass="label-title"/>
+            <ComboBox fx:id="statusComboBox" promptText="Sélectionner un statut" maxWidth="Infinity">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="OPEN"/>
+                        <String fx:value="CLOSED"/>
+                    </FXCollections>
+                </items>
+            </ComboBox>
+        </VBox>
+
+        <!-- Boutons d'action -->
+        <HBox spacing="10" alignment="CENTER_RIGHT">
+            <Button text="Annuler" onAction="#annuler" styleClass="button-secondary"/>
+            <Button text="Ajouter" onAction="#ajouterAnnonce" styleClass="button-primary"/>
+        </HBox>
+    </VBox>
+</VBox>
