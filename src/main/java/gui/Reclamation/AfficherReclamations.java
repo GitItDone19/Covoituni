@@ -1,7 +1,6 @@
 package gui.Reclamation;
 
 import entities.Reclamation;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,7 +13,6 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import Services.Reclamation.ReclamationService;
 import javafx.geometry.Pos;
-import javafx.scene.paint.Color;
 
 import java.io.IOException;
 import java.net.URL;
@@ -231,7 +229,7 @@ public class AfficherReclamations implements Initializable {
     @FXML
     void retourDashboard(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/ClientDashboard.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/UserDashbord.fxml"));
             listView.getScene().setRoot(root);
         } catch (IOException e) {
             showError("Erreur lors du chargement de la page: " + e.getMessage());

@@ -6,8 +6,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.Node;
+import javafx.stage.Stage;
 import Services.Reclamation.ReclamationService;
+import gui.UserDashboardController;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -29,9 +33,9 @@ public class AjouterReclamation {
             return;
         }
 
-        // Create a temporary user (in real app, get this from login session)
+        // user tempo 
         User user = new User();
-        user.setId(1);  // This should come from logged in user
+        user.setId(1);  // menn 3and user amal log in
         user.setNom("Test");
         user.setPrenom("User");
         user.setEmail("test@example.com");
@@ -39,7 +43,7 @@ public class AjouterReclamation {
         Reclamation r = new Reclamation(
             descriptionArea.getText(),
             "EN_COURS",
-            user    // Pass the User object instead of just ID
+            user    // obj user fi 3oudh id 
         );
 
         try {
@@ -62,15 +66,25 @@ public class AjouterReclamation {
     }
 
     @FXML
-    void afficher(ActionEvent event) {
+    private void afficherReclamations(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/User/AfficherReclamations.fxml"));
-            descriptionArea.getScene().setRoot(root);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserDashboard.fxml"));
+            Parent root = loader.load();
+            
+            // Obech nekhdh lcontroller mta3 dashboard
+            UserDashboardController dashboardController = loader.getController();
+            
+            // Changer la scène
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            
+            // Ataffichi les reclamations ba3ed ma scene ttcharja
+            dashboardController.showReclamations();
+            
+            stage.show();
         } catch (IOException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.setContentText("Erreur lors du chargement de la page: " + e.getMessage());
-            alert.showAndWait();
+            e.printStackTrace();
         }
     }
 } 

@@ -1,5 +1,5 @@
 .root {
-    -fx-background-color: #1a1a1a;
+    -fx-background-color: #1E1E1E;
     -fx-text-fill: white;
 }
 
@@ -13,7 +13,8 @@
 }
 
 .button:hover {
-    -fx-background-color: #2ca572;
+    -fx-background-color: #4CAF50 !important;
+    -fx-text-fill: white;
 }
 
 .text-area {
@@ -22,6 +23,8 @@
     -fx-border-color: #34BE82;
     -fx-border-radius: 5;
     -fx-background-radius: 5;
+    -fx-control-inner-background: #2E2E2E;
+    -fx-prompt-text-fill: #808080;
 }
 
 .text-area .content {
@@ -82,7 +85,7 @@
 .title-label {
     -fx-font-size: 24px;
     -fx-font-weight: bold;
-    -fx-text-fill: #34BE82;
+    -fx-text-fill: #4CAF50;
 }
 
 .status-field {
@@ -266,7 +269,7 @@
 
 /* Sidebar Styles */
 .sidebar {
-    -fx-background-color: #2d2d2d;
+    -fx-background-color: #2f3640;
     -fx-border-color: #34BE82;
     -fx-border-width: 0 1 0 0;
 }
@@ -342,4 +345,17 @@
 
 .rating-spinner {
     -fx-pref-width: 100px;
+}
+
+.list-view {
+    -fx-background-color: transparent;
+    -fx-control-inner-background: #1E1E1E;
+}
+
+.list-cell {
+    -fx-background-color: #2f3640;
+    -fx-text-fill: white;
+    -fx-padding: 10;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
 } 

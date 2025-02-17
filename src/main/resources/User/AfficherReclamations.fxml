@@ -5,16 +5,14 @@
 <?import javafx.geometry.Insets?>
 
 <VBox spacing="20" 
+      style="-fx-background-color: #1E1E1E;"
       stylesheets="@../styles.css"
-      prefWidth="1200.0"
-      prefHeight="800.0"
       xmlns="http://javafx.com/javafx/8"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="gui.Reclamation.AfficherReclamations"
-      style="-fx-background-color: #1E1E1E;">
+      fx:controller="gui.Reclamation.AfficherReclamations">
 
     <padding>
-        <Insets top="20" right="20" bottom="20" left="20"/>
+        <Insets top="20" right="40" bottom="20" left="40"/>
     </padding>
 
     <!-- Header -->
@@ -24,11 +22,17 @@
         <Region HBox.hgrow="ALWAYS"/>
         <Button text="Nouvelle Réclamation" 
                 onAction="#retourAjout"
-                style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
+                prefWidth="200"
+                prefHeight="40"
+                style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-background-radius: 5;"/>
     </HBox>
 
     <!-- Liste des réclamations -->
     <ListView fx:id="listView" VBox.vgrow="ALWAYS"
-              style="-fx-background-color: transparent; -fx-control-inner-background: #1E1E1E;"/>
+              style="-fx-background-color: #2E2E2E; -fx-control-inner-background: #2E2E2E; -fx-border-color: #4CAF50; -fx-border-radius: 5;">
+        <VBox.margin>
+            <Insets top="20"/>
+        </VBox.margin>
+    </ListView>
 
 </VBox> 
