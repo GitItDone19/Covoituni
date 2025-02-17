@@ -4,24 +4,37 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1200.0" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Reclamation.AjouterReclamation">
-   <children>
-      <VBox alignment="CENTER" spacing="20" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0">
-         <padding>
-            <Insets top="20" right="40" bottom="20" left="40"/>
-         </padding>
-         
-         <Label text="Nouvelle Réclamation" styleClass="title-label"/>
-         
-         <VBox spacing="5">
-            <Label text="Description"/>
-            <TextArea fx:id="descriptionArea" promptText="Décrivez votre problème..." prefWidth="500" prefHeight="150" wrapText="true"/>
-         </VBox>
-         
-         <HBox spacing="15" alignment="CENTER">
-            <Button onAction="#ajouter" text="Soumettre la réclamation" prefWidth="200"/>
-            <Button onAction="#afficher" text="Voir les réclamations" prefWidth="200"/>
-         </HBox>
-      </VBox>
-   </children>
-</AnchorPane> 
+<VBox alignment="TOP_LEFT" spacing="20" style="-fx-background-color: #1E1E1E;"
+      xmlns="http://javafx.com/javafx/8"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="gui.Reclamation.AjouterReclamation">
+    
+    <padding>
+        <Insets top="20" right="40" bottom="20" left="40"/>
+    </padding>
+    
+    <Label text="Nouvelle Réclamation" style="-fx-text-fill: #4CAF50; -fx-font-size: 24;"/>
+    
+    <VBox spacing="10">
+        <Label text="Description" style="-fx-text-fill: white;"/>
+        <TextArea fx:id="descriptionArea" 
+                 promptText="Décrivez votre problème..." 
+                 prefWidth="1000" 
+                 prefHeight="400" 
+                 wrapText="true"
+                 style="-fx-background-color: #2E2E2E; -fx-text-fill: white; -fx-prompt-text-fill: #808080; -fx-border-color: #4CAF50; -fx-border-radius: 5;"/>
+    </VBox>
+    
+    <HBox spacing="15" alignment="CENTER">
+        <Button onAction="#ajouter" 
+                text="Soumettre la réclamation" 
+                prefWidth="200"
+                prefHeight="40"
+                style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-background-radius: 5;"/>
+        <Button onAction="#afficherReclamations" 
+                text="Retour au menu" 
+                prefWidth="200"
+                prefHeight="40"
+                style="-fx-background-color: #666666; -fx-text-fill: white; -fx-background-radius: 5;"/>
+    </HBox>
+</VBox> 

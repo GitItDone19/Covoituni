@@ -11,7 +11,7 @@ public class TestFX extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/ClientDashboard.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/UserDashbord.fxml"));
             Scene scene = new Scene(root);
             stage.setTitle("Covoituni - Dashboard Client");
             stage.setScene(scene);

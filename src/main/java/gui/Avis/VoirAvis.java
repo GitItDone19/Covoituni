@@ -117,7 +117,7 @@ public class VoirAvis {
     @FXML
     void retourDashboard(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/ClientDashboard.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/UserDashbord.fxml"));
             listView.getScene().setRoot(root);
         } catch (IOException e) {
             showError("Erreur lors du chargement de la page: " + e.getMessage());

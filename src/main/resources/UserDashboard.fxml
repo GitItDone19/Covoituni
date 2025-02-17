@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
+
+<HBox xmlns="http://javafx.com/javafx/8"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="gui.UserDashboardController"
+      stylesheets="@styles.css"
+      style="-fx-background-color: #1E1E1E;"
+      prefWidth="1400.0"
+      prefHeight="800.0">
+    
+    <!-- Left Sidebar -->
+    <VBox styleClass="sidebar" prefWidth="250" spacing="10" style="-fx-background-color: #2f3640;">
+        <padding>
+            <Insets top="20" right="10" bottom="20" left="10"/>
+        </padding>
+        
+        <Text text="Menu Utulisateur" style="-fx-fill: #4CAF50; -fx-font-size: 20px;"/>
+        
+        <Separator style="-fx-background-color: #4CAF50;"/>
+        
+        <!-- Navigation Buttons -->
+        <Button text="Mes Réclamations" onAction="#showReclamations" 
+                style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT;"/>
+        <Button text="Nouvelle Réclamation" onAction="#showAddReclamation" 
+                style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT;"/>
+        <Button text="Ajouter Avis" onAction="#showAjouterAvis" 
+                style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT;"/>
+        
+        <Region VBox.vgrow="ALWAYS"/>
+        
+        <Button text="Déconnexion" 
+                style="-fx-background-color: #e74c3c; -fx-text-fill: white;"
+                onAction="#handleLogout"/>
+    </VBox>
+    
+    <!-- Main Content Area -->
+    <StackPane fx:id="contentArea" HBox.hgrow="ALWAYS" style="-fx-background-color: #1E1E1E;">
+        <padding>
+            <Insets top="20" right="20" bottom="20" left="20"/>
+        </padding>
+    </StackPane>
+</HBox> 
