@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<!-- 
+    Vue principale des annonces
+    Affiche la liste des annonces disponibles avec options de gestion
+-->
+<VBox xmlns="http://javafx.com/javafx/21.0.2"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="services.Annonce.AnnonceController"
+      stylesheets="@../styles/bolt-style.css"
+      styleClass="main-container"
+      spacing="20">
+
+    <!-- En-tête avec bouton d'ajout -->
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="Liste des Annonces" styleClass="header-title"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button text="Ajouter Annonce" 
+                onAction="#showAjouterAnnonce"
+                styleClass="button-primary"/>
+    </HBox>
+
+    <!-- Liste des annonces -->
+    <ListView fx:id="annonceListView" 
+              VBox.vgrow="ALWAYS"
+              styleClass="card"/>
+</VBox>
