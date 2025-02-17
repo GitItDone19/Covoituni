@@ -1,5 +1,6 @@
-package Services;
+package Services.Avis;
 
+import Services.Reclamation.IService;
 import entities.Avis;
 import java.sql.SQLException;
 

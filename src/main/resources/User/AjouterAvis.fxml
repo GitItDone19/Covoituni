@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
+
+<VBox spacing="20" alignment="CENTER" stylesheets="@../styles.css"
+      prefWidth="1200.0"
+      prefHeight="800.0"
+      xmlns="http://javafx.com/javafx/8"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="gui.Avis.AjouterAvis">
+
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <!-- Header -->
+    <HBox alignment="CENTER_LEFT" spacing="20">
+        <Label text="Ajouter un Avis" styleClass="title-label"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button text="Retour" onAction="#retourDashboard" styleClass="secondary-button"/>
+    </HBox>
+
+    <!-- Rating Stars -->
+    <VBox alignment="CENTER" spacing="10">
+        <Label text="Note" styleClass="label-title"/>
+        <HBox fx:id="starsContainer" alignment="CENTER" spacing="5"/>
+    </VBox>
+
+    <!-- Comment Area with Validation -->
+    <VBox spacing="10" styleClass="form-field">
+        <HBox alignment="CENTER_LEFT" spacing="5">
+            <Label text="Commentaire" styleClass="label-title, required-field"/>
+            <Label text="?" styleClass="help-icon">
+                <tooltip>
+                    <Tooltip text="Le commentaire doit contenir au moins 10 caractères"/>
+                </tooltip>
+            </Label>
+        </HBox>
+        <TextArea fx:id="commentaireArea" 
+                  promptText="Votre commentaire..."
+                  wrapText="true"
+                  prefRowCount="4"/>
+        <Label fx:id="commentaireError" styleClass="error-label"/>
+        <Label fx:id="charCounter" styleClass="char-counter"/>
+    </VBox>
+
+    <!-- Buttons -->
+    <HBox spacing="10" alignment="CENTER">
+        <Button text="Soumettre" onAction="#soumettre" 
+                styleClass="submit-button"/>
+    </HBox>
+
+</VBox> 

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
+
+<VBox spacing="20" alignment="CENTER" stylesheets="@../styles.css"
+      xmlns="http://javafx.com/javafx/8"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="gui.Avis.VoirAvis">
+
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <!-- Header -->
+    <HBox alignment="CENTER_LEFT" spacing="20">
+        <Label text="Liste des Avis" styleClass="title-label"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button text="Retour" onAction="#retourDashboard" styleClass="secondary-button"/>
+    </HBox>
+
+    <!-- Statistics -->
+    <HBox spacing="20" alignment="CENTER">
+        <VBox styleClass="stat-box" alignment="CENTER">
+            <Label text="Total Avis" styleClass="stat-label"/>
+            <Label fx:id="totalLabel" styleClass="stat-value"/>
+        </VBox>
+        <VBox styleClass="stat-box" alignment="CENTER">
+            <Label text="Note Moyenne" styleClass="stat-label"/>
+            <Label fx:id="avgLabel" styleClass="stat-value"/>
+        </VBox>
+        <VBox styleClass="stat-box" alignment="CENTER">
+            <Label text="5 Étoiles" styleClass="stat-label"/>
+            <Label fx:id="fiveStarLabel" styleClass="stat-value"/>
+        </VBox>
+    </HBox>
+
+    <!-- Filter -->
+    <HBox alignment="CENTER_LEFT" spacing="10">
+        <Label text="Filtrer par note:" styleClass="label-title"/>
+        <ComboBox fx:id="filterNote" prefWidth="150"/>
+    </HBox>
+
+    <!-- List of Avis -->
+    <ListView fx:id="listView" VBox.vgrow="ALWAYS"/>
+
+</VBox> 

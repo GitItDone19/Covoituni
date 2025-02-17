@@ -3,39 +3,32 @@ package entities;
 import java.util.Date;
 
 public class Avis {
-
-    private int numAvis;
+    private int id;
     private String commentaire;
-    private int note;
-    private String reponseAvis;
+    private int rating; // 1-5 stars
     private Date dateAvis;
-    private String username;
+    private User user;
+    private String reponseAvis;
 
-    public Avis(String commentaire, int note, String username) {
+    // Default constructor
+    public Avis() {
+        this.dateAvis = new Date(); // Initialize date in default constructor
+    }
+
+    public Avis(String commentaire, int rating, User user) {
         this.commentaire = commentaire;
-        this.note = note;
-        this.reponseAvis = "En attente de modération";
-        this.dateAvis = new Date();
-        this.username = username;
+        this.rating = rating;
+        this.user = user;
+        this.dateAvis = new Date(); // Initialize date when creating new Avis
     }
 
-    // Constructeur complet pour la récupération depuis la base de données
-    public Avis(int numAvis, String commentaire, int note, String reponseAvis, Date dateAvis, String username) {
-        this.numAvis = numAvis;
-        this.commentaire = commentaire;
-        this.note = note;
-        this.reponseAvis = reponseAvis;
-        this.dateAvis = dateAvis;
-        this.username = username;
+    // Getters and Setters
+    public int getId() {
+        return id;
     }
 
-    // Getters et Setters
-    public int getNumAvis() {
-        return numAvis;
-    }
-
-    public void setNumAvis(int numAvis) {
-        this.numAvis = numAvis;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getCommentaire() {
@@ -46,20 +39,12 @@ public class Avis {
         this.commentaire = commentaire;
     }
 
-    public int getNote() {
-        return note;
+    public int getRating() {
+        return rating;
     }
 
-    public void setNote(int note) {
-        this.note = note;
-    }
-
-    public String getReponseAvis() {
-        return reponseAvis;
-    }
-
-    public void setReponseAvis(String reponseAvis) {
-        this.reponseAvis = reponseAvis;
+    public void setRating(int rating) {
+        this.rating = rating;
     }
 
     public Date getDateAvis() {
@@ -70,23 +55,31 @@ public class Avis {
         this.dateAvis = dateAvis;
     }
 
-    public String getUsername() {
-        return username;
+    public User getUser() {
+        return user;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getReponseAvis() {
+        return reponseAvis;
+    }
+
+    public void setReponseAvis(String reponseAvis) {
+        this.reponseAvis = reponseAvis;
     }
 
     @Override
     public String toString() {
         return "Avis{" +
-                "numAvis=" + numAvis +
+                "id=" + id +
                 ", commentaire='" + commentaire + '\'' +
-                ", note=" + note +
-                ", reponseAvis='" + reponseAvis + '\'' +
+                ", rating=" + rating +
                 ", dateAvis=" + dateAvis +
-                ", username='" + username + '\'' +
+                ", user=" + user +
+                ", reponseAvis='" + reponseAvis + '\'' +
                 '}';
     }
 } 

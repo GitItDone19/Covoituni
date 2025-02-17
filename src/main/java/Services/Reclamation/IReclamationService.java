@@ -1,4 +1,4 @@
-package Services;
+package Services.Reclamation;
 
 import entities.Reclamation;
 import java.sql.SQLException;

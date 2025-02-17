@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="20" 
+      alignment="CENTER" 
+      stylesheets="@../styles.css"
+      prefWidth="1200.0"
+      prefHeight="800.0"
+      xmlns="http://javafx.com/javafx/8"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="gui.Reclamation.ModifierReclamationController">
+
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <!-- Header -->
+    <HBox alignment="CENTER_LEFT" spacing="20">
+        <Label text="Modifier la Réclamation" styleClass="title-label"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button text="Retour" onAction="#retourListe" styleClass="secondary-button"/>
+    </HBox>
+
+    <!-- Form -->
+    <VBox spacing="10" styleClass="form-field">
+        <Label text="Description" styleClass="label-title"/>
+        <TextArea fx:id="descriptionArea" 
+                  wrapText="true"
+                  prefRowCount="4"/>
+    </VBox>
+
+    <VBox spacing="10" styleClass="form-field">
+        <Label text="Statut" styleClass="label-title"/>
+        <ComboBox fx:id="statusComboBox" maxWidth="200"/>
+    </VBox>
+
+    <!-- Buttons -->
+    <HBox spacing="10" alignment="CENTER">
+        <Button text="Sauvegarder" onAction="#sauvegarder" 
+                styleClass="submit-button"/>
+    </HBox>
+
+</VBox> 

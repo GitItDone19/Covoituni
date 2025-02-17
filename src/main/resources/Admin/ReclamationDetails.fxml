@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="20" alignment="CENTER" stylesheets="@../styles.css"
+      xmlns="http://javafx.com/javafx/8"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="gui.Admin.ReclamationDetails">
+
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <!-- Header -->
+    <HBox alignment="CENTER_LEFT" spacing="20">
+        <Label text="Détails de la Réclamation" styleClass="title-label"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button text="Retour" onAction="#retourDashboard" styleClass="secondary-button"/>
+    </HBox>
+
+    <!-- Informations -->
+    <GridPane vgap="10" hgap="10">
+        <Label text="ID:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+        <Label fx:id="idLabel" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+        
+        <Label text="Utilisateur:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+        <Label fx:id="usernameLabel" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        
+        <Label text="Date:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+        <Label fx:id="dateLabel" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+        
+        <Label text="Description:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+        <Label fx:id="descriptionLabel" GridPane.columnIndex="1" GridPane.rowIndex="3"
+               wrapText="true"/>
+    </GridPane>
+
+    <!-- Response Form -->
+    <VBox spacing="10">
+        <Label text="Statut" styleClass="label-title"/>
+        <ComboBox fx:id="statusComboBox" maxWidth="200"/>
+        
+        <Label text="Réponse" styleClass="label-title"/>
+        <TextArea fx:id="replyTextArea" 
+                  promptText="Votre réponse..."
+                  wrapText="true"
+                  prefRowCount="4"/>
+    </VBox>
+
+    <!-- Submit Button -->
+    <Button text="Enregistrer" onAction="#handleSave" 
+            styleClass="submit-button"/>
+
+</VBox> 

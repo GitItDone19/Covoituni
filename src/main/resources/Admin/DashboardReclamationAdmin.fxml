@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
+
+<HBox xmlns="http://javafx.com/javafx/8" 
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="gui.Admin.DashboardReclamationAdmin"
+      stylesheets="@../global.css"
+      prefWidth="1400.0"
+      prefHeight="800.0">
+    
+    <!-- Left Sidebar -->
+    <VBox styleClass="sidebar" prefWidth="200" spacing="10">
+        <padding>
+            <Insets top="20" right="10" bottom="20" left="10"/>
+        </padding>
+        
+        <!-- Profile Section -->
+        <VBox alignment="CENTER" spacing="10" styleClass="profile-section">
+            <Text text="Menu Admin" styleClass="title-label"/>
+        </VBox>
+        
+        <Separator/>
+        
+        <!-- Navigation Buttons -->
+        <Button text="Réclamations" onAction="#showReclamations" 
+                styleClass="nav-button" maxWidth="Infinity"/>
+        <Button text="Avis" onAction="#showAvis" 
+                styleClass="nav-button" maxWidth="Infinity"/>
+        <Region VBox.vgrow="ALWAYS"/>
+        <Button text="Déconnexion" onAction="#handleLogout" 
+                styleClass="logout-button" maxWidth="Infinity"/>
+    </VBox>
+    
+    <!-- Main Content Area -->
+    <VBox HBox.hgrow="ALWAYS" spacing="20">
+        <padding>
+            <Insets top="20" right="20" bottom="20" left="20"/>
+        </padding>
+        
+        <!-- Header -->
+        <HBox alignment="CENTER_LEFT" spacing="20">
+            <Label text="Gestion des Réclamations" styleClass="title-label"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <ComboBox fx:id="filterStatus" promptText="Filtrer par statut"
+                      styleClass="combo-box"/>
+        </HBox>
+        
+        <!-- Statistics -->
+        <HBox spacing="20">
+            <VBox styleClass="stat-box">
+                <Label text="Total Réclamations" styleClass="stat-label"/>
+                <Label fx:id="totalLabel" text="0" styleClass="stat-value"/>
+            </VBox>
+            <VBox styleClass="stat-box">
+                <Label text="En Cours" styleClass="stat-label"/>
+                <Label fx:id="enCoursLabel" text="0" styleClass="stat-value"/>
+            </VBox>
+            <VBox styleClass="stat-box">
+                <Label text="Résolues" styleClass="stat-label"/>
+                <Label fx:id="resoluesLabel" text="0" styleClass="stat-value"/>
+            </VBox>
+        </HBox>
+        
+        <!-- Reclamations List -->
+        <ListView fx:id="reclamationList" VBox.vgrow="ALWAYS"/>
+        
+    </VBox>
+</HBox> 

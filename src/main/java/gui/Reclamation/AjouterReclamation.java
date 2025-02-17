@@ -1,12 +1,13 @@
-package gui;
+package gui.Reclamation;
 
 import entities.Reclamation;
+import entities.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
-import Services.ReclamationService;
+import Services.Reclamation.ReclamationService;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -28,10 +29,17 @@ public class AjouterReclamation {
             return;
         }
 
+        // Create a temporary user (in real app, get this from login session)
+        User user = new User();
+        user.setId(1);  // This should come from logged in user
+        user.setNom("Test");
+        user.setPrenom("User");
+        user.setEmail("test@example.com");
+
         Reclamation r = new Reclamation(
             descriptionArea.getText(),
             "EN_COURS",
-            1
+            user    // Pass the User object instead of just ID
         );
 
         try {
@@ -56,7 +64,7 @@ public class AjouterReclamation {
     @FXML
     void afficher(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/AfficherReclamations.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/User/AfficherReclamations.fxml"));
             descriptionArea.getScene().setRoot(root);
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
