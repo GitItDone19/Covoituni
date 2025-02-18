@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.EventController"
+            prefHeight="600.0" prefWidth="800.0"
+            style="-fx-background-color: #f0f2f5;">
+    
+    <VBox spacing="10.0" AnchorPane.topAnchor="10.0" 
+          AnchorPane.leftAnchor="10.0" 
+          AnchorPane.rightAnchor="10.0"
+          AnchorPane.bottomAnchor="10.0">
+        
+        <!-- Titre avec style -->
+        <Label text="Gestion des Événements" 
+               style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2b6777;"/>
+        
+        <!-- Formulaire avec fond -->
+        <GridPane vgap="10" hgap="10" 
+                 style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 5;">
+            <Label text="Titre:" GridPane.rowIndex="0" GridPane.columnIndex="0"
+                   style="-fx-font-weight: bold; -fx-text-fill: #2b6777;"/>
+            <TextField fx:id="titleField" GridPane.rowIndex="0" GridPane.columnIndex="1"
+                      style="-fx-background-radius: 5;"/>
+            
+            <Label text="Description:" GridPane.rowIndex="1" GridPane.columnIndex="0"
+                   style="-fx-font-weight: bold; -fx-text-fill: #2b6777;"/>
+            <TextArea fx:id="descriptionField" GridPane.rowIndex="1" GridPane.columnIndex="1"
+                     style="-fx-background-radius: 5;"/>
+            
+            <Label text="Date:" GridPane.rowIndex="2" GridPane.columnIndex="0"
+                   style="-fx-font-weight: bold; -fx-text-fill: #2b6777;"/>
+            <DatePicker fx:id="eventDatePicker" GridPane.rowIndex="2" GridPane.columnIndex="1"
+                       style="-fx-background-radius: 5;"/>
+            
+            <Label text="Lieu:" GridPane.rowIndex="3" GridPane.columnIndex="0"
+                   style="-fx-font-weight: bold; -fx-text-fill: #2b6777;"/>
+            <TextField fx:id="locationField" GridPane.rowIndex="3" GridPane.columnIndex="1"
+                      style="-fx-background-radius: 5;"/>
+            
+            <Label text="Catégorie:" GridPane.rowIndex="4" GridPane.columnIndex="0"
+                   style="-fx-font-weight: bold; -fx-text-fill: #2b6777;"/>
+            <ComboBox fx:id="categoryComboBox" GridPane.rowIndex="4" GridPane.columnIndex="1"
+                     style="-fx-background-radius: 5;"/>
+        </GridPane>
+        
+        <!-- Boutons stylisés -->
+        <HBox spacing="10.0">
+            <Button text="Ajouter" onAction="#handleAddEvent"
+                    style="-fx-background-color: #2b6777; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5;"/>
+            <Button text="Modifier" onAction="#handleUpdateEvent"
+                    style="-fx-background-color: #52ab98; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5;"/>
+            <Button text="Supprimer" onAction="#handleDeleteEvent"
+                    style="-fx-background-color: #c81d25; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5;"/>
+            <Button text="Effacer" onAction="#handleClearForm"
+                    style="-fx-background-color: #grey; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5;"/>
+        </HBox>
+        
+        <!-- Table stylisée -->
+        <TableView fx:id="eventTable" VBox.vgrow="ALWAYS"
+                  style="-fx-background-radius: 5; -fx-background-color: white;">
+            <columns>
+                <TableColumn fx:id="idColumn" text="ID" prefWidth="50"/>
+                <TableColumn fx:id="titleColumn" text="Titre" prefWidth="150"/>
+                <TableColumn fx:id="descriptionColumn" text="Description" prefWidth="200"/>
+                <TableColumn fx:id="dateColumn" text="Date" prefWidth="100"/>
+                <TableColumn fx:id="locationColumn" text="Lieu" prefWidth="150"/>
+                <TableColumn fx:id="categoryColumn" text="Catégorie" prefWidth="100"/>
+            </columns>
+        </TableView>
+        
+    </VBox>
+</AnchorPane> 
