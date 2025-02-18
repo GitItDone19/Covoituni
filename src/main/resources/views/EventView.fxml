@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.EventController"
+            prefHeight="800.0" prefWidth="1200.0"
+            style="-fx-background-color: #f0f2f5;">
+
+    <TabPane AnchorPane.topAnchor="10.0"
+             AnchorPane.leftAnchor="10.0"
+             AnchorPane.rightAnchor="10.0"
+             AnchorPane.bottomAnchor="10.0">
+
+        <!-- Onglet Informations Événement -->
+        <Tab text="Informations Événement" closable="false">
+            <VBox spacing="15" style="-fx-padding: 15;">
+                <Label text="Informations sur l'événement"
+                       style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2b6777;"/>
+
+                <GridPane vgap="10" hgap="10" style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 5;">
+                    <Label text="Nom de l'événement:" GridPane.rowIndex="0" GridPane.columnIndex="0"
+                           style="-fx-font-weight: bold;"/>
+                    <TextField fx:id="eventNameField" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                    <Label text="Date et heure:" GridPane.rowIndex="1" GridPane.columnIndex="0"
+                           style="-fx-font-weight: bold;"/>
+                    <HBox spacing="10" GridPane.rowIndex="1" GridPane.columnIndex="1">
+                        <DatePicker fx:id="eventDatePicker"/>
+                        <ComboBox fx:id="eventTimeCombo" promptText="Heure"/>
+                    </HBox>
+
+                    <Label text="Lieu:" GridPane.rowIndex="2" GridPane.columnIndex="0"
+                           style="-fx-font-weight: bold;"/>
+                    <VBox spacing="5" GridPane.rowIndex="2" GridPane.columnIndex="1">
+                        <TextField fx:id="eventLocationField" promptText="Adresse complète"/>
+
+                    </VBox>
+
+                    <Label text="Description:" GridPane.rowIndex="3" GridPane.columnIndex="0"
+                           style="-fx-font-weight: bold;"/>
+                    <TextArea fx:id="eventDescriptionArea" GridPane.rowIndex="3" GridPane.columnIndex="1"
+                             wrapText="true" prefRowCount="3"/>
+                </GridPane>
+            </VBox>
+        </Tab>
+
+        <!-- Onglet Covoiturage -->
+        <Tab text="Covoiturage" closable="false">
+            <SplitPane dividerPositions="0.5">
+                <!-- Section Conducteurs -->
+                <VBox spacing="10" style="-fx-padding: 10;">
+                    <Label text="Conducteurs proposant des trajets"
+                           style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+                    <TableView fx:id="driversTable" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn text="Conducteur" fx:id="driverNameColumn"/>
+                            <TableColumn text="Départ" fx:id="departurePointColumn"/>
+                            <TableColumn text="Heure" fx:id="departureTimeColumn"/>
+                            <TableColumn text="Places" fx:id="seatsAvailableColumn"/>
+                        </columns>
+                    </TableView>
+                    <Button text="Proposer un trajet"
+                            style="-fx-background-color: #2b6777; -fx-text-fill: white;"/>
+                </VBox>
+
+                <!-- Section Passagers -->
+                <VBox spacing="10" style="-fx-padding: 10;">
+                    <Label text="Passagers recherchant un trajet"
+                           style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+                    <TableView fx:id="passengersTable" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn text="Passager" fx:id="passengerNameColumn"/>
+                            <TableColumn text="Destination" fx:id="destinationColumn"/>
+                            <TableColumn text="Heure souhaitée" fx:id="desiredTimeColumn"/>
+                        </columns>
+                    </TableView>
+                    <Button text="Rechercher un trajet"
+                            style="-fx-background-color: #52ab98; -fx-text-fill: white;"/>
+                </VBox>
+            </SplitPane>
+        </Tab>
+
+        <!-- Onglet Statistiques -->
+        <Tab text="Statistiques" closable="false">
+            <VBox spacing="15" style="-fx-padding: 15;">
+                <TitledPane text="Impact environnemental">
+                    <VBox spacing="10">
+                        <Label text="Empreinte carbone économisée:" style="-fx-font-weight: bold;"/>
+                        <Label fx:id="carbonSavedLabel" text="0 kg CO2"/>
+                        <ProgressBar fx:id="carbonProgressBar" progress="0.0"/>
+                    </VBox>
+                </TitledPane>
+
+                <TitledPane text="Évaluations et commentaires">
+                    <ListView fx:id="reviewsList" VBox.vgrow="ALWAYS"/>
+                </TitledPane>
+            </VBox>
+        </Tab>
+
+    </TabPane>
+</AnchorPane>
