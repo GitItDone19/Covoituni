@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="gui.ModifierVoiture"
+      spacing="10">
+      
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <GridPane vgap="10" hgap="10">
+        <Label text="Plaque d'immatriculation:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+        <TextField fx:id="plaqueField" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+        <Label text="Description:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+        <TextField fx:id="descriptionField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+        <Label text="Date d'immatriculation:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+        <DatePicker fx:id="datePicker" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+        <Label text="Couleur:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+        <TextField fx:id="couleurField" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+        <Label text="Marque:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+        <TextField fx:id="marqueField" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+
+        <Label text="Modèle:" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
+        <TextField fx:id="modeleField" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+
+        <Label text="Catégorie:" GridPane.columnIndex="0" GridPane.rowIndex="6"/>
+        <ComboBox fx:id="categorieComboBox" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+        
+        <columnConstraints>
+            <ColumnConstraints minWidth="150" prefWidth="150"/>
+            <ColumnConstraints minWidth="200" prefWidth="200"/>
+        </columnConstraints>
+    </GridPane>
+
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <padding>
+            <Insets top="20"/>
+        </padding>
+        <Button text="Annuler" onAction="#handleAnnulerButton"/>
+        <Button text="Modifier" onAction="#handleModifierButton" defaultButton="true"/>
+    </HBox>
+</VBox> 

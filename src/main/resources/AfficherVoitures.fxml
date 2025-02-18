@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="gui.AfficherVoitures"
+      spacing="20"
+      style="-fx-background-color: transparent;">
+      
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Button text="+ Ajouter" onAction="#handleAjouterButton"/>
+        <Button text="✎ Modifier" onAction="#handleModifierButton"/>
+        <Button text="✕ Supprimer" onAction="#handleSupprimerButton"
+                style="-fx-background-color: #e74c3c;"/>
+    </HBox>
+
+    <TableView fx:id="tableView" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="idCol" text="ID" prefWidth="50"/>
+            <TableColumn fx:id="plaqueCol" text="Plaque" prefWidth="100"/>
+            <TableColumn fx:id="descriptionCol" text="Description" prefWidth="200"/>
+            <TableColumn fx:id="dateCol" text="Date Immatriculation" prefWidth="150"/>
+            <TableColumn fx:id="couleurCol" text="Couleur" prefWidth="100"/>
+            <TableColumn fx:id="marqueCol" text="Marque" prefWidth="100"/>
+            <TableColumn fx:id="modeleCol" text="Modèle" prefWidth="100"/>
+            <TableColumn fx:id="categorieCol" text="Catégorie" prefWidth="150"/>
+        </columns>
+        <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+        </columnResizePolicy>
+    </TableView>
+</VBox> 

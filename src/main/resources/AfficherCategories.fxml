@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="gui.AfficherCategories"
+      spacing="10">
+      
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10"/>
+    </padding>
+
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <padding>
+            <Insets bottom="10"/>
+        </padding>
+        <Button text="Ajouter" onAction="#handleAjouterButton"/>
+        <Button text="Modifier" onAction="#handleModifierButton"/>
+        <Button text="Supprimer" onAction="#handleSupprimerButton"/>
+    </HBox>
+
+    <TableView fx:id="tableView" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="idCol" text="ID" prefWidth="50"/>
+            <TableColumn fx:id="nomCol" text="Nom" prefWidth="200"/>
+            <TableColumn fx:id="descriptionCol" text="Description" prefWidth="400"/>
+        </columns>
+    </TableView>
+</VBox> 

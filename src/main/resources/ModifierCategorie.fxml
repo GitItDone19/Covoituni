@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="gui.ModifierCategorie"
+      spacing="10">
+      
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <GridPane vgap="10" hgap="10">
+        <Label text="Nom:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+        <TextField fx:id="nomField" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+        <Label text="Description:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+        <TextArea fx:id="descriptionField" GridPane.columnIndex="1" GridPane.rowIndex="1" 
+                  prefRowCount="3" wrapText="true"/>
+                  
+        <columnConstraints>
+            <ColumnConstraints minWidth="100" prefWidth="100"/>
+            <ColumnConstraints minWidth="300" prefWidth="300"/>
+        </columnConstraints>
+    </GridPane>
+
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <padding>
+            <Insets top="20"/>
+        </padding>
+        <Button text="Annuler" onAction="#handleAnnulerButton"/>
+        <Button text="Modifier" onAction="#handleModifierButton" defaultButton="true"/>
+    </HBox>
+</VBox> 
