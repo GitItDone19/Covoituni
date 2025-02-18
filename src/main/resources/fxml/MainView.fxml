@@ -1,0 +1,8 @@
+<VBox styleClass="sidebar">
+    <Button text="Annonces" onAction="#showAnnonces" />
+    <Button text="Trajets" onAction="#showTrajets" />
+    <Button text="Ajouter Annonce" onAction="#showAjouterAnnonce" />
+    <Button text="Ajouter Trajet" onAction="#showAjouterTrajet" />
+    <Button text="Réservations (Chauffeur)" onAction="#showReservationsChauffeur" />
+    <Button text="Réservations (Passager)" onAction="#showReservationsPassager" />
+</VBox> 
