@@ -1,13 +1,15 @@
 package Services.Avis;
 
+import Services.IService;
 import entities.Avis;
 import entities.User;
+import entities.Role;
 import utils.MyConnection;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AvisService implements IAvisService {
+public class AvisService implements IService<Avis> {
 
     private Connection cnx;
 
@@ -52,19 +54,34 @@ public class AvisService implements IAvisService {
     @Override
     public List<Avis> readAll() throws SQLException {
         List<Avis> avisList = new ArrayList<>();
-        String query = "SELECT a.*, u.nom, u.prenom, u.email FROM avis a " +
-                      "JOIN user u ON a.user_id = u.id " +
+        String query = "SELECT a.*, u.*, r.id as role_id, r.code as role_code, r.display_name " +
+                      "FROM avis a " +
+                      "JOIN utilisateur u ON a.user_id = u.id " +
+                      "JOIN role r ON u.role_code = r.code " +
                       "ORDER BY a.date_avis DESC";
         
         try (Statement st = cnx.createStatement();
              ResultSet rs = st.executeQuery(query)) {
             
             while (rs.next()) {
-                User user = new User();
-                user.setId(rs.getInt("user_id"));
-                user.setNom(rs.getString("nom"));
-                user.setPrenom(rs.getString("prenom"));
-                user.setEmail(rs.getString("email"));
+                Role role = new Role(
+                    rs.getInt("role_id"),
+                    rs.getString("role_code"),
+                    rs.getString("display_name")
+                );
+
+                User user = new User(
+                    rs.getInt("user_id"),
+                    rs.getString("nom"),
+                    rs.getString("prenom"),
+                    rs.getString("tel"),
+                    rs.getString("email"),
+                    rs.getString("mdp"),
+                    role,
+                    rs.getString("verificationcode")
+                );
+                user.setRating(rs.getDouble("rating"));
+                user.setTripsCount(rs.getInt("trips_count"));
 
                 Avis avis = new Avis();
                 avis.setId(rs.getInt("id"));
@@ -79,7 +96,6 @@ public class AvisService implements IAvisService {
         return avisList;
     }
 
-    @Override
     public void reply(Avis avis, String response) throws SQLException {
         String query = "UPDATE avis SET reponse_avis = ? WHERE id = ?";
         try (PreparedStatement ps = cnx.prepareStatement(query)) {
