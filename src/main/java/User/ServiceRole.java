@@ -1,8 +1,8 @@
 package User;
 
 import Services.IService;
-import entities.User.Role;
-import main.MyConnection;
+import entities.Role;
+import utils.MyConnection;
 import java.sql.*;
 import java.util.ArrayList;
 

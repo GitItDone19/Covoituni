@@ -1,6 +1,6 @@
 package gui.Users;
 
-import entities.User.User;
+import entities.User;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;

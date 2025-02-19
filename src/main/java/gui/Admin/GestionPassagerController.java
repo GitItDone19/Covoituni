@@ -1,7 +1,7 @@
 package gui.Admin;
 
-import entities.User.Role;
-import entities.User.User;
+import entities.Role;
+import entities.User;
 import User.ServiceUser;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

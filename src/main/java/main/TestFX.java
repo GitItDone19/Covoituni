@@ -39,7 +39,7 @@ public class TestFX extends Application {
             
             // Ensure window is truly maximized
             stage.setResizable(true);
-            stage.setFullScreen(false);  // Set to true if you want true fullscreen without window decorations
+            stage.setFullScreen(false);
             
             stage.show();
         } catch (Exception e) {

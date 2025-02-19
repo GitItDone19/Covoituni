@@ -1,13 +1,16 @@
 /* Bolt color palette */
 * {
-    -fx-primary: #2EB875;       /* Bolt Green */
-    -fx-secondary: #222741;     /* Dark Blue */
+    -fx-primary: #24f0a0;      /* Bright green */
+    -fx-secondary: #28444c;    /* Dark blue-gray */
     -fx-light-gray: #F7F7F7;    /* Light Background */
     -fx-dark-gray: #666666;     /* Text Color */
     -fx-white: #FFFFFF;
     -fx-error: #FF3B30;         /* Error Red */
     -fx-warning: #FFCC00;       /* Warning Yellow */
     -fx-success: #34C759;       /* Success Green */
+    -fx-light-bg: #82f6c9;     /* Light mint */
+    -fx-accent: #0985fa;       /* Blue */
+    -fx-dark-accent: #25765d;  /* Dark green */
 }
 
 /* Common Button Styles */
@@ -198,8 +201,9 @@
 .sidebar {
     -fx-background-color: -fx-secondary;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 0);
-    -fx-min-width: 280px;  /* Increased from 250px */
-    -fx-pref-width: 280px; /* Increased from 250px */
+    -fx-min-width: 320px;
+    -fx-pref-width: 320px;
+    -fx-font-family: 'Montserrat';
 }
 
 .logo-container {
@@ -228,24 +232,24 @@
 }
 
 .sidebar-button {
-    -fx-background-color: rgba(255, 255, 255, 0.05);
-    -fx-text-fill: white;
-    -fx-font-family: 'Poppins';
-    -fx-font-size: 14px;
+    -fx-background-color: transparent;
+    -fx-text-fill: -fx-primary;
+    -fx-font-family: 'Montserrat';
+    -fx-font-size: 15px;
     -fx-alignment: CENTER_LEFT;
-    -fx-padding: 15 20;
-    -fx-background-radius: 10;
+    -fx-padding: 15 25;
+    -fx-background-radius: 0;  /* Remove border radius */
     -fx-spacing: 15;
     -fx-min-height: 45px;
     -fx-cursor: hand;
-    -fx-max-width: Infinity;  /* Make button fill width */
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 4, 0, 0, 0);
+    -fx-max-width: Infinity;
+    -fx-translate-x: 0;  /* Reset any translation */
 }
 
 .sidebar-button:hover {
-    -fx-background-color: rgba(255, 255, 255, 0.1);
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 8, 0, 0, 0);
-    -fx-translate-x: 3;  /* Slight movement on hover */
+    -fx-background-color: rgba(36, 240, 160, 0.2);
+    -fx-background-radius: 0;  /* Remove border radius on hover */
+    -fx-translate-x: 0;  /* Remove translation effect */
 }
 
 .sidebar-button:pressed {
@@ -288,11 +292,13 @@
 .logout-button {
     -fx-background-color: rgba(231, 76, 60, 0.9);
     -fx-text-fill: white;
+    -fx-font-family: 'Montserrat';
     -fx-font-size: 14px;
     -fx-background-radius: 10;
     -fx-padding: 12 20;
     -fx-spacing: 10;
     -fx-cursor: hand;
+    -fx-max-width: Infinity;
 }
 
 .logout-button:hover {
@@ -307,21 +313,21 @@
 
 /* Statistics Card */
 .stat-card {
-    -fx-background-color: -fx-white;
-    -fx-background-radius: 16px;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 10, 0, 0, 2);
-    -fx-padding: 24px;
+    -fx-background-color: -fx-accent;
+    -fx-background-radius: 15;
+    -fx-padding: 25;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);
 }
 
 .stat-value {
-    -fx-font-size: 36px;
+    -fx-font-size: 32px;
     -fx-font-weight: bold;
-    -fx-text-fill: -fx-secondary;
+    -fx-text-fill: white;
 }
 
 .stat-label {
     -fx-font-size: 16px;
-    -fx-text-fill: -fx-dark-gray;
+    -fx-text-fill: white;
 }
 
 /* Additional Styles */
@@ -333,12 +339,14 @@
 }
 
 .user-name {
+    -fx-font-family: 'Montserrat';
     -fx-text-fill: white;
     -fx-font-size: 16px;
     -fx-font-weight: bold;
 }
 
 .user-email {
+    -fx-font-family: 'Montserrat';
     -fx-text-fill: rgba(255, 255, 255, 0.8);
     -fx-font-size: 13px;
 }
@@ -347,17 +355,6 @@
     -fx-font-family: 'Poppins';
     -fx-font-size: 16px;
     -fx-font-weight: bold;
-}
-
-.stat-card {
-    -fx-background-color: white;
-    -fx-padding: 20px;
-    -fx-background-radius: 12px;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 10, 0, 0, 2);
-}
-
-.stat-card:hover {
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.12), 15, 0, 0, 4);
 }
 
 .reservations-list {
@@ -565,18 +562,17 @@
 
 /* Enhanced Sidebar Title */
 .sidebar-title {
-    -fx-font-family: 'Poppins';
-    -fx-font-size: 24px;
+    -fx-font-family: 'Montserrat';
+    -fx-font-size: 26px;
     -fx-font-weight: bold;
-    -fx-text-fill: white;
+    -fx-text-fill: -fx-primary;
 }
 
 /* Enhanced User Info Section */
 .user-info {
-    -fx-background-color: rgba(255, 255, 255, 0.1);
-    -fx-padding: 20;
-    -fx-spacing: 15;
+    -fx-background-color: -fx-dark-accent;
     -fx-background-radius: 15;
+    -fx-padding: 20;
 }
 
 /* Update the VBox containing the buttons */
@@ -586,7 +582,8 @@
 
 /* Update button container padding */
 .sidebar > VBox > VBox {  /* Target the navigation buttons VBox */
-    -fx-padding: 0 5;     /* Add some padding to prevent buttons from touching edges */
+    -fx-padding: 0;  /* Remove padding to make buttons full width */
+    -fx-spacing: 0;  /* Remove spacing between buttons */
 }
 
 .validation-error {
@@ -604,4 +601,16 @@
 .register-subtitle {
     -fx-font-size: 16px;
     -fx-text-fill: derive(#1C2A48, 20%);
+}
+
+/* Add Montserrat font */
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../fonts/Montserrat-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../fonts/Montserrat-Bold.ttf');
+    font-weight: bold;
 } 

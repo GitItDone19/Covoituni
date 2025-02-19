@@ -10,9 +10,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import entities.User.User;
+import entities.User;
 import User.ServiceUser;
-import entities.User.Role;
+import entities.Role;
 
 public class DashboardUserController implements Initializable {
     

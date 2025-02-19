@@ -1,7 +1,7 @@
 package gui.Admin;
 
-import entities.User.Role;
-import entities.User.User;
+import entities.Role;
+import entities.User;
 import User.ServiceUser;
 import User.ServiceRole;
 import javafx.collections.FXCollections;
@@ -15,11 +15,6 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import java.io.IOException;
 
 public class GestionUsersController implements Initializable {
     
