@@ -1,6 +1,6 @@
 package gui.Users;
 
-import entities.User.User;
+import entities.User;
 import User.ServiceUser;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

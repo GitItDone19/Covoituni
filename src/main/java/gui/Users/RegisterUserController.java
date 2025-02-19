@@ -1,7 +1,7 @@
 package gui.Users;
 
-import entities.User.Role;
-import entities.User.User;
+import entities.Role;
+import entities.User;
 import User.ServiceUser;
 import User.ServiceRole;
 import javafx.collections.FXCollections;

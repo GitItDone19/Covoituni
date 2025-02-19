@@ -1,6 +1,6 @@
-package User;
+package Services;
 
-import Services.IService;
+import User.ServiceRole;
 import utils.MyConnection;
 import entities.Role;
 import entities.User;
@@ -140,15 +140,5 @@ public class ServiceUser implements IService<User> {
         PreparedStatement pst = connection.prepareStatement(sql);
         pst.setInt(1, userId);
         pst.executeUpdate();
-    }
-
-    public boolean emailExists(String email) throws SQLException {
-        String req = "SELECT COUNT(*) FROM utilisateur WHERE email = ?";
-        try (PreparedStatement ps = connection.prepareStatement(req)) {
-            ps.setString(1, email);
-            ResultSet rs = ps.executeQuery();
-            rs.next();
-            return rs.getInt(1) > 0;
-        }
     }
 }

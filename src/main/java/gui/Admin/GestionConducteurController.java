@@ -1,9 +1,8 @@
 package gui.Admin;
 
-import entities.User.Role;
-import entities.User.User;
+import entities.Role;
+import entities.User;
 import User.ServiceUser;
-import User.ServiceRole;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -13,12 +12,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.application.Platform;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package entities.User;
+package entities;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
