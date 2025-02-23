@@ -7,6 +7,7 @@ import entities.User;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ServiceUser implements IService<User> {
     private Connection connection;
@@ -134,7 +135,28 @@ public class ServiceUser implements IService<User> {
         pst.setInt(2, userId);
         pst.executeUpdate();
     }
-    
+    public List<User> getConducteurs() throws SQLException {
+        List<User> conducteurs = new ArrayList<>();
+        String sql = "SELECT * FROM utilisateur WHERE role_code = 'conducteur'";
+        try (Statement st = connection.createStatement();
+             ResultSet rs = st.executeQuery(sql)) {
+            while (rs.next()) {
+                User user = new User(
+                        rs.getInt("id"),
+                        rs.getString("nom"),
+                        rs.getString("prenom"),
+                        rs.getString("tel"),
+                        rs.getString("email"),
+                        rs.getString("mdp"),
+                        null, // role
+                        rs.getString("verification_code")
+                );
+                conducteurs.add(user);
+            }
+        }
+        return conducteurs;
+    }
+
     public void incrementTripsCount(int userId) throws SQLException {
         String sql = "UPDATE utilisateur SET trips_count = trips_count + 1 WHERE id = ?";
         PreparedStatement pst = connection.prepareStatement(sql);

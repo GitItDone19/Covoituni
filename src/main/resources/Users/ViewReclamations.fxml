@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" 
+            fx:controller="gui.Users.ViewReclamationsController"
+            style="-fx-background-color: #f0f4f8;">
+    
+    <VBox spacing="20" alignment="TOP_CENTER" 
+          AnchorPane.topAnchor="0.0" 
+          AnchorPane.leftAnchor="0.0" 
+          AnchorPane.rightAnchor="0.0"
+          AnchorPane.bottomAnchor="0.0">
+        
+        <!-- Header Section -->
+        <VBox alignment="CENTER" spacing="10" 
+              style="-fx-background-color: white; -fx-padding: 20; 
+                     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5);">
+            <Label text="Mes Réclamations" 
+                   style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+            <Label fx:id="lblUserName" 
+                   style="-fx-font-size: 18px; -fx-text-fill: #34495e; -fx-font-style: italic;"/>
+        </VBox>
+        
+        <!-- Main Content Area -->
+        <ScrollPane fitToWidth="true" 
+                    fitToHeight="true"
+                    style="-fx-background-color: transparent;"
+                    VBox.vgrow="ALWAYS">
+            <ListView fx:id="listViewReclamations" 
+                      style="-fx-background-color: transparent; -fx-padding: 0;"
+                      fixedCellSize="180">
+                <padding>
+                    <Insets bottom="20"/>
+                </padding>
+            </ListView>
+        </ScrollPane>
+        
+        <!-- Footer with Return Button -->
+        <HBox alignment="CENTER" style="-fx-padding: 20;">
+            <Button fx:id="btnRetour" 
+                    text="Retour" 
+                    onAction="#handleRetour"
+                    style="-fx-background-color: #3498db;
+                           -fx-text-fill: white;
+                           -fx-min-width: 150;
+                           -fx-min-height: 40;
+                           -fx-font-size: 14px;
+                           -fx-background-radius: 20;
+                           -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 2);
+                           -fx-cursor: hand;"/>
+        </HBox>
+    </VBox>
+</AnchorPane>

@@ -13,6 +13,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.control.Alert;
 import java.io.IOException;
+import javafx.scene.control.Button;
+import javafx.stage.Modality;
 
 public class DashboardUserController implements Initializable {
     @FXML private Label lblUserName;
@@ -21,6 +23,8 @@ public class DashboardUserController implements Initializable {
     @FXML private Label lblCO2Economy;
     @FXML private Label lblRating;
     @FXML private ListView<?> listViewReservations;
+    @FXML private Button btnAddReclamation;
+    @FXML private Button btnAjouterAvis;
     
     private User currentUser;
     
@@ -102,5 +106,54 @@ public class DashboardUserController implements Initializable {
             alert.setContentText("Erreur lors de la déconnexion: " + e.getMessage());
             alert.showAndWait();
         }
+    }
+    
+    @FXML
+    private void handleAddReclamation() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Users/AddReclamation.fxml"));
+            Parent root = loader.load();
+            
+            AddReclamationController controller = loader.getController();
+            controller.setCurrentUser(currentUser);
+            
+            // Load the new scene for the reclamation form
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) lblUserName.getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("Ajouter une Réclamation"); // Set the title for the new page
+            stage.show();
+            
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setContentText("Erreur lors de l'ouverture du formulaire de réclamation: " + e.getMessage());
+            alert.showAndWait();
+        }
+    }
+    
+    @FXML
+    private void handleAjouterAvis() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Users/AjouterAvis.fxml"));
+            Parent root = loader.load();
+
+            // Set the current user in the AjouterAvisController
+            AjouterAvisController ajouterAvisController = loader.getController();
+            ajouterAvisController.setCurrentUser(currentUser);
+            // You may also need to set the selected conducteur if applicable
+            // ajouterAvisController.setConducteur(selectedConducteur);
+
+            Stage stage = (Stage) btnAjouterAvis.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Ajouter Avis");
+            stage.show();
+        } catch (Exception e) {
+            showAlert("Error", "Error loading the Ajouter Avis page: " + e.getMessage());
+        }
+    }
+
+    private void showAlert(String title, String content) {
+        // Implement a method to show alerts
     }
 } 
