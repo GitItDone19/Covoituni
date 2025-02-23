@@ -3,10 +3,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.paint.Color?>
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml" 
             fx:controller="gui.Users.AjouterAvisController"
-            style="-fx-background-color: #f0f4f8;">
+            style="-fx-background-color: #f8f9fa;">
     
     <VBox spacing="20" alignment="TOP_CENTER" 
           AnchorPane.topAnchor="20" 
@@ -14,18 +15,19 @@
           AnchorPane.rightAnchor="20" 
           AnchorPane.bottomAnchor="20">
         
-        <Label text="Ajouter un Avis" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+        <Label text="Ajouter un Avis" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #343a40;"/>
+        
+        <ComboBox fx:id="cbConducteurs" promptText="Sélectionner un conducteur" 
+                  style="-fx-background-color: #ffffff; -fx-border-color: #ced4da; -fx-padding: 10;"/>
         
         <TextField fx:id="tfRating" promptText="Entrez une note (1-5)" 
-                    style="-fx-padding: 10; -fx-background-radius: 5;"/>
+                   style="-fx-padding: 10; -fx-background-color: #ffffff; -fx-border-color: #ced4da;"/>
         
         <HBox spacing="20" alignment="CENTER">
             <Button fx:id="btnSubmit" text="Soumettre" onAction="#handleSubmit" 
-                    style="-fx-background-color: #4CAF50; -fx-text-fill: white; 
-                           -fx-padding: 10 25; -fx-background-radius: 5;"/>
+                    style="-fx-background-color: #28a745; -fx-text-fill: white; -fx-padding: 10 25; -fx-background-radius: 5;"/>
             <Button fx:id="btnRetour" text="Retour" onAction="#handleRetour" 
-                    style="-fx-background-color: #6c757d; -fx-text-fill: white; 
-                           -fx-padding: 10 25; -fx-background-radius: 5;"/>
+                    style="-fx-background-color: #6c757d; -fx-text-fill: white; -fx-padding: 10 25; -fx-background-radius: 5;"/>
         </HBox>
     </VBox>
 </AnchorPane> 

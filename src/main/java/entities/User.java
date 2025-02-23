@@ -134,6 +134,10 @@ public class User {
         this.username = username;
     }
 
+    public String getFullName() {
+        return getPrenom() + " " + getNom();
+    }
+
     @Override
     public String toString() {
         return "User{" +

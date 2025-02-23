@@ -31,6 +31,7 @@ public class DashboardUserController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // Initialize components
+        System.out.println("btnAjouterAvis: " + btnAjouterAvis);
     }
     
     public void setCurrentUser(User user) {
@@ -137,23 +138,23 @@ public class DashboardUserController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Users/AjouterAvis.fxml"));
             Parent root = loader.load();
-
-            // Set the current user in the AjouterAvisController
-            AjouterAvisController ajouterAvisController = loader.getController();
-            ajouterAvisController.setCurrentUser(currentUser);
-            // You may also need to set the selected conducteur if applicable
-            // ajouterAvisController.setConducteur(selectedConducteur);
-
-            Stage stage = (Stage) btnAjouterAvis.getScene().getWindow();
+            
+            AjouterAvisController controller = loader.getController();
+            controller.setCurrentUser(currentUser);
+            
+            Stage stage = (Stage) lblUserName.getScene().getWindow();
             stage.setScene(new Scene(root));
-            stage.setTitle("Ajouter Avis");
             stage.show();
-        } catch (Exception e) {
-            showAlert("Error", "Error loading the Ajouter Avis page: " + e.getMessage());
+        } catch (IOException e) {
+            showAlert("Error", "Failed to load review page: " + e.getMessage());
         }
     }
 
-    private void showAlert(String title, String content) {
-        // Implement a method to show alerts
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 } 
