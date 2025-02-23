@@ -94,39 +94,7 @@ public class ServiceUser implements IService<User> {
         return users;
     }
 
-    public ArrayList<User> getDriversByRating(double minRating) throws SQLException {
-        ArrayList<User> drivers = new ArrayList<>();
-        String sql = "SELECT u.*, r.id as role_id, r.display_name FROM utilisateur u " +
-                    "JOIN role r ON u.role_code = r.code " +
-                    "WHERE u.role_code = ? AND u.rating >= ?";
-        PreparedStatement pst = connection.prepareStatement(sql);
-        pst.setString(1, Role.DRIVER_CODE);
-        pst.setDouble(2, minRating);
-        
-        ResultSet rs = pst.executeQuery();
-        while (rs.next()) {
-            Role role = new Role(
-                rs.getInt("role_id"),
-                rs.getString("role_code"),
-                rs.getString("display_name")
-            );
-            
-            User driver = new User(
-                rs.getInt("id"),
-                rs.getString("nom"),
-                rs.getString("prenom"),
-                rs.getString("tel"),
-                rs.getString("email"),
-                rs.getString("mdp"),
-                role,
-                rs.getString("verificationcode")
-            );
-            driver.setRating(rs.getDouble("rating"));
-            driver.setTripsCount(rs.getInt("trips_count"));
-            drivers.add(driver);
-        }
-        return drivers;
-    }
+
     
     public void updateUserRating(int userId, double newRating) throws SQLException {
         String sql = "UPDATE utilisateur SET rating = ? WHERE id = ?";
@@ -189,6 +157,24 @@ public class ServiceUser implements IService<User> {
             }
         }
         return users;
+    }
+    public double calculateNewAverageRating(int userId, int newRating) throws SQLException {
+        String query = "SELECT rating, trips_count FROM utilisateur WHERE id = ?";
+        double newAverage = 0.0;
+
+        try (PreparedStatement pst = connection.prepareStatement(query)) {
+            pst.setInt(1, userId);
+            ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+                double currentRating = rs.getDouble("rating");
+                int currentTripsCount = rs.getInt("trips_count");
+
+                // Calculate new average
+                newAverage = (currentRating * currentTripsCount + newRating) / (currentTripsCount + 1);
+            }
+        }
+        return newAverage;
     }
 
     public void incrementTripsCount(int userId) throws SQLException {

@@ -15,6 +15,7 @@ import javafx.scene.control.Alert;
 import java.io.IOException;
 import javafx.scene.control.Button;
 import javafx.stage.Modality;
+import entities.Role;
 
 public class DashboardUserController implements Initializable {
     @FXML private Label lblUserName;
@@ -32,17 +33,28 @@ public class DashboardUserController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // Initialize components
         System.out.println("btnAjouterAvis: " + btnAjouterAvis);
+        updateUserInfo();
+        checkUserRole();
     }
     
     public void setCurrentUser(User user) {
         this.currentUser = user;
         updateUserInfo();
+        checkUserRole();
     }
     
     private void updateUserInfo() {
         if (currentUser != null) {
             lblUserName.setText(currentUser.getNom() + " " + currentUser.getPrenom());
             lblUserEmail.setText(currentUser.getEmail());
+        }
+    }
+    
+    private void checkUserRole() {
+        if (currentUser != null && currentUser.getRoleCode().equals(Role.PASSENGER_CODE)) {
+            btnAjouterAvis.setVisible(true);
+        } else {
+            btnAjouterAvis.setVisible(false);
         }
     }
     
@@ -118,18 +130,13 @@ public class DashboardUserController implements Initializable {
             AddReclamationController controller = loader.getController();
             controller.setCurrentUser(currentUser);
             
-            // Load the new scene for the reclamation form
             Scene scene = new Scene(root);
             Stage stage = (Stage) lblUserName.getScene().getWindow();
             stage.setScene(scene);
-            stage.setTitle("Ajouter une Réclamation"); // Set the title for the new page
+            stage.setTitle("Ajouter Réclamation");
             stage.show();
-            
         } catch (IOException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.setContentText("Erreur lors de l'ouverture du formulaire de réclamation: " + e.getMessage());
-            alert.showAndWait();
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Erreur lors de l'ouverture du formulaire de réclamation: " + e.getMessage());
         }
     }
     
@@ -146,12 +153,13 @@ public class DashboardUserController implements Initializable {
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {
-            showAlert("Error", "Failed to load review page: " + e.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Error", "Failed to load review page: " + e.getMessage());
         }
     }
 
-    private void showAlert(String title, String message) {
+    private void showAlert(Alert.AlertType type, String title, String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setAlertType(type);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);

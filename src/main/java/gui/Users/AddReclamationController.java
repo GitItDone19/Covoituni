@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 
 import java.util.Date;
 import java.sql.SQLException;
@@ -32,7 +33,9 @@ public class AddReclamationController {
 
     public void setCurrentUser(User user) {
         this.currentUser = user;
-        lblUserName.setText("Reclamation for: " + user.getNom() + " " + user.getPrenom());
+        if (lblUserName != null) {
+            lblUserName.setText("Réclamation pour: " + user.getNom() + " " + user.getPrenom());
+        }
     }
 
     @FXML
@@ -109,6 +112,42 @@ public class AddReclamationController {
         } catch (IOException e) {
             showAlert(Alert.AlertType.ERROR, "Error", "Error loading reclamations page: " + e.getMessage());
             e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handleButtonHover(MouseEvent event) {
+        Button button = (Button) event.getSource();
+        if (button == btnSubmit) {
+            button.setStyle("-fx-background-color: #075c39; -fx-text-fill: white; -fx-font-size: 14px; " +
+                           "-fx-font-weight: bold; -fx-padding: 12 30; -fx-background-radius: 8; " +
+                           "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 4, 0, 0, 2);");
+        } else if (button == btnVoirReclamations) {
+            button.setStyle("-fx-background-color: #0069d9; -fx-text-fill: white; -fx-font-size: 14px; " +
+                           "-fx-font-weight: bold; -fx-padding: 12 30; -fx-background-radius: 8; " +
+                           "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 4, 0, 0, 2);");
+        } else if (button == btnRetour) {
+            button.setStyle("-fx-background-color: #c0c0c0; -fx-text-fill: #505050; -fx-font-size: 14px; " +
+                           "-fx-font-weight: bold; -fx-padding: 12 30; -fx-background-radius: 8; " +
+                           "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 4, 0, 0, 2);");
+        }
+    }
+
+    @FXML
+    private void handleButtonExit(MouseEvent event) {
+        Button button = (Button) event.getSource();
+        if (button == btnSubmit) {
+            button.setStyle("-fx-background-color: #098f5a; -fx-text-fill: white; -fx-font-size: 14px; " +
+                           "-fx-font-weight: bold; -fx-padding: 12 30; -fx-background-radius: 8; " +
+                           "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 4, 0, 0, 2);");
+        } else if (button == btnVoirReclamations) {
+            button.setStyle("-fx-background-color: #007bff; -fx-text-fill: white; -fx-font-size: 14px; " +
+                           "-fx-font-weight: bold; -fx-padding: 12 30; -fx-background-radius: 8; " +
+                           "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 4, 0, 0, 2);");
+        } else if (button == btnRetour) {
+            button.setStyle("-fx-background-color: #dcdcdc; -fx-text-fill: #505050; -fx-font-size: 14px; " +
+                           "-fx-font-weight: bold; -fx-padding: 12 30; -fx-background-radius: 8; " +
+                           "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 4, 0, 0, 2);");
         }
     }
 

@@ -18,7 +18,7 @@
             
             <!-- Left Sidebar - Increased width -->
             <VBox styleClass="sidebar" prefWidth="320.0" spacing="15.0" minWidth="320.0" 
-                  style="-fx-background-color: #28444c;">
+                  style="-fx-background-color: #24364c;">
                 <padding>
                     <Insets top="30.0" right="20.0" bottom="30.0" left="20.0"/>
                 </padding>
@@ -36,19 +36,18 @@
                 <!-- Navigation Links -->
                 <VBox spacing="0" fillWidth="true">
                     <Button text=" Rechercher annonces" onAction="#handleSearchAnnonces" 
-                            styleClass="sidebar-button" maxWidth="Infinity"/>
+                            styleClass="sidebar-button" maxWidth="Infinity" style="-fx-text-fill: white;"/>
                     <Button text=" Voir Réservations" onAction="#handleViewReservations" 
-                            styleClass="sidebar-button" maxWidth="Infinity"/>
+                            styleClass="sidebar-button" maxWidth="Infinity" style="-fx-text-fill: white;"/>
                     <Button text=" Voir Profile" onAction="#handleViewProfile" 
-                            styleClass="sidebar-button" maxWidth="Infinity"/>
+                            styleClass="sidebar-button" maxWidth="Infinity" style="-fx-text-fill: white;"/>
                     <Button text=" Événements Spéciaux" onAction="#handleViewEvents" 
-                            styleClass="sidebar-button" maxWidth="Infinity"/>
-                    <Button text=" Donner un avis" onAction="#handleGiveReview" 
-                            styleClass="sidebar-button" maxWidth="Infinity"/>
+                            styleClass="sidebar-button" maxWidth="Infinity" style="-fx-text-fill: white;"/>
+
                     <Button text=" Faire une réclamation" onAction="#handleAddReclamation"
-                            styleClass="sidebar-button" maxWidth="Infinity"/>
-                    <Button text=" Ajouter Avis" onAction="#handleAjouterAvis" 
-                            styleClass="sidebar-button" maxWidth="Infinity"/>
+                            styleClass="sidebar-button" maxWidth="Infinity" style="-fx-text-fill: white;"/>
+                    <Button fx:id="btnAjouterAvis" text="Ajouter Avis" onAction="#handleAjouterAvis" 
+                            styleClass="sidebar-button" maxWidth="Infinity" visible="false" style="-fx-text-fill: white;"/>
                 </VBox>
                 
                 <Region VBox.vgrow="ALWAYS"/>
@@ -60,8 +59,8 @@
                         <Circle fx:id="userAvatar" radius="25" 
                                 style="-fx-fill: #24f0a0;"/>
                         <VBox>
-                            <Label fx:id="lblUserName" styleClass="user-name"/>
-                            <Label fx:id="lblUserEmail" styleClass="user-email"/>
+                            <Label fx:id="lblUserName" styleClass="user-name" style="-fx-text-fill: white;"/>
+                            <Label fx:id="lblUserEmail" styleClass="user-email" style="-fx-text-fill: white;"/>
                         </VBox>
                     </HBox>
                     <Button text="🚪 Déconnexion" onAction="#handleLogout" 
