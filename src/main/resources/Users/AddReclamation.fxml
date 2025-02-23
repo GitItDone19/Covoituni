@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="gui.Users.AddReclamationController"
+            prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #82f6c9;">
+
+    <VBox spacing="20" alignment="TOP_CENTER" AnchorPane.topAnchor="0.0"
+          AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0"
+          style="-fx-background-color: white; -fx-padding: 40;">
+
+        <!-- Title Label -->
+        <Label text="Ajouter Réclamation" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #28444c;" />
+
+        <!-- User Name Label -->
+        <Label fx:id="lblUserName" text="User Name" style="-fx-font-size: 16px; -fx-text-fill: #28444c;" />
+
+        <!-- Subject Field -->
+        <TextField fx:id="tfSubject" promptText="Enter subject" maxWidth="600" />
+
+        <!-- Description Field -->
+        <TextArea fx:id="taDescription" promptText="Enter description" wrapText="true" prefRowCount="5" maxWidth="600" />
+
+        <!-- Buttons for Submit and Retour -->
+        <HBox spacing="10" alignment="CENTER">
+            <Button fx:id="btnSubmit" text="Submit" onAction="#handleSubmit"
+                    style="-fx-background-color: #28444c; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-size: 14px;" />
+            <Button fx:id="btnRetour" text="Retour" onAction="#handleRetour"
+                    style="-fx-background-color: #f0f0f0; -fx-text-fill: #28444c; -fx-padding: 10 20; -fx-font-size: 14px;" />
+        </HBox>
+
+        <!-- Button for Voir Réclamations -->
+        <Button fx:id="btnVoirReclamations" text="Voir Réclamations" onAction="#handleVoirReclamations"
+                style="-fx-background-color: #0985fa; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-size: 14px;" maxWidth="200" />
+    </VBox>
+
+</AnchorPane>

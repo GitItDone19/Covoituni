@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" 
+            fx:controller="gui.Admin.AdminReclamationsController"
+            stylesheets="@../styles/admin.css"
+            style="-fx-background-color: #f5f6fa;">
+    
+    <VBox spacing="20" alignment="TOP_CENTER" 
+          AnchorPane.topAnchor="0.0" 
+          AnchorPane.leftAnchor="0.0" 
+          AnchorPane.rightAnchor="0.0"
+          AnchorPane.bottomAnchor="0.0">
+        
+        <!-- Header -->
+        <VBox style="-fx-padding: 20;" alignment="CENTER">
+            <Label text="Gestion des Réclamations" 
+                   style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+        </VBox>
+        
+        <!-- Main Content -->
+        <ScrollPane fitToWidth="true" 
+                    fitToHeight="true"
+                    style="-fx-background-color: transparent;"
+                    VBox.vgrow="ALWAYS">
+            <ListView fx:id="listViewReclamations" 
+                      style="-fx-background-color: transparent; -fx-padding: 0;"
+                      fixedCellSize="180">
+                <padding>
+                    <Insets bottom="20"/>
+                </padding>
+            </ListView>
+        </ScrollPane>
+        
+        <!-- Footer -->
+        <HBox alignment="CENTER" style="-fx-padding: 20;">
+            <Button fx:id="btnRetour" 
+                    text="Retour au Dashboard" 
+                    onAction="#handleRetour"
+                    style="-fx-background-color: #3498db;
+                           -fx-text-fill: white;
+                           -fx-font-size: 14px;
+                           -fx-padding: 8 20;
+                           -fx-background-radius: 20;
+                           -fx-cursor: hand;"/>
+        </HBox>
+    </VBox>
+</AnchorPane>

@@ -89,8 +89,19 @@ public class AdminDashboardController implements Initializable {
     }
     
     @FXML
-    private void handleManageComplaints() {
-        showAlert(Alert.AlertType.INFORMATION, "Info", "Gestion des réclamations - À implémenter");
+    private void handleManageReclamations() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Admin/AdminReclamations.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) lblTotalUsers.getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("Gérer Réclamations");
+            stage.show();
+        } catch (IOException e) {
+            showAlert(Alert.AlertType.ERROR, "Erreur", 
+                "Erreur de navigation: " + e.getMessage());
+        }
     }
     
     @FXML

@@ -45,7 +45,9 @@
                             styleClass="sidebar-button" maxWidth="Infinity"/>
                     <Button text=" Donner un avis" onAction="#handleGiveReview" 
                             styleClass="sidebar-button" maxWidth="Infinity"/>
-                    <Button text=" Faire une réclamation" onAction="#handleMakeReclamation" 
+                    <Button text=" Faire une réclamation" onAction="#handleAddReclamation"
+                            styleClass="sidebar-button" maxWidth="Infinity"/>
+                    <Button text=" Ajouter Avis" onAction="#handleAjouterAvis" 
                             styleClass="sidebar-button" maxWidth="Infinity"/>
                 </VBox>
                 

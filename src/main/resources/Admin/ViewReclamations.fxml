@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="gui.Users.ViewReclamationsController"
+            style="-fx-background-color: linear-gradient(to bottom right, #82f6c9, #ffffff);">
+
+    <VBox spacing="20" alignment="TOP_CENTER"
+          AnchorPane.topAnchor="0.0"
+          AnchorPane.leftAnchor="0.0"
+          AnchorPane.rightAnchor="0.0"
+          AnchorPane.bottomAnchor="0.0">
+
+        <!-- Header Section with Shadow -->
+        <VBox alignment="CENTER" spacing="10"
+              style="-fx-background-color: white; -fx-padding: 20;
+                     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 5);">
+            <Label text="Gérer Réclamations"
+                   style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+        </VBox>
+
+        <!-- Main Content Area -->
+        <ScrollPane fitToWidth="true"
+                    style="-fx-background-color: transparent; -fx-padding: 20;"
+                    VBox.vgrow="ALWAYS">
+            <VBox alignment="TOP_CENTER" spacing="20" style="-fx-padding: 0;">
+                <!-- ListView for displaying reclamations -->
+                <ListView fx:id="listViewReclamations"
+                          VBox.vgrow="ALWAYS"
+                          style="-fx-background-color: transparent;
+                                 -fx-background-insets: 0;
+                                 -fx-padding: 10;
+                                 -fx-fixed-cell-size: 120;">
+                    <VBox.margin>
+                        <Insets top="10" bottom="10" left="20" right="20"/>
+                    </VBox.margin>
+                </ListView>
+            </VBox>
+        </ScrollPane>
+
+        <!-- Footer with Return Button -->
+        <HBox alignment="CENTER" spacing="20" style="-fx-padding: 20;">
+            <Button fx:id="btnRetour"
+                    text="Retour"
+                    onAction="#handleRetour"
+                    style="-fx-background-color: #3498db;
+                           -fx-text-fill: white;
+                           -fx-min-width: 150;
+                           -fx-min-height: 40;
+                           -fx-font-size: 14px;
+                           -fx-background-radius: 20;
+                           -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 2);
+                           -fx-cursor: hand;">
+                <HBox.margin>
+                    <Insets bottom="20"/>
+                </HBox.margin>
+            </Button>
+        </HBox>
+    </VBox>
+</AnchorPane>
