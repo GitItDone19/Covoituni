@@ -1,19 +1,23 @@
 package gui.Users;
 
 import entities.Avis;
+import entities.Role;
 import entities.User;
 import Services.AvisService;
+import Services.ServiceUser;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import Services.ServiceUser;
 import java.sql.SQLException;
 import java.util.Date;
 
@@ -21,12 +25,15 @@ public class AjouterAvisController {
     @FXML private TextField tfRating; // Text field for rating
     @FXML private Button btnSubmit; // Submit button
     @FXML private Button btnRetour; // Return button
+    @FXML private ComboBox<User> cbConducteurs;
     private User currentUser; // The current user (passager)
     private User conducteur; // The selected conducteur
     private AvisService avisService;
+    private ObservableList<User> conducteursList;
 
     public void setCurrentUser(User user) {
         this.currentUser = user;
+        loadConducteurs();  // Load drivers when user is set
     }
 
     public void setConducteur(User conducteur) {
@@ -38,8 +45,40 @@ public class AjouterAvisController {
         avisService = new AvisService(); // Initialize the service
     }
 
+    private void loadConducteurs() {
+        try {
+            ServiceUser serviceUser = new ServiceUser();
+            conducteursList = FXCollections.observableArrayList(
+                serviceUser.getUsersByRole(Role.DRIVER_CODE)
+            );
+            cbConducteurs.setItems(conducteursList);
+            cbConducteurs.setCellFactory(lv -> new ListCell<User>() {
+                @Override
+                protected void updateItem(User user, boolean empty) {
+                    super.updateItem(user, empty);
+                    setText(user != null ? user.getFullName() : "");
+                }
+            });
+            cbConducteurs.setButtonCell(new ListCell<User>() {
+                @Override
+                protected void updateItem(User user, boolean empty) {
+                    super.updateItem(user, empty);
+                    setText(user != null ? user.getFullName() : "");
+                }
+            });
+        } catch (SQLException e) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Failed to load drivers: " + e.getMessage());
+        }
+    }
+
     @FXML
     private void handleSubmit() {
+        User selectedConducteur = cbConducteurs.getValue();
+        if(selectedConducteur == null) {
+            showAlert(Alert.AlertType.WARNING, "Validation", "Please select a driver");
+            return;
+        }
+        
         int rating;
         try {
             rating = Integer.parseInt(tfRating.getText().trim());
@@ -53,7 +92,7 @@ public class AjouterAvisController {
             return;
         }
 
-        Avis avis = new Avis(0, rating, currentUser, conducteur, new Date());
+        Avis avis = new Avis(0, rating, currentUser, selectedConducteur, new Date());
         try {
             avisService.create(avis);
             showAlert(Alert.AlertType.INFORMATION, "Success", "Avis submitted successfully!");

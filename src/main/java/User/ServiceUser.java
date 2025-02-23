@@ -7,6 +7,7 @@ import entities.User;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ServiceUser implements IService<User> {
     private Connection connection;
@@ -150,5 +151,40 @@ public class ServiceUser implements IService<User> {
             rs.next();
             return rs.getInt(1) > 0;
         }
+    }
+
+    public List<User> getUsersByRole(String roleCode) throws SQLException {
+        List<User> users = new ArrayList<>();
+        String query = "SELECT u.*, r.id as role_id, r.display_name FROM utilisateur u " +
+                       "JOIN role r ON u.role_code = r.code " +
+                       "WHERE u.role_code = ?";
+        
+        try (PreparedStatement pst = connection.prepareStatement(query)) {
+            pst.setString(1, roleCode);
+            ResultSet rs = pst.executeQuery();
+            
+            while (rs.next()) {
+                Role role = new Role(
+                    rs.getInt("role_id"),
+                    rs.getString("role_code"),
+                    rs.getString("display_name")
+                );
+                
+                User user = new User(
+                    rs.getInt("id"),
+                    rs.getString("nom"),
+                    rs.getString("prenom"),
+                    rs.getString("tel"),
+                    rs.getString("email"),
+                    rs.getString("mdp"),
+                    role,
+                    rs.getString("verificationcode")
+                );
+                user.setRating(rs.getDouble("rating"));
+                user.setTripsCount(rs.getInt("trips_count"));
+                users.add(user);
+            }
+        }
+        return users;
     }
 }
