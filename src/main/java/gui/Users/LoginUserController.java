@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import utils.PasswordUtil;
 
 public class LoginUserController implements Initializable {
     
@@ -66,7 +67,7 @@ public class LoginUserController implements Initializable {
             
             try {
                 for (User user : serviceUser.readAll()) {
-                    if (user.getEmail().equals(email) && user.getMdp().equals(password)) {
+                    if (user.getEmail().equals(email)) {
                         loginSuccess = true;
                         isAdmin = user.getRoleCode().equals(Role.ADMIN_CODE);
                         loggedInUser = user;
@@ -80,10 +81,17 @@ public class LoginUserController implements Initializable {
             }
             
             if (loginSuccess && loggedInUser != null) {
-                if (isAdmin) {
-                    loadGestionUsers();
+                // Check the hashed password
+                if (PasswordUtil.checkPassword(password, loggedInUser.getMdp())) {
+                    if (isAdmin) {
+                        loadGestionUsers();
+                    } else {
+                        loadDashboard(loggedInUser);
+                    }
                 } else {
-                    loadDashboard(loggedInUser);
+                    showAlert(Alert.AlertType.ERROR, "Erreur", 
+                        "Email ou mot de passe incorrect");
+                    tfPassword.clear();
                 }
             } else {
                 showAlert(Alert.AlertType.ERROR, "Erreur", 

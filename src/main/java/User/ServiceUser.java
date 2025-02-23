@@ -130,10 +130,11 @@ public class ServiceUser implements IService<User> {
     
     public void updateUserRating(int userId, double newRating) throws SQLException {
         String sql = "UPDATE utilisateur SET rating = ? WHERE id = ?";
-        PreparedStatement pst = connection.prepareStatement(sql);
-        pst.setDouble(1, newRating);
-        pst.setInt(2, userId);
-        pst.executeUpdate();
+        try (PreparedStatement pst = connection.prepareStatement(sql)) {
+            pst.setDouble(1, newRating);
+            pst.setInt(2, userId);
+            pst.executeUpdate();
+        }
     }
     
     public void incrementTripsCount(int userId) throws SQLException {
@@ -186,5 +187,24 @@ public class ServiceUser implements IService<User> {
             }
         }
         return users;
+    }
+
+    public double calculateNewAverageRating(int userId, int newRating) throws SQLException {
+        String query = "SELECT rating, trips_count FROM utilisateur WHERE id = ?";
+        double newAverage = 0.0;
+
+        try (PreparedStatement pst = connection.prepareStatement(query)) {
+            pst.setInt(1, userId);
+            ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+                double currentRating = rs.getDouble("rating");
+                int currentTripsCount = rs.getInt("trips_count");
+
+                // Calculate new average
+                newAverage = (currentRating * currentTripsCount + newRating) / (currentTripsCount + 1);
+            }
+        }
+        return newAverage;
     }
 }

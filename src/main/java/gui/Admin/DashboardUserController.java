@@ -180,11 +180,7 @@ public class DashboardUserController implements Initializable {
         showAlert(Alert.AlertType.INFORMATION, "Info", "Événements spéciaux - À implémenter");
     }
     
-    @FXML
-    private void handleGiveReview() {
-        // TODO: Implement review submission
-        showAlert(Alert.AlertType.INFORMATION, "Info", "Donner un avis - À implémenter");
-    }
+
     
     @FXML
     private void handleMakeReclamation() {
