@@ -73,7 +73,7 @@ public class AvisService implements IAvisService {
                 avis.setDateAvis(rs.getTimestamp("date_avis"));
                 avis.setUser(user);
                 
-                avisList.add(avis);
+                avisList.add(avis); 
             }
         }
         return avisList;
