@@ -1,10 +1,10 @@
 /* Color palette */
 * {
     -fx-primary: #28A745;        /* Green for primary actions */
-    -fx-secondary: #1C2A48;      /* Dark Blue for backgrounds */
-    -fx-background: #FFFFFF;     /* White */
-    -fx-text: #343A40;          /* Dark Gray for text */
-    -fx-light-gray: #F8F9FA;    /* Light Gray for inputs */
+    -fx-secondary: #f8f9fa;      /* Light gray for backgrounds */
+    -fx-background: white;       /* White background */
+    -fx-text: #333333;          /* Dark text */
+    -fx-light-gray: #f8f9fa;    /* Light Gray for inputs */
     -fx-gray: #6C757D;          /* Gray for secondary text */
     -fx-link: #007BFF;          /* Blue for links */
     -fx-error: #DC3545;         /* Red for errors */
@@ -85,9 +85,9 @@
 
 /* Cards */
 .card {
-    -fx-background-color: -fx-background;
+    -fx-background-color: white;
     -fx-background-radius: 8px;
-    -fx-border-color: -fx-light-gray;
+    -fx-border-color: #dee2e6;
     -fx-border-radius: 8px;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 10, 0, 0, 2);
     -fx-padding: 20px;
@@ -191,7 +191,7 @@
 }
 
 .list-cell {
-    -fx-background-color: transparent;
+    -fx-background-color: white;
     -fx-padding: 10;
     -fx-text-fill: -fx-text;
 }
@@ -313,4 +313,9 @@
 
 .link:hover {
     -fx-underline: true;
+}
+
+/* Update text colors */
+.label {
+    -fx-text-fill: -fx-text;
 } 

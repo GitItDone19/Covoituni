@@ -5,7 +5,7 @@
 <?import javafx.geometry.Insets?>
 
 <VBox spacing="20" 
-      style="-fx-background-color: #1E1E1E;"
+      style="-fx-background-color: #FFFFFF;"
       stylesheets="@../styles.css"
       xmlns="http://javafx.com/javafx/8"
       xmlns:fx="http://javafx.com/fxml/1"
@@ -29,7 +29,7 @@
 
     <!-- Liste des réclamations -->
     <ListView fx:id="listView" VBox.vgrow="ALWAYS"
-              style="-fx-background-color: #2E2E2E; -fx-control-inner-background: #2E2E2E; -fx-border-color: #4CAF50; -fx-border-radius: 5;">
+              style="-fx-background-color: #FFFFFF; -fx-control-inner-background: #FFFFFF; -fx-border-color: #FFFFFF; -fx-border-radius: 5;">
         <VBox.margin>
             <Insets top="20"/>
         </VBox.margin>
