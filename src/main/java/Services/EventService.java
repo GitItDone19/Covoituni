@@ -1,6 +1,6 @@
 package Services;
 
-import main.entities.Event;
+import entities.Event;
 import utils.MyConnection;
 
 import java.sql.*;

@@ -11,9 +11,9 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import main.entities.Annonce;
+import entities.Annonce;
 import Services.AnnonceService;
-import main.entities.Reservation;
+import entities.Reservation;
 import Services.ReservationService;
 
 import java.io.IOException;

@@ -48,6 +48,22 @@
                             styleClass="sidebar-button" maxWidth="Infinity" style="-fx-text-fill: white;"/>
                     <Button fx:id="btnAjouterAvis" text="Ajouter Avis" onAction="#handleAjouterAvis" 
                             styleClass="sidebar-button" maxWidth="Infinity" visible="false" style="-fx-text-fill: white;"/>
+
+
+                            <Button text="Ajouter Annonce" onAction="#handleAjoutAnnonce"/>
+                            <Button text="Ajouter Événement" onAction="#handleAjoutEvent"/>
+                            <Button text="Ajouter Trajet" onAction="#handleAjoutTrajet"/>
+                            <Button text="Historique" onAction="#handleHistorique"/>
+                            <Button text="Liste des Annonces" onAction="#handleListeAnnonces"/>
+                            <Button text="Liste des Événements" onAction="#handleListeEvenements"/>
+                            <Button text="Liste des Trajets" onAction="#handleListeTrajet"/>
+                            <Button text="Modifier Événement" onAction="#handleModifierEvent"/>
+                            <Button text="Modifier Trajet" onAction="#handleModifierTrajet"/>
+                            <Button text="Mes Réservations" onAction="#handleReservationsPassager"/>
+
+
+                        <!-- Other existing elements of the dashboard -->
+
                 </VBox>
                 
                 <Region VBox.vgrow="ALWAYS"/>

@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
-<VBox spacing="20" stylesheets="@../styles/styles.css"
+<VBox spacing="20" stylesheets="/styles/styles.css"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="gui.Users.ListeAnnoncesEventController">
     

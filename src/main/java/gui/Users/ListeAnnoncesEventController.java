@@ -7,9 +7,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.layout.Priority;
 import javafx.geometry.Pos;
 import javafx.geometry.Insets;
-import main.entities.Event;
-import main.entities.Annonce;
-import main.entities.Reservation;
+import entities.Event;
+import entities.Annonce;
+import entities.Reservation;
 import Services.AnnonceService;
 import Services.ReservationService;
 

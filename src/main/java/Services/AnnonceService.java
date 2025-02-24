@@ -1,6 +1,6 @@
 package Services;
 
-import main.entities.Annonce;
+import entities.Annonce;
 import utils.MyConnection;
 
 import java.sql.*;

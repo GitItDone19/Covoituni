@@ -6,7 +6,7 @@
 
 <HBox xmlns:fx="http://javafx.com/fxml" 
       fx:controller="gui.Admin.MainController"
-      stylesheets="@../styles/styles.css">
+      stylesheets="/styles/styles.css">
     <!-- Menu latéral -->
     <VBox styleClass="sidebar" spacing="10">
         <padding>

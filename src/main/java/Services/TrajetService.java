@@ -1,7 +1,7 @@
 package Services;
 
 import Services.IService;
-import main.entities.Trajet;
+import entities.Trajet;
 import utils.MyConnection;
 
 import java.sql.*;

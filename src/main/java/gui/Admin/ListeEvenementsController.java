@@ -12,8 +12,8 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import main.entities.Event;
-import main.entities.Annonce;
+import entities.Event;
+import entities.Annonce;
 import Services.EventService;
 import Services.AnnonceService;
 

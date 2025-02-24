@@ -10,7 +10,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import main.entities.Trajet;
+import entities.Trajet;
 import Services.TrajetService;
 
 import java.io.IOException;
