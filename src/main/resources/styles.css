@@ -1,0 +1,363 @@
+.menu-bar {
+    -fx-font-size: 14px;
+    -fx-padding: 0 10;
+    -fx-background-color: #28444c;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);
+}
+
+.menu {
+    -fx-text-fill: white;
+    -fx-padding: 5 10;
+}
+
+.menu .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.menu-item {
+    -fx-padding: 8 15;
+    -fx-background-color: white;
+    -fx-cursor: hand;
+    -fx-transition: all 0.2s ease-in-out;
+}
+
+.menu-item .label {
+    -fx-text-fill: #28444c;
+    -fx-font-size: 14px;
+}
+
+.menu-item:hover {
+    -fx-background-color: #24f0a0;
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+}
+
+.menu-item:hover .label {
+    -fx-text-fill: white;
+}
+
+.context-menu {
+    -fx-background-color: white;
+    -fx-border-color: #bdc3c7;
+    -fx-border-width: 1;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);
+}
+
+.table-view {
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header {
+    -fx-background-color: #25765d;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 10;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: white;
+}
+
+.table-row-cell {
+    -fx-background-color: white;
+    -fx-border-color: #ecf0f1;
+    -fx-border-width: 0 0 1 0;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #82f6c9;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #24f0a0;
+}
+
+.button {
+    -fx-background-color: #25765d;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+    -fx-background-radius: 5;
+    -fx-transition: all 0.2s ease-in-out;
+}
+
+.button:hover {
+    -fx-background-color: #098f5a;
+    -fx-effect: dropshadow(gaussian, rgba(9,143,90,0.3), 10, 0, 0, 0);
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.text-field, .text-area, .date-picker, .combo-box {
+    -fx-background-color: white;
+    -fx-border-color: #e9ecef;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 8;
+    -fx-transition: all 0.3s ease-in-out;
+}
+
+.text-field:focused, .text-area:focused, .date-picker:focused, .combo-box:focused {
+    -fx-border-color: #24f0a0;
+    -fx-effect: dropshadow(gaussian, rgba(36,240,160,0.2), 10, 0, 0, 0);
+}
+
+/* Category Cards Styling */
+.category-card {
+    -fx-background-color: white;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 0);
+    -fx-padding: 20;
+    -fx-spacing: 15;
+    -fx-transition: all 0.3s ease-in-out;
+}
+
+.category-card:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 15, 0, 0, 0);
+    -fx-translate-y: -2;
+    -fx-background-color: linear-gradient(to bottom right, white, #f8f9fa);
+}
+
+.category-card .title {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #25765d;
+    -fx-effect: dropshadow(gaussian, rgba(37,118,93,0.1), 1, 0, 0, 1);
+}
+
+.category-card .description {
+    -fx-text-fill: #28444c;
+    -fx-wrap-text: true;
+    -fx-font-size: 14px;
+    -fx-opacity: 0.9;
+}
+
+.category-card .button-box {
+    -fx-alignment: CENTER-RIGHT;
+    -fx-spacing: 15;
+    -fx-padding: 15 0 0 0;
+}
+
+.delete-button {
+    -fx-background-color: #ff4444;
+}
+
+.delete-button:hover {
+    -fx-background-color: #cc0000;
+    -fx-effect: dropshadow(gaussian, rgba(204,0,0,0.3), 10, 0, 0, 0);
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-padding: 10;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-padding: 0 5;
+}
+
+.scroll-pane .scroll-bar:vertical .thumb {
+    -fx-background-color: #25765d;
+    -fx-background-radius: 5;
+}
+
+.root {
+    -fx-background-color: #f5f5f5;
+    -fx-font-family: 'Segoe UI', system;
+}
+
+/* Car Cards Styling */
+.car-card {
+    -fx-background-color: white;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 0);
+    -fx-padding: 20;
+    -fx-spacing: 15;
+    -fx-transition: all 0.3s ease-in-out;
+}
+
+.car-card:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 15, 0, 0, 0);
+    -fx-translate-y: -2;
+    -fx-background-color: linear-gradient(to bottom right, white, #f8f9fa);
+}
+
+.car-card .title {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #25765d;
+    -fx-effect: dropshadow(gaussian, rgba(37,118,93,0.1), 1, 0, 0, 1);
+}
+
+.car-card .subtitle {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #28444c;
+}
+
+.car-card .description {
+    -fx-text-fill: #28444c;
+    -fx-wrap-text: true;
+    -fx-padding: 5 0 10 0;
+}
+
+.car-card .details-box {
+    -fx-padding: 15;
+    -fx-spacing: 8;
+    -fx-background-color: linear-gradient(to bottom right, #f8f9fa, #ffffff);
+    -fx-background-radius: 5;
+    -fx-border-color: #e9ecef;
+    -fx-border-radius: 5;
+    -fx-border-width: 1;
+}
+
+.car-card .details-box Label {
+    -fx-text-fill: #28444c;
+    -fx-font-size: 14px;
+}
+
+/* Alert Dialog Styling */
+.dialog-pane {
+    -fx-background-color: white;
+}
+
+.dialog-pane .header-panel {
+    -fx-background-color: #25765d;
+}
+
+.dialog-pane .header-panel .label {
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.dialog-pane .button {
+    -fx-background-radius: 5;
+}
+
+/* Dialog Container Styling */
+.dialog-container {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 0);
+}
+
+.dialog-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #25765d;
+    -fx-effect: dropshadow(gaussian, rgba(37,118,93,0.1), 1, 0, 0, 1);
+}
+
+.field-label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #28444c;
+}
+
+.submit-button {
+    -fx-background-color: #25765d;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 10 25;
+    -fx-cursor: hand;
+    -fx-background-radius: 5;
+    -fx-transition: all 0.2s ease-in-out;
+}
+
+.submit-button:hover {
+    -fx-background-color: #098f5a;
+    -fx-effect: dropshadow(gaussian, rgba(9,143,90,0.3), 10, 0, 0, 0);
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.cancel-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #28444c;
+    -fx-border-color: #28444c;
+    -fx-border-radius: 5;
+    -fx-padding: 10 25;
+    -fx-cursor: hand;
+    -fx-transition: all 0.2s ease-in-out;
+}
+
+.cancel-button:hover {
+    -fx-background-color: #f5f5f5;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+/* Form Fields Enhanced Styling */
+.text-field, .text-area, .date-picker, .combo-box {
+    -fx-background-color: white;
+    -fx-border-color: #e9ecef;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 8;
+    -fx-font-size: 14px;
+    -fx-transition: all 0.3s ease-in-out;
+}
+
+.text-field:focused, .text-area:focused, .date-picker:focused, .combo-box:focused {
+    -fx-border-color: #24f0a0;
+    -fx-border-width: 2;
+    -fx-effect: dropshadow(gaussian, rgba(36,240,160,0.2), 10, 0, 0, 0);
+}
+
+.text-area {
+    -fx-padding: 8;
+}
+
+.text-area .content {
+    -fx-background-color: white;
+    -fx-background-radius: 5;
+}
+
+.combo-box .list-cell {
+    -fx-padding: 8;
+}
+
+.date-picker .arrow-button {
+    -fx-background-color: #25765d;
+    -fx-background-radius: 0 5 5 0;
+}
+
+.date-picker .arrow-button:hover {
+    -fx-background-color: #098f5a;
+}
+
+.date-picker .arrow-button .arrow {
+    -fx-background-color: white;
+}
+
+.menu-button {
+    -fx-background-color: #25765d;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 0);
+    -fx-cursor: hand;
+    -fx-transition: all 0.2s ease-in-out;
+}
+
+.menu-button:hover {
+    -fx-background-color: #098f5a;
+    -fx-effect: dropshadow(gaussian, rgba(9,143,90,0.3), 15, 0, 0, 0);
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.menu-button:pressed {
+    -fx-scale-x: 0.95;
+    -fx-scale-y: 0.95;
+}

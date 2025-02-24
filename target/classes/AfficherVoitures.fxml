@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="gui.AfficherVoitures"
+      spacing="20"
+      styleClass="root">
+
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <!-- Button to add a new car -->
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <padding>
+            <Insets bottom="20"/>
+        </padding>
+        <Button text="Ajouter une voiture"
+                onAction="#handleAjouterButton"
+                styleClass="button-primary"/>
+    </HBox>
+
+    <!-- Scroll pane to display car listings -->
+    <ScrollPane fitToWidth="true"
+                VBox.vgrow="ALWAYS"
+                styleClass="scroll-pane">
+        <VBox fx:id="vboxContainer" spacing="15">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+        </VBox>
+    </ScrollPane>
+</VBox>
