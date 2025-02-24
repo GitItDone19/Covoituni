@@ -1,7 +1,8 @@
-package main.services;
+package Services;
 
+import Services.IService;
 import main.entities.Trajet;
-import main.utils.MyConnection;
+import utils.MyConnection;
 
 import java.sql.*;
 import java.util.ArrayList;

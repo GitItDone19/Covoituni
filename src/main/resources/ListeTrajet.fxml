@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox styleClass="content-container" spacing="20" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="gui.Users.ListeTrajetController">
+    
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <HBox alignment="CENTER_LEFT" spacing="20">
+        <Label text="Liste des Trajets" styleClass="header-title"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button text="Ajouter un trajet" 
+                styleClass="button-primary"
+                onAction="#handleAjoutTrajet"/>
+    </HBox>
+
+    <ListView fx:id="trajetListView" VBox.vgrow="ALWAYS"/>
+
+</VBox> 
