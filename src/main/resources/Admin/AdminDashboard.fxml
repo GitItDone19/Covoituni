@@ -44,9 +44,9 @@
                         styleClass="sidebar-button"/>
                 <Button text="⭐ Voir les Avis" onAction="#handleViewReviews" 
                         styleClass="sidebar-button"/>
-                 <Button fx:id="btnManageReclamations" 
-                    text="Gérer Réclamations" 
-                    onAction="#handleManageReclamations"/>
+                <Button text="Gérer Réclamations" 
+                        onAction="#handleManageReclamations"
+                        style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-min-width: 180;"/>
             </VBox>
             
             <Region VBox.vgrow="ALWAYS"/> <!-- Spacer -->

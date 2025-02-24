@@ -93,14 +93,11 @@ public class AdminDashboardController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Admin/AdminReclamations.fxml"));
             Parent root = loader.load();
-            Scene scene = new Scene(root);
             Stage stage = (Stage) lblTotalUsers.getScene().getWindow();
-            stage.setScene(scene);
-            stage.setTitle("Gérer Réclamations");
-            stage.show();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Gestion des Réclamations");
         } catch (IOException e) {
-            showAlert(Alert.AlertType.ERROR, "Erreur", 
-                "Erreur de navigation: " + e.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Erreur de navigation: " + e.getMessage());
         }
     }
     
