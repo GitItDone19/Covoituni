@@ -3,7 +3,7 @@ package gui.Users;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import main.entities.Trajet;
+import entities.Trajet;
 import Services.TrajetService;
 
 import java.net.URL;

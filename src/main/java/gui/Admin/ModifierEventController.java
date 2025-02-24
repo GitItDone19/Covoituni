@@ -3,7 +3,7 @@ package gui.Admin;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import main.entities.Event;
+import entities.Event;
 import Services.EventService;
 
 import java.sql.SQLException;

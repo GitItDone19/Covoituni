@@ -6,8 +6,8 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import main.entities.Annonce;
-import main.entities.Reservation;
+import entities.Annonce;
+import entities.Reservation;
 import Services.ReservationService;
 import Services.AnnonceService;
 

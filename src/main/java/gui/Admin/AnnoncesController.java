@@ -13,7 +13,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import main.entities.Annonce;
+import entities.Annonce;
 import Services.AnnonceService;
 
 import java.io.IOException;

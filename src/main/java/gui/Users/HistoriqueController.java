@@ -6,7 +6,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import main.entities.Annonce;
+import entities.Annonce;
 import Services.AnnonceService;
 
 import java.net.URL;
