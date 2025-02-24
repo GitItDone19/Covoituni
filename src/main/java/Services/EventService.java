@@ -1,7 +1,7 @@
-package main.services;
+package Services;
 
 import main.entities.Event;
-import main.utils.MyConnection;
+import utils.MyConnection;
 
 import java.sql.*;
 import java.util.ArrayList;

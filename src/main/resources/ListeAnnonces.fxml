@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox styleClass="content-container" spacing="20" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="gui.Users.ListeAnnoncesController">
+    
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <HBox alignment="CENTER_LEFT" spacing="20">
+        <Label text="Liste des Annonces" styleClass="header-title"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button text="Nouvelle Annonce" 
+                styleClass="button-primary"
+                onAction="#handleNouvelleAnnonce"/>
+    </HBox>
+
+    <ListView fx:id="annonceListView" VBox.vgrow="ALWAYS"/>
+
+</VBox> 
