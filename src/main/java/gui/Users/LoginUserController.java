@@ -81,14 +81,15 @@ public class LoginUserController implements Initializable {
             }
             
             if (loginSuccess && loggedInUser != null) {
-                // Check the hashed password
-                if (PasswordUtil.checkPassword(password, loggedInUser.getMdp())) {
-                    if (isAdmin) {
-                        loadGestionUsers();
-                    } else {
-                        loadDashboard(loggedInUser);
-                    }
-                } else {
+                // Special case for admin - direct password comparison
+                if (isAdmin && password.equals(loggedInUser.getMdp())) {
+                    loadGestionUsers();
+                }
+                // For non-admin users, use password hashing
+                else if (!isAdmin && PasswordUtil.checkPassword(password, loggedInUser.getMdp())) {
+                    loadDashboard(loggedInUser);
+                }
+                else {
                     showAlert(Alert.AlertType.ERROR, "Erreur", 
                         "Email ou mot de passe incorrect");
                     tfPassword.clear();
@@ -100,8 +101,7 @@ public class LoginUserController implements Initializable {
             }
         } catch (Exception e) {
             showAlert(Alert.AlertType.ERROR, "Erreur", 
-                "Erreur de connexion: " + e.getMessage());
-            e.printStackTrace();
+                "Erreur lors de la connexion: " + e.getMessage());
         }
     }
     

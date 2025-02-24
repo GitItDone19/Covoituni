@@ -274,4 +274,22 @@ public class GestionConducteurController implements Initializable {
     private void handleLogout() {
         handleNavigation("/Users/LoginUser.fxml");
     }
+
+    @FXML
+    private void handleBack() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Admin/AdminDashboard.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) tfRecherche.getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setMaximized(true);  // Ensure full screen
+            stage.show();
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setContentText("Erreur de navigation: " + e.getMessage());
+            alert.showAndWait();
+        }
+    }
 } 
