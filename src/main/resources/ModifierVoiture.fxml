@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="gui.Users.ModifierVoiture"
+      spacing="20"
+      styleClass="dialog-container">
+
+    <padding>
+        <Insets top="30" right="30" bottom="30" left="30"/>
+    </padding>
+
+    <Label text="Modifier la Voiture" styleClass="dialog-title"/>
+
+    <VBox spacing="15">
+        <VBox spacing="5">
+            <Label text="Plaque d'immatriculation" styleClass="field-label"/>
+            <TextField fx:id="plaqueField" styleClass="text-field"/>
+        </VBox>
+
+        <VBox spacing="5">
+            <Label text="Marque" styleClass="field-label"/>
+            <TextField fx:id="marqueField" styleClass="text-field"/>
+        </VBox>
+
+        <VBox spacing="5">
+            <Label text="Modèle" styleClass="field-label"/>
+            <TextField fx:id="modeleField" styleClass="text-field"/>
+        </VBox>
+
+        <VBox spacing="5">
+            <Label text="Couleur" styleClass="field-label"/>
+            <TextField fx:id="couleurField" styleClass="text-field"/>
+        </VBox>
+
+        <VBox spacing="5">
+            <Label text="Date d'immatriculation" styleClass="field-label"/>
+            <DatePicker fx:id="datePicker" styleClass="date-picker"/>
+        </VBox>
+
+        <VBox spacing="5">
+            <Label text="Catégorie" styleClass="field-label"/>
+            <ComboBox fx:id="categorieComboBox" styleClass="combo-box"/>
+        </VBox>
+
+        <VBox spacing="5">
+            <Label text="Description" styleClass="field-label"/>
+            <TextArea fx:id="descriptionField"
+                      prefRowCount="3"
+                      wrapText="true"
+                      styleClass="text-area"/>
+        </VBox>
+    </VBox>
+
+    <HBox spacing="15" alignment="CENTER_RIGHT">
+        <padding>
+            <Insets top="20"/>
+        </padding>
+        <Button text="Annuler"
+                onAction="#handleAnnulerButton"
+                styleClass="cancel-button"/>
+        <Button text="Enregistrer"
+                onAction="#handleModifierButton"
+                defaultButton="true"
+                styleClass="submit-button"/>
+    </HBox>
+</VBox>

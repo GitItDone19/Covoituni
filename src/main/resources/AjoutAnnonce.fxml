@@ -11,7 +11,11 @@
         <Insets top="20" right="20" bottom="20" left="20"/>
     </padding>
 
-    <Label text="Publier une annonce" style="-fx-font-size: 20px;"/>
+    <HBox alignment="CENTER_LEFT" spacing="10">
+        <Button text="← Retour" onAction="#handleReturnToDashboard" 
+                styleClass="button-secondary"/>
+        <Label text="Publier une annonce" style="-fx-font-size: 20px;"/>
+    </HBox>
 
     <TextField fx:id="titreField" promptText="Titre"/>
     

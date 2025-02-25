@@ -11,7 +11,11 @@
         <Insets top="20" right="20" bottom="20" left="20"/>
     </padding>
 
-    <Label text="Ajouter un nouveau trajet" styleClass="header-title"/>
+    <HBox alignment="CENTER_LEFT" spacing="10">
+        <Button text="← Retour" onAction="#handleReturnToDashboard" 
+                styleClass="button-secondary"/>
+        <Label text="Ajouter un nouveau trajet" styleClass="header-title"/>
+    </HBox>
 
     <VBox styleClass="form-field">
         <Label text="Titre" styleClass="label-title"/>

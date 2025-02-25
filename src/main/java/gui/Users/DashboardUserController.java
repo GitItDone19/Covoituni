@@ -43,6 +43,14 @@ public class DashboardUserController implements Initializable {
     @FXML private Button btnAjoutEvent;
     @FXML private Button btnModifierEvent;
     
+    // Add new FXML fields for car and category management buttons
+    @FXML private Button btnAfficherVoitures;
+    @FXML private Button btnAjouterVoiture;
+    @FXML private Button btnModifierVoiture;
+    @FXML private Button btnAfficherCategories;
+    @FXML private Button btnAjouterCategorie;
+    @FXML private Button btnModifierCategorie;
+    
     private User currentUser;
     
     @Override
@@ -98,6 +106,14 @@ public class DashboardUserController implements Initializable {
                     btnAjoutEvent.setVisible(true);
                     btnModifierEvent.setVisible(true);
                     
+                    // Car and category management buttons
+                    btnAfficherVoitures.setVisible(true);
+                    btnAjouterVoiture.setVisible(true);
+                    btnModifierVoiture.setVisible(true);
+                    btnAfficherCategories.setVisible(true);
+                    btnAjouterCategorie.setVisible(true);
+                    btnModifierCategorie.setVisible(true);
+                    
                     // Shared buttons for drivers
                     btnListeEvenements.setVisible(true);
                     btnListeAnnoncesEvent.setVisible(true);
@@ -136,6 +152,14 @@ public class DashboardUserController implements Initializable {
         btnAjoutEvent.setVisible(false);
         btnModifierEvent.setVisible(false);
         
+        // Car and category management buttons
+        btnAfficherVoitures.setVisible(false);
+        btnAjouterVoiture.setVisible(false);
+        btnModifierVoiture.setVisible(false);
+        btnAfficherCategories.setVisible(false);
+        btnAjouterCategorie.setVisible(false);
+        btnModifierCategorie.setVisible(false);
+        
         // Shared buttons
         btnListeEvenements.setVisible(false);
         btnListeAnnoncesEvent.setVisible(false);
@@ -157,6 +181,14 @@ public class DashboardUserController implements Initializable {
         btnAjoutAnnonce.setVisible(true);
         btnAjoutEvent.setVisible(true);
         btnModifierEvent.setVisible(true);
+        
+        // Car and category management buttons
+        btnAfficherVoitures.setVisible(true);
+        btnAjouterVoiture.setVisible(true);
+        btnModifierVoiture.setVisible(true);
+        btnAfficherCategories.setVisible(true);
+        btnAjouterCategorie.setVisible(true);
+        btnModifierCategorie.setVisible(true);
         
         // Shared buttons
         btnListeEvenements.setVisible(true);
@@ -356,6 +388,36 @@ public class DashboardUserController implements Initializable {
         } catch (IOException e) {
             showAlert(Alert.AlertType.ERROR, "Error", "Failed to load review page: " + e.getMessage());
         }
+    }
+
+    @FXML
+    private void handleAfficherVoitures() {
+        handleNavigation("/AfficherVoitures.fxml");
+    }
+
+    @FXML
+    private void handleAjouterVoiture() {
+        handleNavigation("/AjouterVoiture.fxml");
+    }
+
+    @FXML
+    private void handleModifierVoiture() {
+        handleNavigation("/ModifierVoiture.fxml");
+    }
+
+    @FXML
+    private void handleAfficherCategories() {
+        handleNavigation("/AfficherCategories.fxml");
+    }
+
+    @FXML
+    private void handleAjouterCategorie() {
+        handleNavigation("/AjouterCategorie.fxml");
+    }
+
+    @FXML
+    private void handleModifierCategorie() {
+        handleNavigation("/ModifierCategorie.fxml");
     }
 
     private void showAlert(Alert.AlertType type, String title, String message) {
