@@ -176,11 +176,20 @@ public class DashboardUserController implements Initializable {
     
     @FXML
     private void handleViewEvents() {
-        // TODO: Implement special events view
-        showAlert(Alert.AlertType.INFORMATION, "Info", "Événements spéciaux - À implémenter");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Admin/AjoutEvent.fxml"));
+            Parent root = loader.load();
+            
+            Stage stage = new Stage();
+            stage.setTitle("Ajouter un événement");
+            stage.setScene(new Scene(root));
+            stage.show();
+            
+        } catch (IOException e) {
+            showAlert(Alert.AlertType.ERROR, "Erreur", 
+                "Erreur lors de l'ouverture de la fenêtre d'ajout d'événement: " + e.getMessage());
+        }
     }
-    
-
     
     @FXML
     private void handleMakeReclamation() {

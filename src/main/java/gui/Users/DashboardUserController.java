@@ -27,6 +27,22 @@ public class DashboardUserController implements Initializable {
     @FXML private Button btnAddReclamation;
     @FXML private Button btnAjouterAvis;
     
+    // Add FXML fields for all buttons that need role-based visibility
+    @FXML private Button btnReservationsPassager;
+    @FXML private Button btnListeEvenements;
+    @FXML private Button btnListeAnnoncesEvent;
+    @FXML private Button btnListeAnnonces;
+    @FXML private Button btnHistorique;
+    
+    @FXML private Button btnReservationsChauffeur;
+    @FXML private Button btnModifierTrajet;
+    @FXML private Button btnModifierAnnonce;
+    @FXML private Button btnListeTrajet;
+    @FXML private Button btnAjoutTrajet;
+    @FXML private Button btnAjoutAnnonce;
+    @FXML private Button btnAjoutEvent;
+    @FXML private Button btnModifierEvent;
+    
     private User currentUser;
     
     @Override
@@ -51,23 +67,104 @@ public class DashboardUserController implements Initializable {
     }
     
     private void checkUserRole() {
-        if (currentUser != null && currentUser.getRoleCode().equals(Role.PASSENGER_CODE)) {
-            btnAjouterAvis.setVisible(true);
+        if (currentUser != null) {
+            String roleCode = currentUser.getRoleCode();
+            
+            // First hide all role-specific buttons
+            hideAllRoleSpecificButtons();
+            
+            // Show buttons based on role
+            switch (roleCode) {
+                case Role.PASSENGER_CODE:
+                    // Passenger-specific buttons
+                    btnReservationsPassager.setVisible(true);
+                    btnHistorique.setVisible(true);
+                    btnAjouterAvis.setVisible(true);
+                    
+                    // Shared buttons for passengers
+                    btnListeEvenements.setVisible(true);
+                    btnListeAnnoncesEvent.setVisible(true);
+                    btnListeAnnonces.setVisible(true);
+                    break;
+                    
+                case Role.DRIVER_CODE:
+                    // Driver-specific buttons
+                    btnReservationsChauffeur.setVisible(true);
+                    btnModifierTrajet.setVisible(true);
+                    btnModifierAnnonce.setVisible(true);
+                    btnListeTrajet.setVisible(true);
+                    btnAjoutTrajet.setVisible(true);
+                    btnAjoutAnnonce.setVisible(true);
+                    btnAjoutEvent.setVisible(true);
+                    btnModifierEvent.setVisible(true);
+                    
+                    // Shared buttons for drivers
+                    btnListeEvenements.setVisible(true);
+                    btnListeAnnoncesEvent.setVisible(true);
+                    btnListeAnnonces.setVisible(true);
+                    break;
+                    
+                case Role.ADMIN_CODE:
+                    // Admin can see everything
+                    showAllButtons();
+                    break;
+                    
+                default:
+                    // Unknown role - hide all role-specific buttons
+                    hideAllRoleSpecificButtons();
+                    break;
+            }
         } else {
-            btnAjouterAvis.setVisible(false);
+            // No user logged in - hide all role-specific buttons
+            hideAllRoleSpecificButtons();
         }
     }
     
-    @FXML
-    private void handleSearchAnnonces() {
-        // TODO: Implement search announcements
+    private void hideAllRoleSpecificButtons() {
+        // Passenger buttons
+        btnReservationsPassager.setVisible(false);
+        btnHistorique.setVisible(false);
+        btnAjouterAvis.setVisible(false);
+        
+        // Driver buttons
+        btnReservationsChauffeur.setVisible(false);
+        btnModifierTrajet.setVisible(false);
+        btnModifierAnnonce.setVisible(false);
+        btnListeTrajet.setVisible(false);
+        btnAjoutTrajet.setVisible(false);
+        btnAjoutAnnonce.setVisible(false);
+        btnAjoutEvent.setVisible(false);
+        btnModifierEvent.setVisible(false);
+        
+        // Shared buttons
+        btnListeEvenements.setVisible(false);
+        btnListeAnnoncesEvent.setVisible(false);
+        btnListeAnnonces.setVisible(false);
     }
     
-    @FXML
-    private void handleViewReservations() {
-        // TODO: Implement view reservations
+    private void showAllButtons() {
+        // Passenger buttons
+        btnReservationsPassager.setVisible(true);
+        btnHistorique.setVisible(true);
+        btnAjouterAvis.setVisible(true);
+        
+        // Driver buttons
+        btnReservationsChauffeur.setVisible(true);
+        btnModifierTrajet.setVisible(true);
+        btnModifierAnnonce.setVisible(true);
+        btnListeTrajet.setVisible(true);
+        btnAjoutTrajet.setVisible(true);
+        btnAjoutAnnonce.setVisible(true);
+        btnAjoutEvent.setVisible(true);
+        btnModifierEvent.setVisible(true);
+        
+        // Shared buttons
+        btnListeEvenements.setVisible(true);
+        btnListeAnnoncesEvent.setVisible(true);
+        btnListeAnnonces.setVisible(true);
     }
     
+
     @FXML
     private void handleViewProfile() {
         try {
@@ -90,21 +187,7 @@ public class DashboardUserController implements Initializable {
         }
     }
     
-    @FXML
-    private void handleViewEvents() {
-        // TODO: Implement view events
-    }
-    
-    @FXML
-    private void handleGiveReview() {
-        // TODO: Implement give review
-    }
-    
-    @FXML
-    private void handleMakeReclamation() {
-        // TODO: Implement make reclamation
-    }
-    
+
     @FXML
     private void handleLogout() {
         try {
@@ -189,6 +272,38 @@ public class DashboardUserController implements Initializable {
         handleNavigation("/ReservationsPassager.fxml");
     }
 
+    @FXML
+    private void handleReservationsChauffeur() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ReservationsChauffeur.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) lblUserName.getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setMaximized(true);
+            stage.show();
+        } catch (IOException e) {
+            showAlert(Alert.AlertType.ERROR, "Erreur",
+                    "Erreur lors du chargement des réservations: " + e.getMessage());
+        }
+    }
+
+    @FXML
+    private void handleModifierAnnonce() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierAnnonce.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) lblUserName.getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setMaximized(true);
+            stage.show();
+        } catch (IOException e) {
+            showAlert(Alert.AlertType.ERROR, "Erreur",
+                    "Erreur lors du chargement de la modification d'annonce: " + e.getMessage());
+        }
+    }
+
     // Existing handleNavigation method
     private void handleNavigation(String fxmlPath) {
         try {
@@ -201,7 +316,22 @@ public class DashboardUserController implements Initializable {
 
             FXMLLoader loader = new FXMLLoader(url);
             Parent root = loader.load();
-            Stage stage = (Stage) lblUserName.getScene().getWindow(); // Replace with an actual control
+            
+            // Get the controller and set the current user if it implements the right method
+            Object controller = loader.getController();
+            if (controller != null && currentUser != null) {
+                // Use reflection to check if the controller has setCurrentUser method
+                try {
+                    java.lang.reflect.Method setUserMethod = 
+                        controller.getClass().getMethod("setCurrentUser", User.class);
+                    setUserMethod.invoke(controller, currentUser);
+                } catch (Exception e) {
+                    System.out.println("Controller does not implement setCurrentUser: " + 
+                        controller.getClass().getName());
+                }
+            }
+
+            Stage stage = (Stage) lblUserName.getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.setMaximized(true);

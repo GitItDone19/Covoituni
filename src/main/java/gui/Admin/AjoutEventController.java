@@ -57,17 +57,27 @@ public class AjoutEventController {
             }
 
             Event event = new Event();
-            event.setNom(nomField.getText());
+            event.setNom(nomField.getText().trim());
             event.setDateEvent(dateField.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-            event.setHeureEvent(heureField.getText() + ":00");
-            event.setLieu(lieuField.getText());
-            event.setDescription(descriptionArea.getText());
+            event.setHeureEvent(heureField.getText().trim() + ":00");
+            event.setLieu(lieuField.getText().trim());
+            event.setDescription(descriptionArea.getText().trim());
             
             // Récupérer l'ID du type sélectionné
             String selectedType = typeCombo.getValue();
-            Map<String, Integer> typeMap = eventService.getEventTypes();
-            event.setIdType(typeMap.get(selectedType));
+            if (selectedType == null) {
+                showAlert(Alert.AlertType.ERROR, "Erreur", "Veuillez sélectionner un type d'événement");
+                return;
+            }
             
+            Map<String, Integer> typeMap = eventService.getEventTypes();
+            Integer typeId = typeMap.get(selectedType);
+            if (typeId == null) {
+                showAlert(Alert.AlertType.ERROR, "Erreur", "Type d'événement invalide");
+                return;
+            }
+            
+            event.setIdType(typeId);
             event.setStatus("ACTIVE");
 
             eventService.create(event);
@@ -84,10 +94,21 @@ public class AjoutEventController {
     }
 
     private boolean validateFields() {
-        if (nomField.getText().isEmpty() || lieuField.getText().isEmpty() || 
-            heureField.getText().isEmpty() || dateField.getValue() == null) {
-            showAlert(Alert.AlertType.ERROR, "Erreur", 
-                     "Tous les champs sont obligatoires");
+        StringBuilder errors = new StringBuilder();
+        
+        if (nomField.getText().trim().isEmpty()) 
+            errors.append("Le nom est obligatoire\n");
+        if (lieuField.getText().trim().isEmpty()) 
+            errors.append("Le lieu est obligatoire\n");
+        if (heureField.getText().trim().isEmpty()) 
+            errors.append("L'heure est obligatoire\n");
+        if (dateField.getValue() == null) 
+            errors.append("La date est obligatoire\n");
+        if (descriptionArea.getText().trim().isEmpty()) 
+            errors.append("La description est obligatoire\n");
+        
+        if (errors.length() > 0) {
+            showAlert(Alert.AlertType.ERROR, "Erreur de validation", errors.toString());
             return false;
         }
         return true;
