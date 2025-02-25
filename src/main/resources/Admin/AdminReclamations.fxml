@@ -6,7 +6,7 @@
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml" 
             fx:controller="gui.Admin.AdminReclamationsController"
-            stylesheets="@../styles/admin.css"
+
             style="-fx-background-color: #f5f6fa;">
     
     <VBox spacing="20" alignment="TOP_CENTER" 
