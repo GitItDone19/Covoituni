@@ -156,23 +156,7 @@ public class DashboardUserController implements Initializable {
         );
     }
     
-    @FXML
-    private void handleSearchAnnonces() {
-        // TODO: Implement search annonces navigation
-        showAlert(Alert.AlertType.INFORMATION, "Info", "Recherche d'annonces - À implémenter");
-    }
-    
-    @FXML
-    private void handleViewReservations() {
-        // TODO: Implement reservations view
-        showAlert(Alert.AlertType.INFORMATION, "Info", "Voir réservations - À implémenter");
-    }
-    
-    @FXML
-    private void handleViewProfile() {
-        // TODO: Implement profile view
-        showAlert(Alert.AlertType.INFORMATION, "Info", "Voir profil - À implémenter");
-    }
+
     
     @FXML
     private void handleViewEvents() {
@@ -191,11 +175,7 @@ public class DashboardUserController implements Initializable {
         }
     }
     
-    @FXML
-    private void handleMakeReclamation() {
-        // TODO: Implement reclamation submission
-        showAlert(Alert.AlertType.INFORMATION, "Info", "Faire une réclamation - À implémenter");
-    }
+
     
     @FXML
     private void handleLogout() {

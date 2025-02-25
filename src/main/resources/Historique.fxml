@@ -11,7 +11,12 @@
         <Insets top="20" right="20" bottom="20" left="20"/>
     </padding>
 
-    <Label text="Historique des Annonces" styleClass="header-title"/>
+    <!-- Add Back Button -->
+    <HBox alignment="CENTER_LEFT" spacing="10">
+        <Button text="← Retour" onAction="#handleReturnToDashboard" 
+                styleClass="button-secondary"/>
+        <Label text="Historique des Annonces" styleClass="header-title"/>
+    </HBox>
 
     <ListView fx:id="historiqueListView" VBox.vgrow="ALWAYS"/>
 

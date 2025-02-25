@@ -33,48 +33,63 @@
                 
                 <Separator styleClass="sidebar-separator"/>
                 
-                <!-- Navigation Links -->
-                <VBox spacing="0" fillWidth="true">
-
-                    <Button text=" Voir Profile" onAction="#handleViewProfile" 
-                            styleClass="sidebar-button" maxWidth="Infinity" style="-fx-text-fill: white;"/>
-                    <Button text=" Faire une réclamation" onAction="#handleAddReclamation"
-                            styleClass="sidebar-button" maxWidth="Infinity" style="-fx-text-fill: white;"/>
-                    
-                    <!-- Passenger & Driver shared buttons -->
-                    <Button fx:id="btnListeEvenements" text=" Liste des Événements" onAction="#handleListeEvenements"
-                            styleClass="sidebar-button" maxWidth="Infinity" style="-fx-text-fill: white;"/>
-                    <Button fx:id="btnListeAnnoncesEvent" text=" Liste des Annonces d'Événements" onAction="#handleListeEvenements"
-                            styleClass="sidebar-button" maxWidth="Infinity" style="-fx-text-fill: white;"/>
-                    <Button fx:id="btnListeAnnonces" text=" Liste des Annonces" onAction="#handleListeAnnonces"
-                            styleClass="sidebar-button" maxWidth="Infinity" style="-fx-text-fill: white;"/>
-                    
-                    <!-- Passenger-only buttons -->
-                    <Button fx:id="btnReservationsPassager" text=" Mes Réservations" onAction="#handleReservationsPassager"
-                            styleClass="sidebar-button" maxWidth="Infinity" style="-fx-text-fill: white;"/>
-                    <Button fx:id="btnHistorique" text=" Historique" onAction="#handleHistorique"
-                            styleClass="sidebar-button" maxWidth="Infinity" style="-fx-text-fill: white;"/>
-                    <Button fx:id="btnAjouterAvis" text=" Ajouter Avis" onAction="#handleAjouterAvis"
-                            styleClass="sidebar-button" maxWidth="Infinity" style="-fx-text-fill: white;"/>
-                    
-                    <!-- Driver-only buttons -->
-                    <Button fx:id="btnReservationsChauffeur" text=" Gérer Réservations" onAction="#handleReservationsChauffeur"
-                            styleClass="sidebar-button" maxWidth="Infinity" style="-fx-text-fill: white;"/>
-                    <Button fx:id="btnAjoutAnnonce" text=" Ajouter Annonce" onAction="#handleAjoutAnnonce"
-                            styleClass="sidebar-button" maxWidth="Infinity" style="-fx-text-fill: white;"/>
-                    <Button fx:id="btnAjoutTrajet" text=" Ajouter Trajet" onAction="#handleAjoutTrajet"
-                            styleClass="sidebar-button" maxWidth="Infinity" style="-fx-text-fill: white;"/>
-                    <Button fx:id="btnAjoutEvent" text=" Ajouter Événement" onAction="#handleAjoutEvent"
-                            styleClass="sidebar-button" maxWidth="Infinity" style="-fx-text-fill: white;"/>
-                    <Button fx:id="btnListeTrajet" text=" Liste des Trajets" onAction="#handleListeTrajet"
-                            styleClass="sidebar-button" maxWidth="Infinity" style="-fx-text-fill: white;"/>
-                    <Button fx:id="btnModifierTrajet" text=" Modifier Trajet" onAction="#handleModifierTrajet"
-                            styleClass="sidebar-button" maxWidth="Infinity" style="-fx-text-fill: white;"/>
-                    <Button fx:id="btnModifierAnnonce" text=" Modifier Annonce" onAction="#handleModifierAnnonce"
-                            styleClass="sidebar-button" maxWidth="Infinity" style="-fx-text-fill: white;"/>
-                    <Button fx:id="btnModifierEvent" text=" Modifier Événement" onAction="#handleModifierEvent"
-                            styleClass="sidebar-button" maxWidth="Infinity" style="-fx-text-fill: white;"/>
-                </VBox>
+                <!-- Wrap the navigation links in a ScrollPane -->
+                <ScrollPane fitToWidth="true" fitToHeight="true" VBox.vgrow="ALWAYS" 
+                            style="-fx-background-color: transparent; -fx-background: transparent; -fx-border-color: transparent;">
+                    <VBox spacing="0" fillWidth="true">
+                        <!-- Non-role specific buttons -->
+                        <Button text=" Voir Profile" onAction="#handleViewProfile" 
+                                styleClass="sidebar-button" maxWidth="Infinity" style="-fx-text-fill: white;"/>
+                        <Button text=" Faire une réclamation" onAction="#handleAddReclamation"
+                                styleClass="sidebar-button" maxWidth="Infinity" style="-fx-text-fill: white;"/>
+                        
+                        <!-- Passenger & Driver shared buttons -->
+                        <Button fx:id="btnListeEvenements" text=" Liste des Événements" onAction="#handleListeEvenements"
+                                styleClass="sidebar-button" maxWidth="Infinity" style="-fx-text-fill: white;"/>
+                        <Button fx:id="btnListeAnnoncesEvent" text=" Liste des Annonces d'Événements" onAction="#handleListeEvenements"
+                                styleClass="sidebar-button" maxWidth="Infinity" style="-fx-text-fill: white;"/>
+                        <Button fx:id="btnListeAnnonces" text=" Liste des Annonces" onAction="#handleListeAnnonces"
+                                styleClass="sidebar-button" maxWidth="Infinity" style="-fx-text-fill: white;"/>
+                        
+                        <!-- Passenger-only buttons -->
+                        <Button fx:id="btnReservationsPassager" text=" Mes Réservations" onAction="#handleReservationsPassager"
+                                styleClass="sidebar-button" maxWidth="Infinity" style="-fx-text-fill: white;"/>
+                        <Button fx:id="btnHistorique" text=" Historique" onAction="#handleHistorique"
+                                styleClass="sidebar-button" maxWidth="Infinity" style="-fx-text-fill: white;"/>
+                        <Button fx:id="btnAjouterAvis" text=" Ajouter Avis" onAction="#handleAjouterAvis"
+                                styleClass="sidebar-button" maxWidth="Infinity" style="-fx-text-fill: white;"/>
+                        
+                        <!-- Driver-only buttons -->
+                        <Button fx:id="btnReservationsChauffeur" text=" Gérer Réservations" onAction="#handleReservationsChauffeur"
+                                styleClass="sidebar-button" maxWidth="Infinity" style="-fx-text-fill: white;"/>
+                        <Button fx:id="btnAjoutAnnonce" text=" Ajouter Annonce" onAction="#handleAjoutAnnonce"
+                                styleClass="sidebar-button" maxWidth="Infinity" style="-fx-text-fill: white;"/>
+                        <Button fx:id="btnAjoutTrajet" text=" Ajouter Trajet" onAction="#handleAjoutTrajet"
+                                styleClass="sidebar-button" maxWidth="Infinity" style="-fx-text-fill: white;"/>
+                        <Button fx:id="btnAjoutEvent" text=" Ajouter Événement" onAction="#handleAjoutEvent"
+                                styleClass="sidebar-button" maxWidth="Infinity" style="-fx-text-fill: white;"/>
+                        <Button fx:id="btnListeTrajet" text=" Liste des Trajets" onAction="#handleListeTrajet"
+                                styleClass="sidebar-button" maxWidth="Infinity" style="-fx-text-fill: white;"/>
+                        <Button fx:id="btnModifierTrajet" text=" Modifier Trajet" onAction="#handleModifierTrajet"
+                                styleClass="sidebar-button" maxWidth="Infinity" style="-fx-text-fill: white;"/>
+                        <Button fx:id="btnModifierAnnonce" text=" Modifier Annonce" onAction="#handleModifierAnnonce"
+                                styleClass="sidebar-button" maxWidth="Infinity" style="-fx-text-fill: white;"/>
+                        <Button fx:id="btnModifierEvent" text=" Modifier Événement" onAction="#handleModifierEvent"
+                                styleClass="sidebar-button" maxWidth="Infinity" style="-fx-text-fill: white;"/>
+                        <Button fx:id="btnAfficherVoitures" text=" Mes Voitures" onAction="#handleAfficherVoitures"
+                                styleClass="sidebar-button" maxWidth="Infinity" style="-fx-text-fill: white;"/>
+                        <Button fx:id="btnAjouterVoiture" text=" Ajouter Voiture" onAction="#handleAjouterVoiture"
+                                styleClass="sidebar-button" maxWidth="Infinity" style="-fx-text-fill: white;"/>
+                        <Button fx:id="btnModifierVoiture" text=" Modifier Voiture" onAction="#handleModifierVoiture"
+                                styleClass="sidebar-button" maxWidth="Infinity" style="-fx-text-fill: white;"/>
+                        <Button fx:id="btnAfficherCategories" text=" Catégories" onAction="#handleAfficherCategories"
+                                styleClass="sidebar-button" maxWidth="Infinity" style="-fx-text-fill: white;"/>
+                        <Button fx:id="btnAjouterCategorie" text=" Ajouter Catégorie" onAction="#handleAjouterCategorie"
+                                styleClass="sidebar-button" maxWidth="Infinity" style="-fx-text-fill: white;"/>
+                        <Button fx:id="btnModifierCategorie" text=" Modifier Catégorie" onAction="#handleModifierCategorie"
+                                styleClass="sidebar-button" maxWidth="Infinity" style="-fx-text-fill: white;"/>
+                    </VBox>
+                </ScrollPane>
                 
                 <Region VBox.vgrow="ALWAYS"/>
                 
