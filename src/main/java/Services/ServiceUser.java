@@ -103,27 +103,7 @@ public class ServiceUser implements IService<User> {
         pst.setInt(2, userId);
         pst.executeUpdate();
     }
-    public List<User> getConducteurs() throws SQLException {
-        List<User> conducteurs = new ArrayList<>();
-        String sql = "SELECT * FROM utilisateur WHERE role_code = 'conducteur'";
-        try (Statement st = connection.createStatement();
-             ResultSet rs = st.executeQuery(sql)) {
-            while (rs.next()) {
-                User user = new User(
-                        rs.getInt("id"),
-                        rs.getString("nom"),
-                        rs.getString("prenom"),
-                        rs.getString("tel"),
-                        rs.getString("email"),
-                        rs.getString("mdp"),
-                        null, // role
-                        rs.getString("verification_code")
-                );
-                conducteurs.add(user);
-            }
-        }
-        return conducteurs;
-    }
+
     public List<User> getUsersByRole(String roleCode) throws SQLException {
         List<User> users = new ArrayList<>();
         String query = "SELECT u.*, r.id as role_id, r.display_name FROM utilisateur u " +
@@ -177,10 +157,5 @@ public class ServiceUser implements IService<User> {
         return newAverage;
     }
 
-    public void incrementTripsCount(int userId) throws SQLException {
-        String sql = "UPDATE utilisateur SET trips_count = trips_count + 1 WHERE id = ?";
-        PreparedStatement pst = connection.prepareStatement(sql);
-        pst.setInt(1, userId);
-        pst.executeUpdate();
-    }
+
 }
