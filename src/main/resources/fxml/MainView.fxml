@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<HBox xmlns:fx="http://javafx.com/fxml" 
+      fx:controller="main.controllers.MainController"
+      stylesheets="@../styles/styles.css">
+    <!-- Menu latéral -->
+    <VBox styleClass="sidebar" spacing="10">
+        <padding>
+            <Insets top="20" right="10" bottom="20" left="10"/>
+        </padding>
+
+        <!-- Logo ou titre -->
+        <Label text="CovoitUni" styleClass="sidebar-title"/>
+
+        <!-- Boutons de navigation -->
+        <Button text="Annonces" 
+                styleClass="nav-link"
+                onAction="#handleAnnonceClick"/>
+                
+        <Button text="Trajets" 
+                styleClass="nav-link"
+                onAction="#handleTrajetClick"/>
+                
+        <Button text="Ajouter Annonce" 
+                styleClass="nav-link"
+                onAction="#handleAjoutAnnonceClick"/>
+                
+        <Button text="Ajouter Trajet" 
+                styleClass="nav-link"
+                onAction="#handleAjoutTrajetClick"/>
+                
+        <Button text="Liste des Événements" 
+                styleClass="nav-link"
+                onAction="#handleEvenementsClick"/>
+                
+        <Button text="Réservations (Chauffeur)" 
+                styleClass="nav-link"
+                onAction="#handleReservationsChauffeurClick"/>
+                
+        <Button text="Réservations (Passager)" 
+                styleClass="nav-link"
+                onAction="#handleReservationsPassagerClick"/>
+                
+        <Button text="Historique" 
+                styleClass="nav-link"
+                onAction="#handleHistoriqueClick"/>
+    </VBox>
+
+    <!-- Contenu principal -->
+    <StackPane fx:id="contentArea" HBox.hgrow="ALWAYS" styleClass="container">
+        <!-- Le contenu sera chargé dynamiquement ici -->
+    </StackPane>
+</HBox> 
