@@ -8,51 +8,51 @@
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="gui.Users.ModifierVoiture"
       spacing="20"
-      styleClass="dialog-container">
+      style="-fx-background-color: white;">
 
     <padding>
         <Insets top="30" right="30" bottom="30" left="30"/>
     </padding>
 
-    <Label text="Modifier la Voiture" styleClass="dialog-title"/>
+    <Label text="Modifier la Voiture" style="-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #333333;"/>
 
     <VBox spacing="15">
         <VBox spacing="5">
-            <Label text="Plaque d'immatriculation" styleClass="field-label"/>
-            <TextField fx:id="plaqueField" styleClass="text-field"/>
+            <Label text="Plaque d'immatriculation" style="-fx-text-fill: #555555; -fx-font-weight: bold;"/>
+            <TextField fx:id="plaqueField" style="-fx-background-color: #F7F7F7; -fx-border-color: #EEEEEE; -fx-border-radius: 5;"/>
         </VBox>
 
         <VBox spacing="5">
-            <Label text="Marque" styleClass="field-label"/>
-            <TextField fx:id="marqueField" styleClass="text-field"/>
+            <Label text="Marque" style="-fx-text-fill: #555555; -fx-font-weight: bold;"/>
+            <TextField fx:id="marqueField" style="-fx-background-color: #F7F7F7; -fx-border-color: #EEEEEE; -fx-border-radius: 5;"/>
         </VBox>
 
         <VBox spacing="5">
-            <Label text="Modèle" styleClass="field-label"/>
-            <TextField fx:id="modeleField" styleClass="text-field"/>
+            <Label text="Modèle" style="-fx-text-fill: #555555; -fx-font-weight: bold;"/>
+            <TextField fx:id="modeleField" style="-fx-background-color: #F7F7F7; -fx-border-color: #EEEEEE; -fx-border-radius: 5;"/>
         </VBox>
 
         <VBox spacing="5">
-            <Label text="Couleur" styleClass="field-label"/>
-            <TextField fx:id="couleurField" styleClass="text-field"/>
+            <Label text="Couleur" style="-fx-text-fill: #555555; -fx-font-weight: bold;"/>
+            <TextField fx:id="couleurField" style="-fx-background-color: #F7F7F7; -fx-border-color: #EEEEEE; -fx-border-radius: 5;"/>
         </VBox>
 
         <VBox spacing="5">
-            <Label text="Date d'immatriculation" styleClass="field-label"/>
-            <DatePicker fx:id="datePicker" styleClass="date-picker"/>
+            <Label text="Date d'immatriculation" style="-fx-text-fill: #555555; -fx-font-weight: bold;"/>
+            <DatePicker fx:id="datePicker" style="-fx-background-color: #F7F7F7; -fx-border-color: #EEEEEE; -fx-border-radius: 5;"/>
         </VBox>
 
         <VBox spacing="5">
-            <Label text="Catégorie" styleClass="field-label"/>
-            <ComboBox fx:id="categorieComboBox" styleClass="combo-box"/>
+            <Label text="Catégorie" style="-fx-text-fill: #555555; -fx-font-weight: bold;"/>
+            <ComboBox fx:id="categorieComboBox" style="-fx-background-color: #F7F7F7; -fx-border-color: #EEEEEE; -fx-border-radius: 5;"/>
         </VBox>
 
         <VBox spacing="5">
-            <Label text="Description" styleClass="field-label"/>
+            <Label text="Description" style="-fx-text-fill: #555555; -fx-font-weight: bold;"/>
             <TextArea fx:id="descriptionField"
                       prefRowCount="3"
                       wrapText="true"
-                      styleClass="text-area"/>
+                      style="-fx-background-color: #F7F7F7; -fx-border-color: #EEEEEE; -fx-border-radius: 5;"/>
         </VBox>
     </VBox>
 
@@ -62,10 +62,10 @@
         </padding>
         <Button text="Annuler"
                 onAction="#handleAnnulerButton"
-                styleClass="cancel-button"/>
+                style="-fx-background-color: #EEEEEE; -fx-text-fill: #333333; -fx-background-radius: 5;"/>
         <Button text="Enregistrer"
                 onAction="#handleModifierButton"
                 defaultButton="true"
-                styleClass="submit-button"/>
+                style="-fx-background-color: #34D186; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5;"/>
     </HBox>
 </VBox>
