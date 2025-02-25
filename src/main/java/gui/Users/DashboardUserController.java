@@ -392,32 +392,168 @@ public class DashboardUserController implements Initializable {
 
     @FXML
     private void handleAfficherVoitures() {
-        handleNavigation("/AfficherVoitures.fxml");
+        try {
+            // Try different paths to locate the file
+            URL resource = getClass().getResource("/AfficherVoitures.fxml");
+            if (resource == null) {
+                resource = getClass().getResource("/Users/AfficherVoitures.fxml");
+            }
+            if (resource == null) {
+                resource = getClass().getClassLoader().getResource("AfficherVoitures.fxml");
+            }
+            
+            if (resource == null) {
+                throw new IOException("Cannot find AfficherVoitures.fxml");
+            }
+            
+            FXMLLoader loader = new FXMLLoader(resource);
+            Parent root = loader.load();
+            
+            // Get controller and set current user
+            gui.Users.AfficherVoitures controller = loader.getController();
+            if (controller != null && currentUser != null) {
+                controller.setCurrentUser(currentUser);
+            }
+            
+            // Create a new stage for the form
+            Stage stage = new Stage();
+            stage.setTitle("Mes Voitures");
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Erreur",
+                    "Erreur lors du chargement de la liste des voitures: " + e.getMessage());
+        }
     }
 
     @FXML
     private void handleAjouterVoiture() {
-        handleNavigation("/AjouterVoiture.fxml");
+        try {
+            // Try different paths to locate the file
+            URL resource = getClass().getResource("/AjouterVoiture.fxml");
+            if (resource == null) {
+                resource = getClass().getResource("/Users/AjouterVoiture.fxml");
+            }
+            if (resource == null) {
+                resource = getClass().getClassLoader().getResource("AjouterVoiture.fxml");
+            }
+            
+            if (resource == null) {
+                throw new IOException("Cannot find AjouterVoiture.fxml");
+            }
+            
+            FXMLLoader loader = new FXMLLoader(resource);
+            Parent root = loader.load();
+            
+            // Get controller and set current user
+            gui.Users.AjouterVoiture controller = loader.getController();
+            if (controller != null && currentUser != null) {
+                controller.setCurrentUser(currentUser);
+            }
+            
+            // Create a new stage for the form
+            Stage stage = new Stage();
+            stage.setTitle("Ajouter une voiture");
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Erreur",
+                    "Erreur lors du chargement du formulaire d'ajout de voiture: " + e.getMessage());
+        }
     }
 
     @FXML
     private void handleModifierVoiture() {
-        handleNavigation("/ModifierVoiture.fxml");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierVoiture.fxml"));
+            Parent root = loader.load();
+            
+            // Get controller and set current user
+            gui.Users.ModifierVoiture controller = loader.getController();
+            if (controller != null && currentUser != null) {
+                controller.setCurrentUser(currentUser);
+            }
+            
+            Stage stage = (Stage) lblUserName.getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            showAlert(Alert.AlertType.ERROR, "Erreur",
+                    "Erreur lors du chargement du formulaire de modification de voiture: " + e.getMessage());
+        }
     }
 
     @FXML
     private void handleAfficherCategories() {
-        handleNavigation("/AfficherCategories.fxml");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherCategories.fxml"));
+            Parent root = loader.load();
+            
+            // Get controller and set current user
+            gui.Users.AfficherCategories controller = loader.getController();
+            if (controller != null && currentUser != null) {
+                controller.setCurrentUser(currentUser);
+            }
+            
+            Stage stage = (Stage) lblUserName.getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            showAlert(Alert.AlertType.ERROR, "Erreur",
+                    "Erreur lors du chargement de la liste des catégories: " + e.getMessage());
+        }
     }
 
     @FXML
     private void handleAjouterCategorie() {
-        handleNavigation("/AjouterCategorie.fxml");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterCategorie.fxml"));
+            Parent root = loader.load();
+            
+            // Get controller and set current user
+            gui.Users.AjouterCategorie controller = loader.getController();
+            if (controller != null && currentUser != null) {
+                controller.setCurrentUser(currentUser);
+            }
+            
+            Stage stage = (Stage) lblUserName.getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            showAlert(Alert.AlertType.ERROR, "Erreur",
+                    "Erreur lors du chargement du formulaire d'ajout de catégorie: " + e.getMessage());
+        }
     }
 
     @FXML
     private void handleModifierCategorie() {
-        handleNavigation("/ModifierCategorie.fxml");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierCategorie.fxml"));
+            Parent root = loader.load();
+            
+            // Get controller and set current user
+            gui.Users.ModifierCategorie controller = loader.getController();
+            if (controller != null && currentUser != null) {
+                controller.setCurrentUser(currentUser);
+            }
+            
+            Stage stage = (Stage) lblUserName.getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            showAlert(Alert.AlertType.ERROR, "Erreur",
+                    "Erreur lors du chargement du formulaire de modification de catégorie: " + e.getMessage());
+        }
     }
 
     private void showAlert(Alert.AlertType type, String title, String message) {

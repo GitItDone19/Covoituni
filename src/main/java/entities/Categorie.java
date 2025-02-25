@@ -5,6 +5,11 @@ public class Categorie {
     private String nom;
     private String description;
 
+    // Add a no-argument constructor
+    public Categorie() {
+        // Default constructor
+    }
+
     // Constructor with id
     public Categorie(int id, String nom, String description) {
         this.id = id;

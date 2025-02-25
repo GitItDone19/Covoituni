@@ -2,6 +2,7 @@ package gui.Users;
 
 import entities.Car;
 import entities.Categorie;
+import entities.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -27,6 +28,7 @@ public class AfficherVoitures implements Initializable {
 
     private final CarService carService = new CarService();
     private final CategorieService categorieService = new CategorieService();
+    private User currentUser;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -160,5 +162,16 @@ public class AfficherVoitures implements Initializable {
         alert.setHeaderText(null);
         alert.setContentText(content);
         alert.showAndWait();
+    }
+
+    public void setCurrentUser(User user) {
+        this.currentUser = user;
+        loadUserVoitures();
+    }
+
+    private void loadUserVoitures() {
+        if (currentUser != null) {
+            System.out.println("Loading cars for user: " + currentUser.getUsername());
+        }
     }
 }

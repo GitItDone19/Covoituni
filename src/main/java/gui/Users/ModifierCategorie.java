@@ -7,6 +7,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import Services.CategorieService;
+import entities.User;
 
 import java.sql.SQLException;
 
@@ -19,10 +20,15 @@ public class ModifierCategorie {
 
     private final CategorieService categorieService = new CategorieService();
     private Categorie categorie;
+    private User currentUser;
 
     public void setCategorie(Categorie categorie) {
         this.categorie = categorie;
         populateFields();
+    }
+
+    public void setCurrentUser(User user) {
+        this.currentUser = user;
     }
 
     private void populateFields() {

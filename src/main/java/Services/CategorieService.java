@@ -11,7 +11,7 @@ public class CategorieService implements IService<Categorie> {
     private Connection connection;
 
     public CategorieService() {
-        MyConnection.getInstance().getCnx();
+        this.connection = MyConnection.getInstance().getCnx();
     }
 
     @Override
@@ -49,10 +49,10 @@ public class CategorieService implements IService<Categorie> {
     @Override
     public List<Categorie> readAll() throws SQLException {
         List<Categorie> categories = new ArrayList<>();
-        String query = "SELECT * FROM categorie";
+        
         Statement statement = connection.createStatement();
-        ResultSet rs = statement.executeQuery(query);
-
+        ResultSet rs = statement.executeQuery("SELECT * FROM categorie");
+        
         while (rs.next()) {
             categories.add(new Categorie(
                 rs.getInt("id"),
@@ -60,6 +60,7 @@ public class CategorieService implements IService<Categorie> {
                 rs.getString("description")
             ));
         }
+        
         return categories;
     }
 

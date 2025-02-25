@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import Services.CarService;
 import Services.CategorieService;
+import entities.User;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -36,6 +37,7 @@ public class ModifierVoiture implements Initializable {
     private final CarService carService = new CarService();
     private final CategorieService categorieService = new CategorieService();
     private Car car;
+    private User currentUser;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -45,6 +47,10 @@ public class ModifierVoiture implements Initializable {
     public void setCar(Car car) {
         this.car = car;
         populateFields();
+    }
+
+    public void setCurrentUser(User user) {
+        this.currentUser = user;
     }
 
     private void loadCategories() {
