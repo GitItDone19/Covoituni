@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="gui.Users.ReplyReclamationController"
+      spacing="20"
+      style="-fx-background-color: white;">
+
+    <padding>
+        <Insets top="30" right="30" bottom="30" left="30"/>
+    </padding>
+
+    <Label text="Répondre à la réclamation" style="-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #333333;"/>
+
+    <!-- Original complaint details -->
+    <VBox spacing="10" style="-fx-background-color: #F7F7F7; -fx-padding: 15; -fx-background-radius: 5;">
+        <Label text="Réclamation originale" style="-fx-font-weight: bold; -fx-text-fill: #555555;"/>
+        <Label fx:id="lblReclamationSubject" style="-fx-font-weight: bold;"/>
+        <Label fx:id="lblReclamationDate" style="-fx-text-fill: #777777;"/>
+        <Label fx:id="lblReclamationContent" wrapText="true"/>
+        <Label fx:id="lblReclamationStatus" style="-fx-font-style: italic;"/>
+    </VBox>
+
+    <!-- Reply form -->
+    <VBox spacing="10">
+        <Label text="Votre réponse" style="-fx-font-weight: bold; -fx-text-fill: #555555;"/>
+        <TextArea fx:id="replyTextArea" 
+                  prefHeight="150.0" 
+                  wrapText="true"
+                  promptText="Saisissez votre réponse ici..."
+                  style="-fx-background-color: #F7F7F7; -fx-border-color: #EEEEEE; -fx-border-radius: 5;"/>
+    </VBox>
+
+    <!-- Status update -->
+    <VBox spacing="5">
+        <Label text="Mettre à jour le statut" style="-fx-font-weight: bold; -fx-text-fill: #555555;"/>
+        <ComboBox fx:id="statusComboBox" 
+                  prefWidth="200.0"
+                  style="-fx-background-color: #F7F7F7; -fx-border-color: #EEEEEE; -fx-border-radius: 5;"/>
+    </VBox>
+
+    <!-- Buttons -->
+    <HBox spacing="15" alignment="CENTER_RIGHT">
+        <padding>
+            <Insets top="10"/>
+        </padding>
+        <Button text="Annuler" 
+                onAction="#handleCancel"
+                style="-fx-background-color: #EEEEEE; -fx-text-fill: #333333; -fx-background-radius: 5;"/>
+        <Button text="Envoyer" 
+                onAction="#handleSubmit" 
+                defaultButton="true"
+                style="-fx-background-color: #34D186; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5;"/>
+    </HBox>
+</VBox> 

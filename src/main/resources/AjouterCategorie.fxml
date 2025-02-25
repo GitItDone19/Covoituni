@@ -8,26 +8,26 @@
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="gui.Users.AjouterCategorie"
       spacing="20"
-      styleClass="dialog-container">
+      style="-fx-background-color: white;">
 
     <padding>
         <Insets top="30" right="30" bottom="30" left="30"/>
     </padding>
 
-    <Label text="Nouvelle Catégorie" styleClass="dialog-title"/>
+    <Label text="Nouvelle Catégorie" style="-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #333333;"/>
 
     <VBox spacing="15">
         <VBox spacing="5">
-            <Label text="Nom" styleClass="field-label"/>
-            <TextField fx:id="nomField" styleClass="text-field"/>
+            <Label text="Nom" style="-fx-text-fill: #555555; -fx-font-weight: bold;"/>
+            <TextField fx:id="nomField" style="-fx-background-color: #F7F7F7; -fx-border-color: #EEEEEE; -fx-border-radius: 5;"/>
         </VBox>
 
         <VBox spacing="5">
-            <Label text="Description" styleClass="field-label"/>
+            <Label text="Description" style="-fx-text-fill: #555555; -fx-font-weight: bold;"/>
             <TextArea fx:id="descriptionField"
                       prefRowCount="3"
                       wrapText="true"
-                      styleClass="text-area"/>
+                      style="-fx-background-color: #F7F7F7; -fx-border-color: #EEEEEE; -fx-border-radius: 5;"/>
         </VBox>
     </VBox>
 
@@ -37,10 +37,10 @@
         </padding>
         <Button text="Annuler"
                 onAction="#handleAnnulerButton"
-                styleClass="cancel-button"/>
+                style="-fx-background-color: #EEEEEE; -fx-text-fill: #333333; -fx-background-radius: 5;"/>
         <Button text="Ajouter"
                 onAction="#handleAjouterButton"
                 defaultButton="true"
-                styleClass="submit-button"/>
+                style="-fx-background-color: #34D186; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5;"/>
     </HBox>
 </VBox>

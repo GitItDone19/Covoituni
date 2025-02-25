@@ -8,7 +8,7 @@
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="gui.Users.AfficherVoitures"
       spacing="20"
-      styleClass="root">
+      style="-fx-background-color: white;">
 
     <padding>
         <Insets top="20" right="20" bottom="20" left="20"/>
@@ -21,14 +21,14 @@
         </padding>
         <Button text="Ajouter une voiture"
                 onAction="#handleAjouterButton"
-                styleClass="button-primary"/>
+                style="-fx-background-color: #34D186; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5;"/>
     </HBox>
 
     <!-- Scroll pane to display car listings -->
     <ScrollPane fitToWidth="true"
                 VBox.vgrow="ALWAYS"
-                styleClass="scroll-pane">
-        <VBox fx:id="vboxContainer" spacing="15">
+                style="-fx-background-color: transparent; -fx-background: transparent; -fx-border-color: #EEEEEE;">
+        <VBox fx:id="vboxContainer" spacing="15" style="-fx-background-color: white;">
             <padding>
                 <Insets top="10" right="10" bottom="10" left="10"/>
             </padding>

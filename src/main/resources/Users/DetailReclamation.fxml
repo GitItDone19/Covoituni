@@ -6,74 +6,68 @@
 <?import javafx.scene.shape.Line?>
 
 <!-- DetailReclamation.fxml -->
-<AnchorPane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="gui.Users.DetailReclamationController"
-            style="-fx-background-color: linear-gradient(to bottom right, #0a0e1a, #1a1f38);">
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="gui.Users.DetailReclamationController"
+      spacing="20"
+      style="-fx-background-color: white;">
 
-    <VBox spacing="25" alignment="TOP_CENTER"
-          AnchorPane.topAnchor="30"
-          AnchorPane.leftAnchor="30"
-          AnchorPane.rightAnchor="30"
-          AnchorPane.bottomAnchor="30">
+    <padding>
+        <Insets top="30" right="30" bottom="30" left="30"/>
+    </padding>
 
-        <!-- Header Section -->
-        <VBox alignment="CENTER" spacing="15"
-              style="-fx-background-color: rgba(255,255,255,0.05);
-                     -fx-background-radius: 15;
-                     -fx-padding: 25;
-                     -fx-border-color: rgba(255,255,255,0.1);
-                     -fx-border-width: 2;
-                     -fx-border-radius: 15;">
-            <Label text="Détails de la Réclamation"
-                   style="-fx-font-size: 32px;
-                          -fx-font-weight: 800;
-                          -fx-text-fill: linear-gradient(to right, #00f2fe, #4facfe);"/>
-            <Line endX="350" strokeWidth="2"
-                  style="-fx-stroke: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);"/>
-        </VBox>
-
-        <!-- Reclamation Details -->
-        <VBox spacing="20" style="-fx-background-color: rgba(0,0,0,0.3);
-                                 -fx-padding: 25;
-                                 -fx-background-radius: 15;
-                                 -fx-border-color: rgba(255,255,255,0.05);
-                                 -fx-border-width: 2;
-                                 -fx-border-radius: 15;">
-            <Label text="SUJET" style="-fx-font-weight: 700; -fx-text-fill: #8a9db3; -fx-font-size: 12px;"/>
-            <Label fx:id="lblSubject" style="-fx-text-fill: #e0f3ff; -fx-font-size: 18px; -fx-font-weight: 600;"/>
-
-            <Label text="DESCRIPTION" style="-fx-font-weight: 700; -fx-text-fill: #8a9db3; -fx-font-size: 12px; -fx-padding: 15 0 0 0;"/>
-            <TextArea fx:id="taDescription" editable="false" wrapText="true"
-                      style="-fx-pref-height: 150;
-                            -fx-control-inner-background: #0d1422;
-                            -fx-text-fill: #ffffff;
-                            -fx-font-size: 14px;
-                            -fx-border-radius: 8;
-                            -fx-background-radius: 8;
-                            -fx-border-color: #2d3a4f;"/>
-
-            <HBox spacing="30" alignment="CENTER_LEFT">
-                <VBox>
-                    <Label text="STATUT" style="-fx-font-weight: 700; -fx-text-fill: #8a9db3; -fx-font-size: 12px;"/>
-                    <Label fx:id="lblStatus" style="-fx-text-fill: #4facfe; -fx-font-size: 16px; -fx-font-weight: 600;"/>
-                </VBox>
-                <VBox>
-                    <Label text="RÉPONSE" style="-fx-font-weight: 700; -fx-text-fill: #8a9db3; -fx-font-size: 12px;"/>
-                    <Label fx:id="lblReply" style="-fx-text-fill: #00f2fe; -fx-font-size: 16px; -fx-font-weight: 600;"/>
-                </VBox>
-            </HBox>
-        </VBox>
-
-        <!-- Footer with Return Button -->
-        <Button fx:id="btnRetour"
-                text="RETOUR"
-                onAction="#handleRetour"
-                style="-fx-background-color: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
-                       -fx-text-fill: #0a0e1a;
-                       -fx-font-weight: 800;
-                       -fx-font-size: 14px;
-                       -fx-padding: 12 35;
-                       -fx-background-radius: 30;
-                       -fx-effect: dropshadow(three-pass-box, rgba(79,172,254,0.4), 0, 8, 15, 0);"/>
+    <!-- Header Section -->
+    <VBox alignment="CENTER" spacing="10">
+        <Label text="Détails de la Réclamation"
+               style="-fx-font-size: 24px;
+                      -fx-font-weight: bold;
+                      -fx-text-fill: #333333;"/>
+        <Line endX="350" strokeWidth="1"
+              style="-fx-stroke: #EEEEEE;"/>
     </VBox>
-</AnchorPane>
+
+    <!-- Reclamation Details -->
+    <VBox spacing="15" style="-fx-background-color: #F7F7F7;
+                             -fx-padding: 20;
+                             -fx-background-radius: 5;
+                             -fx-border-color: #EEEEEE;
+                             -fx-border-width: 1;
+                             -fx-border-radius: 5;">
+        <Label text="Sujet" style="-fx-font-weight: bold; -fx-text-fill: #555555; -fx-font-size: 14px;"/>
+        <Label fx:id="lblSubject" style="-fx-text-fill: #333333; -fx-font-size: 16px; -fx-font-weight: bold;"/>
+
+        <Label text="Description" style="-fx-font-weight: bold; -fx-text-fill: #555555; -fx-font-size: 14px; -fx-padding: 10 0 0 0;"/>
+        <TextArea fx:id="taDescription" editable="false" wrapText="true"
+                  style="-fx-pref-height: 150;
+                        -fx-background-color: white;
+                        -fx-text-fill: #333333;
+                        -fx-font-size: 14px;
+                        -fx-border-radius: 5;
+                        -fx-background-radius: 5;
+                        -fx-border-color: #EEEEEE;"/>
+
+        <HBox spacing="30" alignment="CENTER_LEFT">
+            <VBox>
+                <Label text="Statut" style="-fx-font-weight: bold; -fx-text-fill: #555555; -fx-font-size: 14px;"/>
+                <Label fx:id="lblStatus" style="-fx-text-fill: #34D186; -fx-font-size: 14px; -fx-font-weight: bold;"/>
+            </VBox>
+            <VBox>
+                <Label text="Réponse" style="-fx-font-weight: bold; -fx-text-fill: #555555; -fx-font-size: 14px;"/>
+                <Label fx:id="lblReply" style="-fx-text-fill: #333333; -fx-font-size: 14px;"/>
+            </VBox>
+        </HBox>
+    </VBox>
+
+    <!-- Footer with Return Button -->
+    <HBox alignment="CENTER">
+        <Button fx:id="btnRetour"
+                text="Retour"
+                onAction="#handleRetour"
+                style="-fx-background-color: #34D186;
+                       -fx-text-fill: white;
+                       -fx-font-weight: bold;
+                       -fx-font-size: 14px;
+                       -fx-padding: 10 30;
+                       -fx-background-radius: 5;"/>
+    </HBox>
+</VBox>

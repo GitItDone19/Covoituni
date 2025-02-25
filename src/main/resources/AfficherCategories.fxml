@@ -8,7 +8,7 @@
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="gui.Users.AfficherCategories"
       spacing="10"
-      styleClass="root">
+      style="-fx-background-color: white;">
 
     <padding>
         <Insets top="20" right="20" bottom="20" left="20"/>
@@ -20,12 +20,12 @@
         </padding>
         <Button text="Ajouter une catégorie"
                 onAction="#handleAjouterButton"
-                styleClass="button"/>
+                style="-fx-background-color: #34D186; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5;"/>
     </HBox>
 
     <ScrollPane fitToWidth="true"
                 VBox.vgrow="ALWAYS"
-                styleClass="scroll-pane">
+                style="-fx-background-color: transparent; -fx-background: transparent; -fx-border-color: #EEEEEE;">
         <VBox fx:id="vboxContainer" spacing="15">
             <padding>
                 <Insets top="10" right="10" bottom="10" left="10"/>
