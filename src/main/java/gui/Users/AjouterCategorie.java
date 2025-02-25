@@ -1,6 +1,7 @@
 package gui.Users;
 
 import entities.Categorie;
+import entities.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
@@ -18,6 +19,7 @@ public class AjouterCategorie {
     private TextArea descriptionField;
 
     private final CategorieService categorieService = new CategorieService();
+    private User currentUser;
 
     @FXML
     private void handleAjouterButton() {
@@ -72,5 +74,9 @@ public class AjouterCategorie {
     private void closeWindow() {
         Stage stage = (Stage) nomField.getScene().getWindow();
         stage.close();
+    }
+
+    public void setCurrentUser(User user) {
+        this.currentUser = user;
     }
 }

@@ -13,7 +13,7 @@ public class CarService implements IService<Car> {
     private CategorieService categorieService;
 
     public CarService() {
-        MyConnection.getInstance().getCnx();
+        this.connection = MyConnection.getInstance().getCnx();
         categorieService = new CategorieService();
     }
 

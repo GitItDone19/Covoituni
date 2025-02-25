@@ -2,6 +2,7 @@ package gui.Users;
 
 import entities.Car;
 import entities.Categorie;
+import entities.User;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -36,6 +37,7 @@ public class AjouterVoiture implements Initializable {
 
     private final CarService carService = new CarService();
     private final CategorieService categorieService = new CategorieService();
+    private User currentUser;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -135,5 +137,9 @@ public class AjouterVoiture implements Initializable {
     private void closeWindow() {
         Stage stage = (Stage) plaqueField.getScene().getWindow();
         stage.close();
+    }
+
+    public void setCurrentUser(User user) {
+        this.currentUser = user;
     }
 }

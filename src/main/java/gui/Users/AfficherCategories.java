@@ -1,6 +1,7 @@
 package gui.Users;
 
 import entities.Categorie;
+import entities.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -24,9 +25,15 @@ public class AfficherCategories implements Initializable {
     private VBox vboxContainer;
 
     private final CategorieService categorieService = new CategorieService();
+    private User currentUser;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        loadData();
+    }
+
+    public void setCurrentUser(User user) {
+        this.currentUser = user;
         loadData();
     }
 
