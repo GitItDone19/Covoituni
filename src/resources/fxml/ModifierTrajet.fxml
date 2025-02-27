@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox styleClass="form-container" spacing="20" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="main.controllers.ModifierTrajetController">
+    
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <Label text="Modifier le trajet" styleClass="header-title"/>
+
+    <VBox styleClass="form-field">
+        <Label text="Titre" styleClass="label-title"/>
+        <TextField fx:id="titreField" promptText="Entrez le titre du trajet"/>
+    </VBox>
+
+    <VBox styleClass="form-field">
+        <Label text="Point de départ" styleClass="label-title"/>
+        <TextField fx:id="departureField" promptText="Lieu de départ"/>
+    </VBox>
+
+    <VBox styleClass="form-field">
+        <Label text="Point d'arrivée" styleClass="label-title"/>
+        <TextField fx:id="arrivalField" promptText="Destination"/>
+    </VBox>
+
+    <VBox styleClass="form-field">
+        <Label text="Date et heure de départ" styleClass="label-title"/>
+        <HBox styleClass="date-time-container">
+            <DatePicker fx:id="datePicker" styleClass="date-picker" promptText="Date de départ"/>
+            <ComboBox fx:id="heureCombo" styleClass="time-combo-box" promptText="Heure"/>
+            <ComboBox fx:id="minuteCombo" styleClass="time-combo-box" promptText="Minute"/>
+        </HBox>
+    </VBox>
+
+    <VBox styleClass="form-field">
+        <Label text="Prix" styleClass="label-title"/>
+        <TextField fx:id="priceField" styleClass="price-field" promptText="Prix du trajet"/>
+    </VBox>
+
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button text="Annuler" styleClass="button-secondary" onAction="#handleCancel"/>
+        <Button text="Enregistrer" styleClass="button-primary" onAction="#handleSave"/>
+    </HBox>
+
+</VBox> 
