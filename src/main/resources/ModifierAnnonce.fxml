@@ -13,7 +13,12 @@
         <Insets top="20" right="20" bottom="20" left="20"/>
     </padding>
 
-    <Label text="Modifier l'annonce" styleClass="title"/>
+    <HBox alignment="CENTER_LEFT" spacing="10">
+        <Button text="← Retour au Dashboard" 
+                onAction="#handleReturnToDashboard"
+                styleClass="button-secondary"/>
+        <Label text="Modifier l'annonce" styleClass="title"/>
+    </HBox>
 
     <GridPane vgap="15" hgap="15" styleClass="form-grid">
         <columnConstraints>

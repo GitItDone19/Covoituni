@@ -10,6 +10,13 @@ import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import Services.CarService;
 import Services.CategorieService;
+import javafx.event.ActionEvent;
+import javafx.scene.Node;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import java.io.IOException;
+import gui.Users.DashboardUserController;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -93,6 +100,29 @@ public class AjouterVoiture implements Initializable {
         closeWindow();
     }
 
+    @FXML
+    private void handleReturnToDashboard(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Users/DashboardUser.fxml"));
+            Parent root = loader.load();
+            
+            // Get controller and set current user
+            DashboardUserController controller = loader.getController();
+            if (currentUser != null) {
+                controller.setCurrentUser(currentUser);
+            }
+            
+            // Switch to dashboard scene
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "Could not return to dashboard: " + e.getMessage());
+        }
+    }
+
     private boolean validateFields() {
         StringBuilder errors = new StringBuilder();
 
@@ -141,5 +171,13 @@ public class AjouterVoiture implements Initializable {
 
     public void setCurrentUser(User user) {
         this.currentUser = user;
+    }
+
+    private void showAlert(Alert.AlertType type, String title, String message) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

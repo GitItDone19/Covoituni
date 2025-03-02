@@ -6,6 +6,7 @@
 <?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.shape.Circle?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 
 <StackPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" 
            fx:controller="gui.Users.DashboardUserController">
@@ -88,6 +89,10 @@
                                 styleClass="sidebar-button" maxWidth="Infinity" style="-fx-text-fill: white;"/>
                         <Button fx:id="btnModifierCategorie" text=" Modifier Catégorie" onAction="#handleModifierCategorie"
                                 styleClass="sidebar-button" maxWidth="Infinity" style="-fx-text-fill: white;"/>
+                        <Button fx:id="mapButton" 
+                                text="📍 Cartographie" 
+                                onAction="#handleOpenMap"
+                                styleClass="sidebar-button"/>
                     </VBox>
                 </ScrollPane>
                 

@@ -19,6 +19,9 @@
         <padding>
             <Insets bottom="20"/>
         </padding>
+        <Button text="← Retour au Dashboard" 
+                onAction="#handleReturnToDashboard"
+                style="-fx-background-color: #3498DB; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5;"/>
         <Button text="Ajouter une voiture"
                 onAction="#handleAjouterButton"
                 style="-fx-background-color: #34D186; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5;"/>

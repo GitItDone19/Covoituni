@@ -12,7 +12,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import Services.CategorieService;
-
+import javafx.event.ActionEvent;
+import javafx.scene.Node;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -128,10 +129,41 @@ public class AfficherCategories implements Initializable {
         }
     }
 
+    @FXML
+    private void handleReturnToDashboard(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Users/DashboardUser.fxml"));
+            Parent root = loader.load();
+            
+            // Get controller and set current user
+            DashboardUserController controller = loader.getController();
+            if (currentUser != null) {
+                controller.setCurrentUser(currentUser);
+            }
+            
+            // Switch to dashboard scene
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "Could not return to dashboard: " + e.getMessage());
+        }
+    }
+
     private void showError(String title, String content) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
         alert.setContentText(content);
+        alert.showAndWait();
+    }
+
+    private void showAlert(Alert.AlertType type, String title, String message) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
         alert.showAndWait();
     }
 }

@@ -16,6 +16,10 @@ import entities.Event;
 import entities.Annonce;
 import Services.EventService;
 import Services.AnnonceService;
+import javafx.event.ActionEvent;
+import javafx.scene.Node;
+import entities.User;
+import gui.Users.DashboardUserController;
 
 import java.io.IOException;
 import java.net.URL;
@@ -29,6 +33,7 @@ public class ListeEvenementsController implements Initializable {
     
     private EventService eventService;
     private AnnonceService annonceService;
+    private User currentUser;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -225,6 +230,29 @@ public class ListeEvenementsController implements Initializable {
         } catch (IOException e) {
             showAlert(Alert.AlertType.ERROR, "Erreur", 
                      "Erreur lors de l'ouverture du formulaire d'ajout");
+        }
+    }
+
+    @FXML
+    private void handleReturnToDashboard(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Users/DashboardUser.fxml"));
+            Parent root = loader.load();
+            
+            // Get controller and set current user
+            DashboardUserController controller = loader.getController();
+            if (currentUser != null) {
+                controller.setCurrentUser(currentUser);
+            }
+            
+            // Switch to dashboard scene
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "Could not return to dashboard: " + e.getMessage());
         }
     }
 } 

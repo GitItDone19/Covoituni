@@ -56,6 +56,7 @@ public class AjouterAvisController {
         avisService = new AvisService();
         
         // Load star images
+
         emptyStarImage = new Image(getClass().getResourceAsStream("/images/emptystar.png"));
         fullStarImage = new Image(getClass().getResourceAsStream("/images/fullstar.png"));
         

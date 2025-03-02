@@ -4,6 +4,7 @@ import User.ServiceRole;
 import utils.MyConnection;
 import entities.Role;
 import entities.User;
+import utils.PasswordUtil;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -155,6 +156,82 @@ public class ServiceUser implements IService<User> {
             }
         }
         return newAverage;
+    }
+
+
+    public boolean emailExists(String email) {
+        String query = "SELECT COUNT(*) FROM utilisateur WHERE email = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0; // Return true if email exists
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+
+    public boolean isTokenValid(String token) {
+        String query = "SELECT email FROM password_reset_tokens WHERE token = ? AND expiration > NOW()";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, token);
+            ResultSet rs = stmt.executeQuery();
+            return rs.next(); // If there is a result, the token is valid
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    public boolean resetPassword(String token, String newPassword) {
+        String getEmailQuery = "SELECT email FROM password_reset_tokens WHERE token = ? AND expiration > NOW()";
+        try (PreparedStatement stmt = connection.prepareStatement(getEmailQuery)) {
+            stmt.setString(1, token);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                String email = rs.getString("email");
+
+                // Hash the password before storing (for security)
+                String hashedPassword = PasswordUtil.hashPassword(newPassword);
+
+                // Update password in the users table
+                String updateQuery = "UPDATE utilisateur SET password = ? WHERE email = ?";
+                try (PreparedStatement updateStmt = connection.prepareStatement(updateQuery)) {
+                    updateStmt.setString(1, hashedPassword);
+                    updateStmt.setString(2, email);
+                    updateStmt.executeUpdate();
+                }
+
+                // Delete the used token
+                deleteToken(token);
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    public void storeResetToken(String email, String token) throws SQLException {
+        String query = "INSERT INTO password_reset_tokens (email, token, expiration) VALUES (?, ?, NOW() + INTERVAL 1 HOUR)";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, email);
+            stmt.setString(2, token);
+            stmt.executeUpdate();
+            System.out.println("Token stored for: " + email);
+        }
+    }
+
+
+    public void deleteToken(String token) {
+        String query = "DELETE FROM password_reset_tokens WHERE token = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, token);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 

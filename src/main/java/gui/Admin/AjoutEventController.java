@@ -5,6 +5,15 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import entities.Event;
 import Services.EventService;
+import javafx.event.ActionEvent;
+import javafx.scene.Node;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import entities.User;
+import javafx.scene.control.Alert;
+import java.io.IOException;
+import gui.Users.DashboardUserController;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -20,6 +29,7 @@ public class AjoutEventController {
     @FXML private ComboBox<String> typeCombo;
     
     private EventService eventService;
+    private User currentUser;
 
     @FXML
     public void initialize() {
@@ -123,10 +133,39 @@ public class AjoutEventController {
         ((Stage) nomField.getScene().getWindow()).close();
     }
 
-    private void showAlert(Alert.AlertType type, String title, String content) {
+    @FXML
+    private void handleReturnToDashboard(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Users/Dashboard.fxml"));
+            Parent root = loader.load();
+            
+            // Get controller and set current user
+            DashboardUserController controller = loader.getController();
+            if (currentUser != null) {
+                controller.setCurrentUser(currentUser);
+            }
+            
+            // Switch to dashboard scene
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "Could not return to dashboard: " + e.getMessage());
+        }
+    }
+
+    private void showAlert(Alert.AlertType type, String title, String message) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
-        alert.setContentText(content);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    public void setCurrentUser(User user) {
+        this.currentUser = user;
+        // Any initialization that depends on the user
     }
 } 

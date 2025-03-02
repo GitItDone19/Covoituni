@@ -12,7 +12,11 @@
         <Insets top="20" right="20" bottom="20" left="20"/>
     </padding>
 
-    <HBox alignment="CENTER_RIGHT">
+    <HBox alignment="CENTER_LEFT" spacing="10">
+        <Button text="← Retour au Dashboard" 
+                onAction="#handleReturnToDashboard"
+                styleClass="button-secondary"/>
+        <Region HBox.hgrow="ALWAYS"/>
         <Button text="Nouvel Événement" 
                 onAction="#handleNouvelEvent"
                 styleClass="button-primary"/>

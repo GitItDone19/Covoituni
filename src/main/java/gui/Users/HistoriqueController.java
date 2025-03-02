@@ -8,6 +8,13 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import entities.Annonce;
 import Services.AnnonceService;
+import javafx.event.ActionEvent;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.fxml.FXMLLoader;
+import javafx.stage.Stage;
+import java.io.IOException;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -104,4 +111,6 @@ public class HistoriqueController implements Initializable {
         alert.setContentText(content);
         alert.showAndWait();
     }
+
+
 } 

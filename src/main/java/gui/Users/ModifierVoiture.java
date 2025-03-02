@@ -3,7 +3,11 @@ package gui.Users;
 import entities.Car;
 import entities.Categorie;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
@@ -11,6 +15,8 @@ import Services.CarService;
 import Services.CategorieService;
 import entities.User;
 
+import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.sql.Date;
@@ -157,6 +163,9 @@ public class ModifierVoiture implements Initializable {
         return true;
     }
 
+
+
+
     private void showError(String title, String content) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
@@ -168,5 +177,20 @@ public class ModifierVoiture implements Initializable {
     private void closeWindow() {
         Stage stage = (Stage) plaqueField.getScene().getWindow();
         stage.close();
+    }
+
+    /**
+     * Displays an alert dialog with the specified type, title, and message.
+     * 
+     * @param type The type of alert (e.g., ERROR, INFORMATION, etc.)
+     * @param title The title of the alert dialog
+     * @param message The content message to display
+     */
+    private void showAlert(Alert.AlertType type, String title, String message) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
