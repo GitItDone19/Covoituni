@@ -5,11 +5,19 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import entities.Trajet;
 import Services.TrajetService;
+import javafx.event.ActionEvent;
+import javafx.scene.Node;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import java.io.IOException;
 
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
+import entities.User;
 
 public class AjoutTrajetController implements Initializable {
     @FXML private TextField titreField;
@@ -21,6 +29,7 @@ public class AjoutTrajetController implements Initializable {
     @FXML private TextField priceField;
 
     private TrajetService trajetService;
+    private User currentUser;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -71,6 +80,29 @@ public class AjoutTrajetController implements Initializable {
         clearFields();
     }
 
+    @FXML
+    private void handleReturnToDashboard(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Users/DashboardUser.fxml"));
+            Parent root = loader.load();
+            
+            // Get controller and set current user
+            DashboardUserController controller = loader.getController();
+            if (currentUser != null) {
+                controller.setCurrentUser(currentUser);
+            }
+            
+            // Switch to dashboard scene
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "Could not return to dashboard: " + e.getMessage());
+        }
+    }
+
     private boolean validateFields() {
         if (titreField.getText().isEmpty() || departureField.getText().isEmpty() || 
             arrivalField.getText().isEmpty() || datePicker.getValue() == null || 
@@ -105,5 +137,10 @@ public class AjoutTrajetController implements Initializable {
         alert.setTitle(title);
         alert.setContentText(content);
         alert.showAndWait();
+    }
+
+    public void setCurrentUser(User user) {
+        this.currentUser = user;
+        // Any initialization based on user if needed
     }
 } 

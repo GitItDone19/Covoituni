@@ -14,7 +14,12 @@
         <Insets top="30" right="30" bottom="30" left="30"/>
     </padding>
 
-    <Label text="Nouvelle Catégorie" style="-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #333333;"/>
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Button text="← Retour au Dashboard" 
+                onAction="#handleReturnToDashboard"
+                style="-fx-background-color: #3498DB; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5;"/>
+        <Label text="Nouvelle Catégorie" style="-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #333333;"/>
+    </HBox>
 
     <VBox spacing="15">
         <VBox spacing="5">

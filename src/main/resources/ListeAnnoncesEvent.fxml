@@ -12,7 +12,12 @@
         <Insets top="20" right="20" bottom="20" left="20"/>
     </padding>
 
-    <Label fx:id="eventTitleLabel" styleClass="title"/>
+    <HBox alignment="CENTER_LEFT" spacing="10">
+        <Button text="← Retour au Dashboard" 
+                onAction="#handleReturnToDashboard"
+                styleClass="button-secondary"/>
+        <Label fx:id="eventTitleLabel" styleClass="title"/>
+    </HBox>
     
     <ListView fx:id="annonceListView" 
               VBox.vgrow="ALWAYS"

@@ -12,7 +12,8 @@
     </padding>
 
     <HBox alignment="CENTER_LEFT" spacing="10">
-        <Button text="← Retour" onAction="#handleReturnToDashboard" 
+        <Button text="← Retour au Dashboard" 
+                onAction="#handleReturnToDashboard" 
                 styleClass="button-secondary"/>
         <Label text="Ajouter un nouveau trajet" styleClass="header-title"/>
     </HBox>

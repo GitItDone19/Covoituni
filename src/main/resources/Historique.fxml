@@ -13,8 +13,7 @@
 
     <!-- Add Back Button -->
     <HBox alignment="CENTER_LEFT" spacing="10">
-        <Button text="← Retour" onAction="#handleReturnToDashboard" 
-                styleClass="button-secondary"/>
+
         <Label text="Historique des Annonces" styleClass="header-title"/>
     </HBox>
 

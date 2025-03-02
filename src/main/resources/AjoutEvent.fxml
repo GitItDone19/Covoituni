@@ -11,7 +11,12 @@
         <Insets top="20" right="20" bottom="20" left="20"/>
     </padding>
 
-    <Label text="Nouvel Événement" style="-fx-font-size: 20px;"/>
+    <HBox alignment="CENTER_LEFT" spacing="10">
+        <Button text="← Retour au Dashboard" 
+                onAction="#handleReturnToDashboard" 
+                style="-fx-background-color: #3498DB; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5;"/>
+        <Label text="Nouvel Événement" style="-fx-font-size: 20px;"/>
+    </HBox>
 
     <GridPane vgap="10" hgap="10">
         <Label text="Nom:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>

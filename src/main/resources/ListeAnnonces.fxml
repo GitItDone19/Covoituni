@@ -12,6 +12,9 @@
     </padding>
 
     <HBox alignment="CENTER_LEFT" spacing="20">
+        <Button text="← Retour au Dashboard" 
+                onAction="#handleReturnToDashboard"
+                styleClass="button-secondary"/>
         <Label text="Liste des Annonces" styleClass="header-title"/>
         <Region HBox.hgrow="ALWAYS"/>
         <Button text="Nouvelle Annonce" 
