@@ -6,132 +6,209 @@
 <?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.shape.Circle?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 
-<AnchorPane prefHeight="700.0" prefWidth="1000.0" stylesheets="@../styles/global.css"
-            style="-fx-background-color: -fx-light-gray;"
-            xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" 
-            fx:controller="gui.Admin.AdminDashboardController">
+<StackPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" 
+           fx:controller="gui.Admin.AdminDashboardController">
+    
+    <AnchorPane stylesheets="@../styles/global.css"
+                style="-fx-background-color: #82f6c9;">
+                
+        <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" 
+              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             
-    <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" 
-          AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        
-        <!-- Left Sidebar -->
-        <VBox styleClass="sidebar" prefWidth="280.0" spacing="15.0" minWidth="280.0" 
-              style="-fx-background-color: -fx-secondary;">
-            <padding>
-                <Insets top="20.0" right="15.0" bottom="20.0" left="15.0"/>
-            </padding>
-            
-            <!-- Logo and Title -->
-            <HBox alignment="CENTER" spacing="10.0">
-                <ImageView fitHeight="40.0" fitWidth="40.0">
-                    <Image url="@images/logo.png"/>
-                </ImageView>
-                <Label text="Admin Panel" styleClass="sidebar-title" style="-fx-text-fill: white;"/>
-            </HBox>
-            
-            <Separator styleClass="sidebar-separator"/>
-            
-            <!-- Navigation Links -->
-            <VBox spacing="8.0">
-                <Button text="👥 Gérer les Conducteurs" onAction="#handleManageDrivers" 
-                        styleClass="sidebar-button"/>
-                <Button text="👥 Gérer les Passagers" onAction="#handleManagePassengers" 
-                        styleClass="sidebar-button"/>
-                <Button text="📢 Gérer les Annonces" onAction="#handleManageAnnouncements" 
-                        styleClass="sidebar-button"/>
-                <Button text="📋 Gérer les Réservations" onAction="#handleManageReservations" 
-                        styleClass="sidebar-button"/>
-                <Button text="⭐ Voir les Avis" onAction="#handleViewReviews" 
-                        styleClass="sidebar-button"/>
-                <Button text="Gérer Réclamations" 
-                        onAction="#handleManageReclamations"
-                        style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-min-width: 180;"/>
-            </VBox>
-            
-            <Region VBox.vgrow="ALWAYS"/> <!-- Spacer -->
-            
-            <!-- Admin Info Section -->
-            <VBox styleClass="user-info" spacing="8.0">
-                <HBox alignment="CENTER_LEFT" spacing="10.0">
-                    <Circle radius="20" style="-fx-fill: #E74C3C;"/>
+            <!-- Left Sidebar - Enhanced design -->
+            <VBox styleClass="sidebar" prefWidth="320.0" spacing="20.0" minWidth="320.0" 
+                  style="-fx-background-color: linear-gradient(to bottom, #1a2e40, #24364c); -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 10, 0, 0, 0);">
+                <padding>
+                    <Insets top="30.0" right="20.0" bottom="30.0" left="20.0"/>
+                </padding>
+                
+                <!-- Logo and Title - Enhanced -->
+                <HBox alignment="CENTER" spacing="15.0" style="-fx-padding: 0 0 10 0;">
+                    <StackPane>
+                        <Circle radius="25" style="-fx-fill: #E74C3C;"/>
+                        <ImageView fitHeight="40.0" fitWidth="40.0">
+                            <Image url="@../images/logo.png"/>
+                        </ImageView>
+                    </StackPane>
                     <VBox>
-                        <Label text="Administrateur" styleClass="user-name"/>
-                        <Label text="Panel de contrôle" styleClass="user-email"/>
+                        <Label text="Admin Panel" styleClass="logo-title" style="-fx-text-fill: #E74C3C; -fx-font-size: 24px; -fx-font-weight: bold;"/>
+                        <Label text="Contrôle et gestion" styleClass="logo-subtitle" style="-fx-text-fill: #f8d7da; -fx-font-size: 12px;"/>
                     </VBox>
                 </HBox>
-                <Button text="🚪 Déconnexion" onAction="#handleLogout" 
-                        styleClass="logout-button"/>
-            </VBox>
-        </VBox>
-        
-        <!-- Main Content Area -->
-        <VBox HBox.hgrow="ALWAYS" spacing="20.0" style="-fx-background-color: -fx-light-gray;">
-            <padding>
-                <Insets top="20.0" right="20.0" bottom="20.0" left="20.0"/>
-            </padding>
-            
-            <!-- Welcome Section -->
-            <HBox spacing="20.0">
-                <VBox spacing="5.0" HBox.hgrow="ALWAYS">
-                    <Label text="Tableau de Bord" styleClass="title-label"/>
-                    <Label text="Vue d'ensemble de l'application" 
-                           style="-fx-text-fill: -fx-dark-gray;"/>
-                </VBox>
-            </HBox>
-            
-            <!-- Statistics Cards -->
-            <HBox spacing="20.0">
-                <VBox styleClass="stat-card" HBox.hgrow="ALWAYS">
-                    <padding>
-                        <Insets top="20" right="20" bottom="20" left="20"/>
-                    </padding>
-                    <Label text="Utilisateurs Totaux" styleClass="stat-label"/>
-                    <HBox alignment="CENTER_LEFT" spacing="10">
-                        <Label fx:id="lblTotalUsers" text="0" styleClass="stat-value"/>
-                        <VBox spacing="5">
-                            <Label fx:id="lblDriverCount" text="Conducteurs: 0" 
-                                   style="-fx-text-fill: -fx-dark-gray;"/>
-                            <Label fx:id="lblPassengerCount" text="Passagers: 0" 
-                                   style="-fx-text-fill: -fx-dark-gray;"/>
+                
+                <Separator styleClass="sidebar-separator" style="-fx-background-color: transparent; -fx-border-color: #3a4a5c; -fx-opacity: 0.6;"/>
+                
+                <!-- Navigation Categories -->
+                <Label text="GESTION DES UTILISATEURS" styleClass="nav-section-label" style="-fx-text-fill: #f8d7da; -fx-font-size: 12px; -fx-font-weight: bold; -fx-padding: 5 0 5 10;"/>
+                
+                <!-- Wrap the navigation links in a ScrollPane with enhanced styling -->
+                <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" 
+                            style="-fx-background-color: transparent; -fx-background: transparent; -fx-border-color: transparent; -fx-padding: 0;">
+                    <content>
+                        <VBox spacing="5" fillWidth="true" style="-fx-background-color: transparent;">
+                            <!-- User Management Section -->
+                            <Button text=" 👥 Gérer les Conducteurs" onAction="#handleManageDrivers" 
+                                    styleClass="sidebar-button" maxWidth="Infinity" 
+                                    style="-fx-text-fill: white; -fx-background-radius: 8; -fx-font-size: 14px;"/>
+                            <Button text=" 👥 Gérer les Passagers" onAction="#handleManagePassengers"
+                                    styleClass="sidebar-button" maxWidth="Infinity" 
+                                    style="-fx-text-fill: white; -fx-background-radius: 8; -fx-font-size: 14px;"/>
+                            
+                            <Separator style="-fx-background-color: transparent; -fx-border-color: #3a4a5c; -fx-opacity: 0.3; -fx-padding: 5 0;"/>
+                            <Label text="GESTION DES CONTENUS" styleClass="nav-section-label" style="-fx-text-fill: #f8d7da; -fx-font-size: 12px; -fx-font-weight: bold; -fx-padding: 5 0 5 10;"/>
+
+                            <!-- Content Management Section -->
+                            <Button text=" 📢 Gérer les Annonces" onAction="#handleManageAnnouncements"
+                                    styleClass="sidebar-button" maxWidth="Infinity" 
+                                    style="-fx-text-fill: white; -fx-background-radius: 8; -fx-font-size: 14px;"/>
+                            <Button text=" 🚗 Gérer les Trajets" onAction="#handleManageTrips"
+                                    styleClass="sidebar-button" maxWidth="Infinity" 
+                                    style="-fx-text-fill: white; -fx-background-radius: 8; -fx-font-size: 14px;"/>
+                            <Button text=" 🎭 Gérer les Événements" onAction="#handleManageEvents"
+                                    styleClass="sidebar-button" maxWidth="Infinity" 
+                                    style="-fx-text-fill: white; -fx-background-radius: 8; -fx-font-size: 14px;"/>
+                            <Button text=" 📋 Gérer les Réservations" onAction="#handleManageReservations"
+                                    styleClass="sidebar-button" maxWidth="Infinity" 
+                                    style="-fx-text-fill: white; -fx-background-radius: 8; -fx-font-size: 14px;"/>
+                            
+                            <Separator style="-fx-background-color: transparent; -fx-border-color: #3a4a5c; -fx-opacity: 0.3; -fx-padding: 5 0;"/>
+                            <Label text="FEEDBACK UTILISATEURS" styleClass="nav-section-label" style="-fx-text-fill: #f8d7da; -fx-font-size: 12px; -fx-font-weight: bold; -fx-padding: 5 0 5 10;"/>
+                            
+                            <!-- User Feedback Section -->
+                            <Button text=" ⭐ Voir les Avis" onAction="#handleViewReviews"
+                                    styleClass="sidebar-button" maxWidth="Infinity" 
+                                    style="-fx-text-fill: white; -fx-background-radius: 8; -fx-font-size: 14px;"/>
+                            <Button text=" 📝 Gérer les Réclamations" onAction="#handleManageReclamations"
+                                    styleClass="sidebar-button" maxWidth="Infinity" 
+                                    style="-fx-text-fill: white; -fx-background-radius: 8; -fx-font-size: 14px;"/>
+                            
+                            <Separator style="-fx-background-color: transparent; -fx-border-color: #3a4a5c; -fx-opacity: 0.3; -fx-padding: 5 0;"/>
+                            <Label text="CONFIGURATION" styleClass="nav-section-label" style="-fx-text-fill: #f8d7da; -fx-font-size: 12px; -fx-font-weight: bold; -fx-padding: 5 0 5 10;"/>
+                            
+                            <!-- Configuration Section -->
+                            <Button text=" 🚙 Gérer les Véhicules" onAction="#handleManageVehicles"
+                                    styleClass="sidebar-button" maxWidth="Infinity" 
+                                    style="-fx-text-fill: white; -fx-background-radius: 8; -fx-font-size: 14px;"/>
+                            <Button text=" 📂 Gérer les Catégories" onAction="#handleManageCategories"
+                                    styleClass="sidebar-button" maxWidth="Infinity" 
+                                    style="-fx-text-fill: white; -fx-background-radius: 8; -fx-font-size: 14px;"/>
+                            <Button text=" 📊 Statistiques" onAction="#handleViewStatistics"
+                                    styleClass="sidebar-button" maxWidth="Infinity" 
+                                    style="-fx-text-fill: white; -fx-background-radius: 8; -fx-font-size: 14px;"/>
+                            <Button text=" ⚙️ Paramètres" onAction="#handleSettings"
+                                    styleClass="sidebar-button" maxWidth="Infinity" 
+                                    style="-fx-text-fill: white; -fx-background-radius: 8; -fx-font-size: 14px;"/>
+                            
+                            <Separator style="-fx-background-color: transparent; -fx-border-color: #3a4a5c; -fx-opacity: 0.3; -fx-padding: 5 0;"/>
+                            <Label text="OUTILS" styleClass="nav-section-label" style="-fx-text-fill: #f8d7da; -fx-font-size: 12px; -fx-font-weight: bold; -fx-padding: 5 0 5 10;"/>
+                            
+                            <!-- Tools Section -->
+                            <Button text=" 📍 Cartographie" onAction="#handleViewMap"
+                                    styleClass="sidebar-button" maxWidth="Infinity" 
+                                    style="-fx-text-fill: white; -fx-background-radius: 8; -fx-font-size: 14px;"/>
+                            <Button text=" 📱 Notifications" onAction="#handleNotifications"
+                                    styleClass="sidebar-button" maxWidth="Infinity" 
+                                    style="-fx-text-fill: white; -fx-background-radius: 8; -fx-font-size: 14px;"/>
+                        </VBox>
+                    </content>
+                </ScrollPane>
+                
+                <!-- Admin Info Section - Enhanced -->
+                <VBox styleClass="user-info" spacing="15.0" 
+                      style="-fx-background-color: linear-gradient(to right, #c0392b, #e74c3c); -fx-background-radius: 12; -fx-padding: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 1);">
+                    <HBox alignment="CENTER_LEFT" spacing="15.0">
+                        <StackPane>
+                            <Circle radius="25" 
+                                    style="-fx-fill: #f8d7da;"/>
+                            <Label text="👑" style="-fx-font-size: 20px;"/>
+                        </StackPane>
+                        <VBox spacing="3">
+                            <Label text="Administrateur" styleClass="user-name" 
+                                   style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 16px;"/>
+                            <Label text="Panel de contrôle" styleClass="user-email" 
+                                   style="-fx-text-fill: #f8d7da; -fx-font-size: 12px;"/>
                         </VBox>
                     </HBox>
+                    <Button text="🚪 Déconnexion" onAction="#handleLogout" 
+                            styleClass="logout-button" 
+                            style="-fx-background-color: rgba(255,255,255,0.15); -fx-text-fill: white; -fx-background-radius: 8; -fx-font-size: 14px; -fx-font-weight: bold;"/>
                 </VBox>
-                
-                <VBox styleClass="stat-card" HBox.hgrow="ALWAYS">
-                    <padding>
-                        <Insets top="20" right="20" bottom="20" left="20"/>
-                    </padding>
-                    <Label text="Trajets Actifs" styleClass="stat-label"/>
-                    <Label fx:id="lblTotalTrips" text="0" styleClass="stat-value"/>
-                </VBox>
-                
-                <VBox styleClass="stat-card" HBox.hgrow="ALWAYS">
-                    <padding>
-                        <Insets top="20" right="20" bottom="20" left="20"/>
-                    </padding>
-                    <Label text="Réservations Totales" styleClass="stat-label"/>
-                    <Label fx:id="lblTotalReservations" text="0" styleClass="stat-value"/>
-                </VBox>
-            </HBox>
+            </VBox>
             
-            <!-- Recent Activity -->
-            <VBox VBox.vgrow="ALWAYS" styleClass="card">
-                <HBox alignment="CENTER_LEFT" spacing="10.0">
-                    <Label text="Activités Récentes" styleClass="section-title"/>
-                    <Region HBox.hgrow="ALWAYS"/>
-                    <TextField promptText="Rechercher..." styleClass="search-field"/>
+            <!-- Main Content Area -->
+            <VBox HBox.hgrow="ALWAYS" spacing="25.0" style="-fx-background-color: #f8f9fa;">
+                <padding>
+                    <Insets top="30.0" right="30.0" bottom="30.0" left="30.0"/>
+                </padding>
+                
+                <!-- Welcome Section -->
+                <HBox spacing="20.0">
+                    <VBox spacing="5.0" HBox.hgrow="ALWAYS">
+                        <Label text="Tableau de Bord" style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #24364c;"/>
+                        <Label text="Vue d'ensemble de l'application" 
+                               style="-fx-text-fill: #6c757d; -fx-font-size: 14px;"/>
+                    </VBox>
                 </HBox>
                 
-                <TableView fx:id="tableActivities" VBox.vgrow="ALWAYS">
-                    <columns>
-                        <TableColumn text="Date" prefWidth="150"/>
-                        <TableColumn text="Utilisateur" prefWidth="200"/>
-                        <TableColumn text="Action" prefWidth="300"/>
-                        <TableColumn text="Statut" prefWidth="100"/>
-                    </columns>
-                </TableView>
+                <!-- Statistics Cards -->
+                <HBox spacing="20.0">
+                    <VBox styleClass="stat-card" HBox.hgrow="ALWAYS" 
+                          style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);">
+                        <Label text="Utilisateurs Totaux" styleClass="stat-label" 
+                               style="-fx-text-fill: #24364c; -fx-font-size: 14px;"/>
+                        <HBox alignment="CENTER_LEFT" spacing="15">
+                            <Label fx:id="lblTotalUsers" text="150" styleClass="stat-value" 
+                                   style="-fx-text-fill: #24364c; -fx-font-size: 28px; -fx-font-weight: bold;"/>
+                            <VBox spacing="5">
+                                <Label fx:id="lblDriverCount" text="Conducteurs: 45" 
+                                       style="-fx-text-fill: #6c757d; -fx-font-size: 12px;"/>
+                                <Label fx:id="lblPassengerCount" text="Passagers: 105" 
+                                       style="-fx-text-fill: #6c757d; -fx-font-size: 12px;"/>
+                            </VBox>
+                        </HBox>
+                    </VBox>
+                    
+                    <VBox styleClass="stat-card" HBox.hgrow="ALWAYS" 
+                          style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);">
+                        <Label text="Trajets Actifs" styleClass="stat-label" 
+                               style="-fx-text-fill: #24364c; -fx-font-size: 14px;"/>
+                        <Label fx:id="lblTotalTrips" text="67" styleClass="stat-value" 
+                               style="-fx-text-fill: #24364c; -fx-font-size: 28px; -fx-font-weight: bold;"/>
+                    </VBox>
+                    
+                    <VBox styleClass="stat-card" HBox.hgrow="ALWAYS" 
+                          style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);">
+                        <Label text="Réservations Totales" styleClass="stat-label" 
+                               style="-fx-text-fill: #24364c; -fx-font-size: 14px;"/>
+                        <Label fx:id="lblTotalReservations" text="89" styleClass="stat-value" 
+                               style="-fx-text-fill: #24364c; -fx-font-size: 28px; -fx-font-weight: bold;"/>
+                    </VBox>
+                </HBox>
+                
+                <!-- Recent Activity -->
+                <VBox VBox.vgrow="ALWAYS" styleClass="card" 
+                      style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);">
+                    <HBox alignment="CENTER_LEFT" spacing="15.0">
+                        <Label text="Activités Récentes" styleClass="section-title" 
+                               style="-fx-text-fill: #24364c; -fx-font-size: 20px; -fx-font-weight: bold;"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <TextField promptText="Rechercher..." styleClass="search-field" 
+                                  style="-fx-background-radius: 20; -fx-padding: 8 15;"/>
+                    </HBox>
+                    
+                    <TableView fx:id="tableActivities" VBox.vgrow="ALWAYS" 
+                              style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-padding: 10; -fx-background-color: transparent;">
+                        <columns>
+                            <TableColumn text="Date" prefWidth="150"/>
+                            <TableColumn text="Utilisateur" prefWidth="200"/>
+                            <TableColumn text="Action" prefWidth="300"/>
+                            <TableColumn text="Statut" prefWidth="100"/>
+                        </columns>
+                    </TableView>
+                </VBox>
             </VBox>
-        </VBox>
-    </HBox>
-</AnchorPane> 
+        </HBox>
+    </AnchorPane>
+</StackPane> 
