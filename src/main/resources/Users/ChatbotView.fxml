@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8.0"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="gui.Users.ChatbotController"
+            prefHeight="600.0"
+            prefWidth="400.0"
+            stylesheets="/styles/chatbot.css">
+
+    <top>
+        <VBox styleClass="chat-header">
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Button fx:id="backButton" text="Retour" styleClass="back-button" onAction="#handleBackButton"/>
+                <Region HBox.hgrow="ALWAYS" />
+                <Label styleClass="header-title" text="Covoituni Assistant" />
+            </HBox>
+            <Label styleClass="header-subtitle" text="Posez vos questions sur le covoiturage" />
+        </VBox>
+    </top>
+            
+    <center>
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" vbarPolicy="ALWAYS" styleClass="chat-box">
+            <VBox fx:id="chatBox" spacing="15">
+                <padding>
+                    <Insets top="20" right="15" bottom="20" left="15"/>
+                </padding>
+            </VBox>
+        </ScrollPane>
+    </center>
+    
+    <bottom>
+        <HBox styleClass="input-box" spacing="10" alignment="CENTER">
+            <TextField fx:id="messageField" promptText="Tapez votre message ici..." HBox.hgrow="ALWAYS"/>
+            <Button fx:id="sendButton" text="Envoyer" onAction="#sendMessage"/>
+            <padding>
+                <Insets top="10" right="15" bottom="10" left="15"/>
+            </padding>
+        </HBox>
+    </bottom>
+</BorderPane> 

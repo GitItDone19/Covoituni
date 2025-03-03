@@ -16,10 +16,16 @@ public class ServiceRole implements IService<Role> {
     @Override
     public void create(Role role) throws SQLException {
         String sql = "INSERT INTO role (code, display_name) VALUES (?, ?)";
-        PreparedStatement pst = connection.prepareStatement(sql);
+        PreparedStatement pst = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         pst.setString(1, role.getCode());
         pst.setString(2, role.getDisplayName());
         pst.executeUpdate();
+        
+        // Get the generated ID and set it to the role object
+        ResultSet generatedKeys = pst.getGeneratedKeys();
+        if (generatedKeys.next()) {
+            role.setId(generatedKeys.getInt(1));
+        }
     }
     
     @Override

@@ -43,7 +43,15 @@
                                 styleClass="sidebar-button" maxWidth="Infinity" style="-fx-text-fill: white;"/>
                         <Button text=" Faire une réclamation" onAction="#handleAddReclamation"
                                 styleClass="sidebar-button" maxWidth="Infinity" style="-fx-text-fill: white;"/>
-                        
+
+                        <Button fx:id="btnGoogleTranslator"
+                                text="🌍 Google Translator"
+                                onAction="#handleOpenGoogleTranslator"
+                                styleClass="sidebar-button"
+                                maxWidth="Infinity"
+                                style="-fx-text-fill: white;"/>
+
+
                         <!-- Passenger & Driver shared buttons -->
                         <Button fx:id="btnListeEvenements" text=" Liste des Événements" onAction="#handleListeEvenements"
                                 styleClass="sidebar-button" maxWidth="Infinity" style="-fx-text-fill: white;"/>
@@ -92,6 +100,10 @@
                         <Button fx:id="mapButton" 
                                 text="📍 Cartographie" 
                                 onAction="#handleOpenMap"
+                                styleClass="sidebar-button"/>
+                        <Button fx:id="chatbotButton" 
+                                text="💬 Assistant" 
+                                onAction="#handleOpenChatbot"
                                 styleClass="sidebar-button"/>
                     </VBox>
                 </ScrollPane>

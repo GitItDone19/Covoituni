@@ -23,6 +23,7 @@ public class User {
     private double rating;
     private int tripsCount;
     private String username;
+    private String imagePath; // New field for profile image path
 
     public User(int id, String nom, String prenom, String tel, String email, String mdp, Role role, String verificationCode) {
         this.id = id;
@@ -36,8 +37,16 @@ public class User {
         this.rating = 5.0;
         this.tripsCount = 0;
         this.username = email.split("@")[0];
+
     }
 
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;}
     public int getId() {
         return id;
     }

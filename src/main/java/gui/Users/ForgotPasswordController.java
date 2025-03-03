@@ -65,7 +65,7 @@ public class ForgotPasswordController {
         mail.setAuthentication("YOUR_EMAIL", "YOUR_APP_PASSWORD");
         mail.setStartTLSRequired(true);
         
-        mail.setFrom("hammamahmoud06@gmail.com", "Covoituni Password Reset");
+        mail.setFrom("khairibouzid95@gmail.com", "Covoituni Password Reset");
         mail.setSubject("Password Reset Request");
 
         // Email Body
