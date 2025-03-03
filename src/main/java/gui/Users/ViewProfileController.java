@@ -13,6 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.embed.swing.SwingFXUtils;
+import utils.PasswordUtil;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -30,6 +31,7 @@ import javax.imageio.ImageIO;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
 import java.io.ByteArrayOutputStream;
+import java.util.regex.Pattern;
 
 public class ViewProfileController implements Initializable {
     @FXML private javafx.scene.control.TextField tfUsername;
@@ -53,9 +55,158 @@ public class ViewProfileController implements Initializable {
     private ServiceUser serviceUser;
     private String imagePath; // Stores the path of the new profile picture
 
+    // Regex patterns pour la validation
+    private static final Pattern USERNAME_PATTERN = Pattern.compile("^[a-zA-Z0-9_]{3,20}$");
+    private static final Pattern NAME_PATTERN = Pattern.compile("^[a-zA-Z\\s\\-']{2,30}$");
+    private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$");
+    private static final Pattern PHONE_PATTERN = Pattern.compile("^[0-9]{8}$");
+    private static final Pattern PASSWORD_PATTERN = Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$");
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         serviceUser = new ServiceUser();
+        
+        // Ajouter des écouteurs pour la validation en temps réel
+        setupValidationListeners();
+    }
+
+    private void setupValidationListeners() {
+        // Validation du nom d'utilisateur
+        tfUsername.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.isEmpty()) {
+                if (!USERNAME_PATTERN.matcher(newValue).matches()) {
+                    tfUsername.setStyle("-fx-border-color: red;");
+                    showTooltip(tfUsername, "Le nom d'utilisateur doit contenir entre 3 et 20 caractères alphanumériques ou underscore (_)");
+                } else {
+                    tfUsername.setStyle("-fx-border-color: green;");
+                    hideTooltip(tfUsername);
+                }
+            } else {
+                tfUsername.setStyle("");
+                hideTooltip(tfUsername);
+            }
+        });
+        
+        // Validation du nom
+        tfNom.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.isEmpty()) {
+                if (!NAME_PATTERN.matcher(newValue).matches()) {
+                    tfNom.setStyle("-fx-border-color: red;");
+                    showTooltip(tfNom, "Le nom doit contenir entre 2 et 30 caractères alphabétiques, espaces, tirets ou apostrophes");
+                } else {
+                    tfNom.setStyle("-fx-border-color: green;");
+                    hideTooltip(tfNom);
+                }
+            } else {
+                tfNom.setStyle("");
+                hideTooltip(tfNom);
+            }
+        });
+        
+        // Validation du prénom
+        tfPrenom.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.isEmpty()) {
+                if (!NAME_PATTERN.matcher(newValue).matches()) {
+                    tfPrenom.setStyle("-fx-border-color: red;");
+                    showTooltip(tfPrenom, "Le prénom doit contenir entre 2 et 30 caractères alphabétiques, espaces, tirets ou apostrophes");
+                } else {
+                    tfPrenom.setStyle("-fx-border-color: green;");
+                    hideTooltip(tfPrenom);
+                }
+            } else {
+                tfPrenom.setStyle("");
+                hideTooltip(tfPrenom);
+            }
+        });
+        
+        // Validation du téléphone
+        tfTel.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.isEmpty()) {
+                if (!PHONE_PATTERN.matcher(newValue).matches()) {
+                    tfTel.setStyle("-fx-border-color: red;");
+                    showTooltip(tfTel, "Le numéro de téléphone doit contenir exactement 8 chiffres");
+                } else {
+                    tfTel.setStyle("-fx-border-color: green;");
+                    hideTooltip(tfTel);
+                }
+            } else {
+                tfTel.setStyle("");
+                hideTooltip(tfTel);
+            }
+        });
+        
+        // Validation de l'email
+        tfEmail.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.isEmpty()) {
+                if (!EMAIL_PATTERN.matcher(newValue).matches()) {
+                    tfEmail.setStyle("-fx-border-color: red;");
+                    showTooltip(tfEmail, "Format d'email invalide (exemple: nom@domaine.com)");
+                } else {
+                    tfEmail.setStyle("-fx-border-color: green;");
+                    hideTooltip(tfEmail);
+                }
+            } else {
+                tfEmail.setStyle("");
+                hideTooltip(tfEmail);
+            }
+        });
+        
+        // Validation du nouveau mot de passe
+        tfNewPassword.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.isEmpty()) {
+                if (!PASSWORD_PATTERN.matcher(newValue).matches()) {
+                    tfNewPassword.setStyle("-fx-border-color: red;");
+                    showTooltip(tfNewPassword, "Le mot de passe doit contenir au moins 8 caractères, incluant une majuscule, une minuscule et un chiffre");
+                } else {
+                    tfNewPassword.setStyle("-fx-border-color: green;");
+                    hideTooltip(tfNewPassword);
+                }
+                
+                // Vérifier si les mots de passe correspondent
+                if (!tfConfirmPassword.getText().isEmpty() && !tfConfirmPassword.getText().equals(newValue)) {
+                    tfConfirmPassword.setStyle("-fx-border-color: red;");
+                    showTooltip(tfConfirmPassword, "Les mots de passe ne correspondent pas");
+                } else if (!tfConfirmPassword.getText().isEmpty()) {
+                    tfConfirmPassword.setStyle("-fx-border-color: green;");
+                    hideTooltip(tfConfirmPassword);
+                }
+            } else {
+                tfNewPassword.setStyle("");
+                hideTooltip(tfNewPassword);
+                
+                // Réinitialiser le style du champ de confirmation si le nouveau mot de passe est vide
+                if (tfConfirmPassword.getText().isEmpty()) {
+                    tfConfirmPassword.setStyle("");
+                    hideTooltip(tfConfirmPassword);
+                }
+            }
+        });
+        
+        // Validation de la confirmation du mot de passe
+        tfConfirmPassword.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.isEmpty()) {
+                if (!tfNewPassword.getText().isEmpty() && !newValue.equals(tfNewPassword.getText())) {
+                    tfConfirmPassword.setStyle("-fx-border-color: red;");
+                    showTooltip(tfConfirmPassword, "Les mots de passe ne correspondent pas");
+                } else if (!tfNewPassword.getText().isEmpty()) {
+                    tfConfirmPassword.setStyle("-fx-border-color: green;");
+                    hideTooltip(tfConfirmPassword);
+                }
+            } else {
+                tfConfirmPassword.setStyle("");
+                hideTooltip(tfConfirmPassword);
+            }
+        });
+    }
+    
+    private void showTooltip(Control control, String message) {
+        Tooltip tooltip = new Tooltip(message);
+        tooltip.setStyle("-fx-background-color: #FFF0F0; -fx-text-fill: #D32F2F;");
+        Tooltip.install(control, tooltip);
+    }
+    
+    private void hideTooltip(Control control) {
+        Tooltip.uninstall(control, null);
     }
 
     public void setCurrentUser(User user) {
@@ -179,17 +330,110 @@ public class ViewProfileController implements Initializable {
 
     @FXML
     private void handleSave() throws SQLException {
+        // Réinitialiser les styles
+        tfUsername.setStyle("");
+        tfEmail.setStyle("");
+        tfPrenom.setStyle("");
+        tfNom.setStyle("");
+        tfTel.setStyle("");
+        tfOldPassword.setStyle("");
+        tfNewPassword.setStyle("");
+        tfConfirmPassword.setStyle("");
+        
         StringBuilder errors = new StringBuilder();
-
-        if (tfNewPassword.getText().length() > 0) {
-            if (!tfOldPassword.getText().equals(currentUser.getMdp())) {
-                errors.append("L'ancien mot de passe est incorrect\n");
+        
+        // Validation du nom d'utilisateur
+        String username = tfUsername.getText().trim();
+        if (username.isEmpty()) {
+            errors.append("Le nom d'utilisateur est requis\n");
+            tfUsername.setStyle("-fx-border-color: red;");
+        } else if (!USERNAME_PATTERN.matcher(username).matches()) {
+            errors.append("Le nom d'utilisateur doit contenir entre 3 et 20 caractères alphanumériques ou underscore (_)\n");
+            tfUsername.setStyle("-fx-border-color: red;");
+        }
+        
+        // Validation du nom
+        String nom = tfNom.getText().trim();
+        if (nom.isEmpty()) {
+            errors.append("Le nom est requis\n");
+            tfNom.setStyle("-fx-border-color: red;");
+        } else if (!NAME_PATTERN.matcher(nom).matches()) {
+            errors.append("Le nom doit contenir entre 2 et 30 caractères alphabétiques, espaces, tirets ou apostrophes\n");
+            tfNom.setStyle("-fx-border-color: red;");
+        }
+        
+        // Validation du prénom
+        String prenom = tfPrenom.getText().trim();
+        if (prenom.isEmpty()) {
+            errors.append("Le prénom est requis\n");
+            tfPrenom.setStyle("-fx-border-color: red;");
+        } else if (!NAME_PATTERN.matcher(prenom).matches()) {
+            errors.append("Le prénom doit contenir entre 2 et 30 caractères alphabétiques, espaces, tirets ou apostrophes\n");
+            tfPrenom.setStyle("-fx-border-color: red;");
+        }
+        
+        // Validation du téléphone
+        String tel = tfTel.getText().trim();
+        if (tel.isEmpty()) {
+            errors.append("Le numéro de téléphone est requis\n");
+            tfTel.setStyle("-fx-border-color: red;");
+        } else if (!PHONE_PATTERN.matcher(tel).matches()) {
+            errors.append("Le numéro de téléphone doit contenir exactement 8 chiffres\n");
+            tfTel.setStyle("-fx-border-color: red;");
+        }
+        
+        // Validation de l'email
+        String email = tfEmail.getText().trim();
+        if (email.isEmpty()) {
+            errors.append("L'email est requis\n");
+            tfEmail.setStyle("-fx-border-color: red;");
+        } else if (!EMAIL_PATTERN.matcher(email).matches()) {
+            errors.append("Format d'email invalide (exemple: nom@domaine.com)\n");
+            tfEmail.setStyle("-fx-border-color: red;");
+        }
+        
+        // Vérifier si l'email existe déjà (sauf si c'est le même que l'utilisateur actuel)
+        try {
+            if (!email.equals(currentUser.getEmail()) && serviceUser.emailExists(email)) {
+                errors.append("Cet email est déjà utilisé par un autre compte\n");
+                tfEmail.setStyle("-fx-border-color: red;");
             }
+        } catch (SQLException e) {
+            showAlert(Alert.AlertType.ERROR, "Erreur", 
+                "Erreur lors de la vérification de l'email: " + e.getMessage());
+            return;
+        }
+        
+        // Vérifier si le nom d'utilisateur existe déjà (sauf si c'est le même que l'utilisateur actuel)
+        try {
+            if (!username.equals(currentUser.getUsername()) && serviceUser.usernameExists(username)) {
+                errors.append("Ce nom d'utilisateur est déjà utilisé par un autre compte\n");
+                tfUsername.setStyle("-fx-border-color: red;");
+            }
+        } catch (SQLException e) {
+            showAlert(Alert.AlertType.ERROR, "Erreur", 
+                "Erreur lors de la vérification du nom d'utilisateur: " + e.getMessage());
+            return;
+        }
+
+        // Validation du mot de passe si l'utilisateur souhaite le changer
+        if (!tfNewPassword.getText().isEmpty()) {
+            if (tfOldPassword.getText().isEmpty()) {
+                errors.append("L'ancien mot de passe est requis pour changer le mot de passe\n");
+                tfOldPassword.setStyle("-fx-border-color: red;");
+            } else if (!PasswordUtil.checkPassword(tfOldPassword.getText(), currentUser.getMdp())) {
+                errors.append("L'ancien mot de passe est incorrect\n");
+                tfOldPassword.setStyle("-fx-border-color: red;");
+            }
+            
+            if (!PASSWORD_PATTERN.matcher(tfNewPassword.getText()).matches()) {
+                errors.append("Le nouveau mot de passe doit contenir au moins 8 caractères, incluant une majuscule, une minuscule et un chiffre\n");
+                tfNewPassword.setStyle("-fx-border-color: red;");
+            }
+            
             if (!tfNewPassword.getText().equals(tfConfirmPassword.getText())) {
                 errors.append("Les nouveaux mots de passe ne correspondent pas\n");
-            }
-            if (tfNewPassword.getText().length() < 6) {
-                errors.append("Le nouveau mot de passe doit contenir au moins 6 caractères\n");
+                tfConfirmPassword.setStyle("-fx-border-color: red;");
             }
         }
 
@@ -199,18 +443,19 @@ public class ViewProfileController implements Initializable {
         }
 
         // Update user details
-        currentUser.setUsername(tfUsername.getText());
-        currentUser.setEmail(tfEmail.getText());
-        currentUser.setPrenom(tfPrenom.getText());
-        currentUser.setNom(tfNom.getText());
-        currentUser.setTel(tfTel.getText());
+        currentUser.setUsername(username);
+        currentUser.setEmail(email);
+        currentUser.setPrenom(prenom);
+        currentUser.setNom(nom);
+        currentUser.setTel(tel);
 
         // Update password if changed
-        if (tfNewPassword.getText().length() > 0) {
-            currentUser.setMdp(tfNewPassword.getText());
+        if (!tfNewPassword.getText().isEmpty()) {
+            String hashedPassword = PasswordUtil.hashPassword(tfNewPassword.getText());
+            currentUser.setMdp(hashedPassword);
         }
 
-        // ✅ Ensure the new image path is saved if it has changed
+        // Ensure the new image path is saved if it has changed
         if (imagePath != null && !imagePath.isEmpty()) {
             currentUser.setImagePath(imagePath);
             serviceUser.updateUserImage(currentUser.getId(), imagePath);
@@ -218,6 +463,11 @@ public class ViewProfileController implements Initializable {
 
         serviceUser.update(currentUser); // Ensure user details are saved
         showAlert(Alert.AlertType.INFORMATION, "Succès", "Profil mis à jour avec succès!");
+        
+        // Réinitialiser les champs de mot de passe
+        tfOldPassword.clear();
+        tfNewPassword.clear();
+        tfConfirmPassword.clear();
     }
 
     @FXML

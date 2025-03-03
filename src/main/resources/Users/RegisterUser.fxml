@@ -76,7 +76,7 @@
             
             <HBox alignment="CENTER" spacing="10">
                 <Label text="Vous avez déjà un compte ?"/>
-                <Button fx:id="btnBack" text="Se connecter" onAction="#handleBack"
+                <Button fx:id="btnBack" text="Se connecter" onAction="#handleBackToLogin"
                         styleClass="button-outline"/>
             </HBox>
         </VBox>

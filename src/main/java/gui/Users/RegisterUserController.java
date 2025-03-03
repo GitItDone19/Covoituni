@@ -17,6 +17,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 import utils.PasswordUtil;
 
 public class RegisterUserController implements Initializable {
@@ -33,6 +34,13 @@ public class RegisterUserController implements Initializable {
     private ServiceUser serviceUser;
     private ServiceRole serviceRole;
     
+    // Regex patterns pour la validation
+    private static final Pattern USERNAME_PATTERN = Pattern.compile("^[a-zA-Z0-9_]{3,20}$");
+    private static final Pattern NAME_PATTERN = Pattern.compile("^[a-zA-Z\\s\\-']{2,30}$");
+    private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$");
+    private static final Pattern PHONE_PATTERN = Pattern.compile("^[0-9]{8}$");
+    private static final Pattern PASSWORD_PATTERN = Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$");
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         serviceUser = new ServiceUser();
@@ -48,24 +56,163 @@ public class RegisterUserController implements Initializable {
                     roleDisplayNames.add(role.getDisplayName());
                 }
             }
-            cbRole.setItems(FXCollections.observableArrayList(roleDisplayNames));
             
-            // Set passenger as default role
-            for (String displayName : roleDisplayNames) {
-                if (displayName.equals("Passager")) {
-                    cbRole.setValue(displayName);
-                    break;
-                }
-            }
+            cbRole.setItems(FXCollections.observableArrayList(roleDisplayNames));
         } catch (SQLException e) {
             showAlert(Alert.AlertType.ERROR, "Erreur", 
-                "Erreur lors du chargement des rôles: " + e.getMessage());
+                "Erreur lors du chargement des types de compte: " + e.getMessage());
         }
+        
+        // Ajouter des écouteurs pour la validation en temps réel
+        setupValidationListeners();
+    }
+    
+    private void setupValidationListeners() {
+        // Validation du nom d'utilisateur
+        tfUsername.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.isEmpty()) {
+                if (!USERNAME_PATTERN.matcher(newValue).matches()) {
+                    tfUsername.setStyle("-fx-border-color: red;");
+                    showTooltip(tfUsername, "Le nom d'utilisateur doit contenir entre 3 et 20 caractères alphanumériques ou underscore (_)");
+                } else {
+                    tfUsername.setStyle("-fx-border-color: green;");
+                    hideTooltip(tfUsername);
+                }
+            } else {
+                tfUsername.setStyle("");
+                hideTooltip(tfUsername);
+            }
+        });
+        
+        // Validation du nom
+        tfNom.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.isEmpty()) {
+                if (!NAME_PATTERN.matcher(newValue).matches()) {
+                    tfNom.setStyle("-fx-border-color: red;");
+                    showTooltip(tfNom, "Le nom doit contenir entre 2 et 30 caractères alphabétiques, espaces, tirets ou apostrophes");
+                } else {
+                    tfNom.setStyle("-fx-border-color: green;");
+                    hideTooltip(tfNom);
+                }
+            } else {
+                tfNom.setStyle("");
+                hideTooltip(tfNom);
+            }
+        });
+        
+        // Validation du prénom
+        tfPrenom.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.isEmpty()) {
+                if (!NAME_PATTERN.matcher(newValue).matches()) {
+                    tfPrenom.setStyle("-fx-border-color: red;");
+                    showTooltip(tfPrenom, "Le prénom doit contenir entre 2 et 30 caractères alphabétiques, espaces, tirets ou apostrophes");
+                } else {
+                    tfPrenom.setStyle("-fx-border-color: green;");
+                    hideTooltip(tfPrenom);
+                }
+            } else {
+                tfPrenom.setStyle("");
+                hideTooltip(tfPrenom);
+            }
+        });
+        
+        // Validation du téléphone
+        tfTel.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.isEmpty()) {
+                if (!PHONE_PATTERN.matcher(newValue).matches()) {
+                    tfTel.setStyle("-fx-border-color: red;");
+                    showTooltip(tfTel, "Le numéro de téléphone doit contenir exactement 8 chiffres");
+                } else {
+                    tfTel.setStyle("-fx-border-color: green;");
+                    hideTooltip(tfTel);
+                }
+            } else {
+                tfTel.setStyle("");
+                hideTooltip(tfTel);
+            }
+        });
+        
+        // Validation de l'email
+        tfEmail.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.isEmpty()) {
+                if (!EMAIL_PATTERN.matcher(newValue).matches()) {
+                    tfEmail.setStyle("-fx-border-color: red;");
+                    showTooltip(tfEmail, "Format d'email invalide (exemple: nom@domaine.com)");
+                } else {
+                    tfEmail.setStyle("-fx-border-color: green;");
+                    hideTooltip(tfEmail);
+                }
+            } else {
+                tfEmail.setStyle("");
+                hideTooltip(tfEmail);
+            }
+        });
+        
+        // Validation du mot de passe
+        tfMdp.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.isEmpty()) {
+                if (!PASSWORD_PATTERN.matcher(newValue).matches()) {
+                    tfMdp.setStyle("-fx-border-color: red;");
+                    showTooltip(tfMdp, "Le mot de passe doit contenir au moins 8 caractères, incluant une majuscule, une minuscule et un chiffre");
+                } else {
+                    tfMdp.setStyle("-fx-border-color: green;");
+                    hideTooltip(tfMdp);
+                }
+                
+                // Vérifier si les mots de passe correspondent
+                if (!tfConfirmMdp.getText().isEmpty() && !tfConfirmMdp.getText().equals(newValue)) {
+                    tfConfirmMdp.setStyle("-fx-border-color: red;");
+                    showTooltip(tfConfirmMdp, "Les mots de passe ne correspondent pas");
+                } else if (!tfConfirmMdp.getText().isEmpty()) {
+                    tfConfirmMdp.setStyle("-fx-border-color: green;");
+                    hideTooltip(tfConfirmMdp);
+                }
+            } else {
+                tfMdp.setStyle("");
+                hideTooltip(tfMdp);
+            }
+        });
+        
+        // Validation de la confirmation du mot de passe
+        tfConfirmMdp.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.isEmpty()) {
+                if (!newValue.equals(tfMdp.getText())) {
+                    tfConfirmMdp.setStyle("-fx-border-color: red;");
+                    showTooltip(tfConfirmMdp, "Les mots de passe ne correspondent pas");
+                } else {
+                    tfConfirmMdp.setStyle("-fx-border-color: green;");
+                    hideTooltip(tfConfirmMdp);
+                }
+            } else {
+                tfConfirmMdp.setStyle("");
+                hideTooltip(tfConfirmMdp);
+            }
+        });
+        
+        // Validation du rôle
+        cbRole.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                cbRole.setStyle("-fx-border-color: green;");
+            } else {
+                cbRole.setStyle("");
+            }
+        });
+    }
+    
+    private void showTooltip(Control control, String message) {
+        Tooltip tooltip = new Tooltip(message);
+        tooltip.setStyle("-fx-background-color: #FFF0F0; -fx-text-fill: #D32F2F;");
+        Tooltip.install(control, tooltip);
+    }
+    
+    private void hideTooltip(Control control) {
+        Tooltip.uninstall(control, null);
     }
     
     @FXML
     private void handleRegister() {
-        // Clear previous styling
+        // Réinitialiser les styles
+        tfUsername.setStyle("");
         tfNom.setStyle("");
         tfPrenom.setStyle("");
         tfTel.setStyle("");
@@ -76,13 +223,23 @@ public class RegisterUserController implements Initializable {
         
         StringBuilder errors = new StringBuilder();
         
+        // Username validation
+        String username = tfUsername.getText().trim();
+        if (username.isEmpty()) {
+            errors.append("Le nom d'utilisateur est requis\n");
+            tfUsername.setStyle("-fx-border-color: red;");
+        } else if (!USERNAME_PATTERN.matcher(username).matches()) {
+            errors.append("Le nom d'utilisateur doit contenir entre 3 et 20 caractères alphanumériques ou underscore (_)\n");
+            tfUsername.setStyle("-fx-border-color: red;");
+        }
+        
         // Nom validation
         String nom = tfNom.getText().trim();
         if (nom.isEmpty()) {
             errors.append("Le nom est requis\n");
             tfNom.setStyle("-fx-border-color: red;");
-        } else if (!nom.matches("^[a-zA-ZÀ-ÿ\\s]{2,}$")) {
-            errors.append("Le nom doit contenir au moins 2 lettres\n");
+        } else if (!NAME_PATTERN.matcher(nom).matches()) {
+            errors.append("Le nom doit contenir entre 2 et 30 caractères alphabétiques, espaces, tirets ou apostrophes\n");
             tfNom.setStyle("-fx-border-color: red;");
         }
         
@@ -91,8 +248,8 @@ public class RegisterUserController implements Initializable {
         if (prenom.isEmpty()) {
             errors.append("Le prénom est requis\n");
             tfPrenom.setStyle("-fx-border-color: red;");
-        } else if (!prenom.matches("^[a-zA-ZÀ-ÿ\\s]{2,}$")) {
-            errors.append("Le prénom doit contenir au moins 2 lettres\n");
+        } else if (!NAME_PATTERN.matcher(prenom).matches()) {
+            errors.append("Le prénom doit contenir entre 2 et 30 caractères alphabétiques, espaces, tirets ou apostrophes\n");
             tfPrenom.setStyle("-fx-border-color: red;");
         }
         
@@ -101,8 +258,8 @@ public class RegisterUserController implements Initializable {
         if (tel.isEmpty()) {
             errors.append("Le numéro de téléphone est requis\n");
             tfTel.setStyle("-fx-border-color: red;");
-        } else if (!tel.matches("^[0-9]{8}$")) {
-            errors.append("Le numéro de téléphone doit contenir 8 chiffres\n");
+        } else if (!PHONE_PATTERN.matcher(tel).matches()) {
+            errors.append("Le numéro de téléphone doit contenir exactement 8 chiffres\n");
             tfTel.setStyle("-fx-border-color: red;");
         }
         
@@ -111,8 +268,8 @@ public class RegisterUserController implements Initializable {
         if (email.isEmpty()) {
             errors.append("L'email est requis\n");
             tfEmail.setStyle("-fx-border-color: red;");
-        } else if (!email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
-            errors.append("Format d'email invalide\n");
+        } else if (!EMAIL_PATTERN.matcher(email).matches()) {
+            errors.append("Format d'email invalide (exemple: nom@domaine.com)\n");
             tfEmail.setStyle("-fx-border-color: red;");
         }
         
@@ -121,14 +278,17 @@ public class RegisterUserController implements Initializable {
         if (password.isEmpty()) {
             errors.append("Le mot de passe est requis\n");
             tfMdp.setStyle("-fx-border-color: red;");
-        } else if (password.length() < 6) {
-            errors.append("Le mot de passe doit contenir au moins 6 caractères\n");
+        } else if (!PASSWORD_PATTERN.matcher(password).matches()) {
+            errors.append("Le mot de passe doit contenir au moins 8 caractères, incluant une majuscule, une minuscule et un chiffre\n");
             tfMdp.setStyle("-fx-border-color: red;");
         }
         
         // Confirm password validation
         String confirmPassword = tfConfirmMdp.getText();
-        if (!confirmPassword.equals(password)) {
+        if (confirmPassword.isEmpty()) {
+            errors.append("La confirmation du mot de passe est requise\n");
+            tfConfirmMdp.setStyle("-fx-border-color: red;");
+        } else if (!confirmPassword.equals(password)) {
             errors.append("Les mots de passe ne correspondent pas\n");
             tfConfirmMdp.setStyle("-fx-border-color: red;");
         }
@@ -137,6 +297,18 @@ public class RegisterUserController implements Initializable {
         if (cbRole.getValue() == null) {
             errors.append("Veuillez sélectionner un type de compte\n");
             cbRole.setStyle("-fx-border-color: red;");
+        }
+        
+        // Check if username already exists
+        try {
+            if (serviceUser.usernameExists(username)) {
+                errors.append("Ce nom d'utilisateur est déjà utilisé\n");
+                tfUsername.setStyle("-fx-border-color: red;");
+            }
+        } catch (SQLException e) {
+            showAlert(Alert.AlertType.ERROR, "Erreur", 
+                "Erreur lors de la vérification du nom d'utilisateur: " + e.getMessage());
+            return;
         }
         
         // Check if email already exists
@@ -192,30 +364,36 @@ public class RegisterUserController implements Initializable {
                 verificationCode
             );
             
+            // Set username
+            newUser.setUsername(username);
+            
             // Create the user in the database
             serviceUser.create(newUser);
             
             // Generate and send QR code
             boolean qrCodeSent = Qrcode.generateAndSendQRCode(newUser);
             
+            // Show success message
+            String successMessage = "Inscription réussie! ";
             if (qrCodeSent) {
-                showAlert(Alert.AlertType.INFORMATION, "Succès", 
-                    "Compte créé avec succès! Un QR code a été envoyé à votre adresse email.");
+                successMessage += "Un code QR a été envoyé à votre adresse email.";
             } else {
-                showAlert(Alert.AlertType.INFORMATION, "Succès", 
-                    "Compte créé avec succès! Mais l'envoi du QR code a échoué. Veuillez contacter l'administrateur.");
+                successMessage += "Mais l'envoi du code QR a échoué.";
             }
             
-            handleBack();
+            showAlert(Alert.AlertType.INFORMATION, "Succès", successMessage);
+            
+            // Navigate to login page
+            handleBackToLogin();
             
         } catch (SQLException e) {
             showAlert(Alert.AlertType.ERROR, "Erreur", 
-                "Erreur lors de la création du compte: " + e.getMessage());
+                "Erreur lors de l'inscription: " + e.getMessage());
         }
     }
     
     @FXML
-    private void handleBack() {
+    private void handleBackToLogin() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Users/LoginUser.fxml"));
             Parent root = loader.load();

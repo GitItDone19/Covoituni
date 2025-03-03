@@ -122,6 +122,15 @@ public class ServiceUser implements IService<User> {
         }
     }
 
+    public boolean usernameExists(String username) throws SQLException {
+        String req = "SELECT COUNT(*) FROM utilisateur WHERE username = ?";
+        try (PreparedStatement ps = connection.prepareStatement(req)) {
+            ps.setString(1, username);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            return rs.getInt(1) > 0;
+        }
+    }
 
     public void updateUserImage(int userId, String imagePath) {
         String query = "UPDATE utilisateur SET image_path = ? WHERE id = ?";

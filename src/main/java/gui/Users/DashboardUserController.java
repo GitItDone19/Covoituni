@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import javafx.stage.Modality;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.layout.VBox;
 import java.net.URL;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -21,6 +22,10 @@ public class DashboardUserController implements Initializable {
     // UI Labels
     @FXML private Label lblUserName, lblUserEmail, lblActiveReservations, lblCO2Economy, lblRating, lblTrajetsCount;
     @FXML private ListView<?> listViewReservations;
+    
+    // Section containers
+    @FXML private VBox passengerSection;
+    @FXML private VBox driverSection;
 
     // Buttons
     @FXML private Button btnAddReclamation, btnAjouterAvis;
@@ -88,11 +93,13 @@ public class DashboardUserController implements Initializable {
     private void checkUserRole() {
         if (currentUser == null) {
             hideAllRoleSpecificButtons();
+            hideAllSections();
             return;
         }
 
         String roleCode = currentUser.getRoleCode();
         hideAllRoleSpecificButtons();
+        hideAllSections();
 
         // Common buttons for all roles
         btnListeEvenements.setVisible(true);
@@ -103,6 +110,11 @@ public class DashboardUserController implements Initializable {
             case Role.PASSENGER_CODE:
                 // Passenger-specific buttons
                 setVisibility(true, btnReservationsPassager, btnHistorique, btnAjouterAvis);
+                // Show passenger section, hide driver section
+                passengerSection.setVisible(true);
+                passengerSection.setManaged(true);
+                driverSection.setVisible(false);
+                driverSection.setManaged(false);
                 break;
 
             case Role.DRIVER_CODE:
@@ -111,11 +123,17 @@ public class DashboardUserController implements Initializable {
                         btnListeTrajet, btnAjoutTrajet, btnAjoutAnnonce, btnAjoutEvent, btnModifierEvent,
                         btnAfficherVoitures, btnAjouterVoiture, btnModifierVoiture, btnAfficherCategories,
                         btnAjouterCategorie, btnModifierCategorie);
+                // Show driver section, hide passenger section
+                driverSection.setVisible(true);
+                driverSection.setManaged(true);
+                passengerSection.setVisible(false);
+                passengerSection.setManaged(false);
                 break;
 
             case Role.ADMIN_CODE:
                 // Admin can see everything
                 showAllButtons();
+                showAllSections();
                 break;
         }
     }
@@ -134,6 +152,30 @@ public class DashboardUserController implements Initializable {
                 btnAjoutTrajet, btnAjoutAnnonce, btnAjoutEvent, btnModifierEvent, btnAfficherVoitures,
                 btnAjouterVoiture, btnModifierVoiture, btnAfficherCategories, btnAjouterCategorie,
                 btnModifierCategorie, btnListeEvenements, btnListeAnnoncesEvent, btnListeAnnonces);
+    }
+
+    private void hideAllSections() {
+        // Hide and unmanage both sections to remove empty space
+        if (passengerSection != null) {
+            passengerSection.setVisible(false);
+            passengerSection.setManaged(false);
+        }
+        if (driverSection != null) {
+            driverSection.setVisible(false);
+            driverSection.setManaged(false);
+        }
+    }
+    
+    private void showAllSections() {
+        // Show and manage both sections
+        if (passengerSection != null) {
+            passengerSection.setVisible(true);
+            passengerSection.setManaged(true);
+        }
+        if (driverSection != null) {
+            driverSection.setVisible(true);
+            driverSection.setManaged(true);
+        }
     }
 
     private void setVisibility(boolean visible, Button... buttons) {

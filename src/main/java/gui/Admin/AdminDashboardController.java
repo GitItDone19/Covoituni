@@ -116,6 +116,134 @@ public class AdminDashboardController implements Initializable {
         }
     }
     
+    @FXML
+    private void handleManageTrips() {
+        try {
+            // TODO: Replace with actual FXML path when available
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Admin/GestionTrajets.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) lblTotalUsers.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            showAlert(Alert.AlertType.INFORMATION, "Info", 
+                "Gestion des trajets - À implémenter ou fichier FXML manquant");
+        }
+    }
+    
+    @FXML
+    private void handleManageEvents() {
+        try {
+            // TODO: Replace with actual FXML path when available
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjoutEvent.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) lblTotalUsers.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            showAlert(Alert.AlertType.INFORMATION, "Info", 
+                "Gestion des événements - À implémenter ou fichier FXML manquant");
+        }
+    }
+    
+    @FXML
+    private void handleManageVehicles() {
+        try {
+            // TODO: Replace with actual FXML path when available
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherVoitures.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) lblTotalUsers.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            showAlert(Alert.AlertType.INFORMATION, "Info", 
+                "Gestion des véhicules - À implémenter ou fichier FXML manquant");
+        }
+    }
+    
+    @FXML
+    private void handleManageCategories() {
+        try {
+            // TODO: Replace with actual FXML path when available
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Admin/GestionCategories.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) lblTotalUsers.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            showAlert(Alert.AlertType.INFORMATION, "Info", 
+                "Gestion des catégories - À implémenter ou fichier FXML manquant");
+        }
+    }
+    
+    @FXML
+    private void handleViewStatistics() {
+        try {
+            // TODO: Replace with actual FXML path when available
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Admin/Statistiques.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) lblTotalUsers.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            showAlert(Alert.AlertType.INFORMATION, "Info", 
+                "Statistiques - À implémenter ou fichier FXML manquant");
+        }
+    }
+    
+    @FXML
+    private void handleSettings() {
+        try {
+            // TODO: Replace with actual FXML path when available
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Admin/Parametres.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) lblTotalUsers.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            showAlert(Alert.AlertType.INFORMATION, "Info", 
+                "Paramètres - À implémenter ou fichier FXML manquant");
+        }
+    }
+    
+    @FXML
+    private void handleViewMap() {
+        try {
+            // TODO: Replace with actual FXML path when available
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Admin/Cartographie.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) lblTotalUsers.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            showAlert(Alert.AlertType.INFORMATION, "Info", 
+                "Cartographie - À implémenter ou fichier FXML manquant");
+        }
+    }
+    
+    @FXML
+    private void handleNotifications() {
+        try {
+            // TODO: Replace with actual FXML path when available
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Admin/Notifications.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) lblTotalUsers.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            showAlert(Alert.AlertType.INFORMATION, "Info", 
+                "Notifications - À implémenter ou fichier FXML manquant");
+        }
+    }
+    
     private void showAlert(Alert.AlertType type, String title, String content) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
