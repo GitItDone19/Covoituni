@@ -24,7 +24,7 @@ public class ServiceUser implements IService<User> {
         String sql = "INSERT INTO utilisateur (nom, prenom, tel, email, mdp, role_code, verificationcode, rating, trips_count, username) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
-        PreparedStatement pst = connection.prepareStatement(sql);
+        PreparedStatement pst = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         pst.setString(1, user.getNom());
         pst.setString(2, user.getPrenom());
         pst.setString(3, user.getTel());
@@ -37,6 +37,12 @@ public class ServiceUser implements IService<User> {
         pst.setString(10, user.getUsername());
         
         pst.executeUpdate();
+        
+        // Get the generated ID and set it to the user object
+        ResultSet generatedKeys = pst.getGeneratedKeys();
+        if (generatedKeys.next()) {
+            user.setId(generatedKeys.getInt(1));
+        }
     }
 
     @Override
@@ -90,6 +96,13 @@ public class ServiceUser implements IService<User> {
             );
             user.setRating(rs.getDouble("rating"));
             user.setTripsCount(rs.getInt("trips_count"));
+            
+            // Load the image path
+            String imagePath = rs.getString("image_path");
+            if (imagePath != null && !imagePath.isEmpty()) {
+                user.setImagePath(imagePath);
+            }
+            
             users.add(user);
         }
         return users;
@@ -234,5 +247,63 @@ public class ServiceUser implements IService<User> {
         }
     }
 
+    /**
+     * Creates a user and returns the generated ID
+     * @param user The user to create
+     * @return The generated ID
+     * @throws SQLException If an error occurs
+     */
+    public int createAndGetId(User user) throws SQLException {
+        create(user);
+        return user.getId();
+    }
 
+    /**
+     * Finds a user by their email address
+     * @param email The email address to search for
+     * @return The user if found, null otherwise
+     * @throws SQLException If an error occurs
+     */
+    public User findByEmail(String email) throws SQLException {
+        String sql = "SELECT u.*, r.id as role_id, r.display_name FROM utilisateur u " +
+                    "JOIN role r ON u.role_code = r.code " +
+                    "WHERE u.email = ?";
+        
+        try (PreparedStatement pst = connection.prepareStatement(sql)) {
+            pst.setString(1, email);
+            ResultSet rs = pst.executeQuery();
+            
+            if (rs.next()) {
+                Role role = new Role(
+                    rs.getInt("role_id"),
+                    rs.getString("role_code"),
+                    rs.getString("display_name")
+                );
+                
+                User user = new User(
+                    rs.getInt("id"),
+                    rs.getString("nom"),
+                    rs.getString("prenom"),
+                    rs.getString("tel"),
+                    rs.getString("email"),
+                    rs.getString("mdp"),
+                    role,
+                    rs.getString("verificationcode")
+                );
+                user.setRating(rs.getDouble("rating"));
+                user.setTripsCount(rs.getInt("trips_count"));
+                user.setUsername(rs.getString("username"));
+                
+                // Load the image path
+                String imagePath = rs.getString("image_path");
+                if (imagePath != null && !imagePath.isEmpty()) {
+                    user.setImagePath(imagePath);
+                }
+                
+                return user;
+            }
+        }
+        
+        return null;
+    }
 }

@@ -16,34 +16,31 @@ public class TestFX extends Application {
     }
 
     @Override
+
     public void start(Stage stage) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/Users/LoginUser.fxml"));
-            
-            // Get screen dimensions
-            Screen screen = Screen.getPrimary();
-            Rectangle2D bounds = screen.getVisualBounds();
-            
-            // Set stage bounds to screen bounds
-            stage.setX(bounds.getMinX());
-            stage.setY(bounds.getMinY());
-            stage.setWidth(bounds.getWidth());
-            stage.setHeight(bounds.getHeight());
-            
+
             Scene scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource("/styles/global.css").toExternalForm());
-            
+
             stage.setTitle("Covoituni");
             stage.setScene(scene);
-            stage.setMaximized(true);
-            
-            // Ensure window is truly maximized
-            stage.setResizable(true);
+
+            // Set window size (Avoid full screen)
+            stage.setWidth(900);
+            stage.setHeight(750);
+            stage.centerOnScreen(); // Centers the window
+
+            // Ensure full-screen is disabled
+            stage.setMaximized(false);
             stage.setFullScreen(false);
-            
+            stage.setResizable(true);
+
             stage.show();
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 }

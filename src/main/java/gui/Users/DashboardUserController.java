@@ -21,7 +21,7 @@ public class DashboardUserController implements Initializable {
     // UI Labels
     @FXML private Label lblUserName, lblUserEmail, lblActiveReservations, lblCO2Economy, lblRating, lblTrajetsCount;
     @FXML private ListView<?> listViewReservations;
-    
+
     // Buttons
     @FXML private Button btnAddReclamation, btnAjouterAvis;
     @FXML private Button btnReservationsPassager, btnListeEvenements, btnListeAnnoncesEvent, btnListeAnnonces, btnHistorique;
@@ -29,11 +29,11 @@ public class DashboardUserController implements Initializable {
     @FXML private Button btnAjoutAnnonce, btnAjoutEvent, btnModifierEvent;
     @FXML private Button btnAfficherVoitures, btnAjouterVoiture, btnModifierVoiture, btnAfficherCategories;
     @FXML private Button btnAjouterCategorie, btnModifierCategorie;
-    
+
     private User currentUser;
     private ServiceUser serviceUser;
     private TrajetService trajetService;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         serviceUser = new ServiceUser();
@@ -42,14 +42,15 @@ public class DashboardUserController implements Initializable {
         updateUserInfo();
         checkUserRole();
     }
-    
+
     public void setCurrentUser(User user) {
         this.currentUser = user;
         updateUserInfo();
         updateDashboardStats();
         checkUserRole();
+
     }
-    
+
     // Retrieve actual statistics from database
     private void updateDashboardStats() {
         try {
@@ -59,21 +60,21 @@ public class DashboardUserController implements Initializable {
             } catch (SQLException e) {
                 System.err.println("Error retrieving trajet count: " + e.getMessage());
             }
-            
+
             if (lblTrajetsCount != null) {
                 lblTrajetsCount.setText(String.valueOf(trajetsCount));
             }
-            
+
             double co2Economy = trajetsCount * 2.3; // Assuming 2.3 kg CO2 saved per trip
             if (lblCO2Economy != null) {
                 lblCO2Economy.setText(String.format("%.1f kg", co2Economy));
             }
         } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR, "Erreur", 
-                "Erreur lors de la mise à jour des statistiques: " + e.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Erreur",
+                    "Erreur lors de la mise à jour des statistiques: " + e.getMessage());
         }
     }
-    
+
     private void updateUserInfo() {
         if (currentUser != null) {
             lblUserName.setText(currentUser.getNom() + " " + currentUser.getPrenom());
@@ -83,70 +84,70 @@ public class DashboardUserController implements Initializable {
             }
         }
     }
-    
+
     private void checkUserRole() {
         if (currentUser == null) {
             hideAllRoleSpecificButtons();
             return;
         }
-        
+
         String roleCode = currentUser.getRoleCode();
         hideAllRoleSpecificButtons();
-        
+
         // Common buttons for all roles
         btnListeEvenements.setVisible(true);
         btnListeAnnoncesEvent.setVisible(true);
         btnListeAnnonces.setVisible(true);
-        
+
         switch (roleCode) {
             case Role.PASSENGER_CODE:
                 // Passenger-specific buttons
                 setVisibility(true, btnReservationsPassager, btnHistorique, btnAjouterAvis);
                 break;
-                
+
             case Role.DRIVER_CODE:
                 // Driver-specific buttons
-                setVisibility(true, btnReservationsChauffeur, btnModifierTrajet, btnModifierAnnonce, 
-                    btnListeTrajet, btnAjoutTrajet, btnAjoutAnnonce, btnAjoutEvent, btnModifierEvent,
-                    btnAfficherVoitures, btnAjouterVoiture, btnModifierVoiture, btnAfficherCategories,
-                    btnAjouterCategorie, btnModifierCategorie);
+                setVisibility(true, btnReservationsChauffeur, btnModifierTrajet, btnModifierAnnonce,
+                        btnListeTrajet, btnAjoutTrajet, btnAjoutAnnonce, btnAjoutEvent, btnModifierEvent,
+                        btnAfficherVoitures, btnAjouterVoiture, btnModifierVoiture, btnAfficherCategories,
+                        btnAjouterCategorie, btnModifierCategorie);
                 break;
-                
+
             case Role.ADMIN_CODE:
                 // Admin can see everything
                 showAllButtons();
                 break;
         }
     }
-    
+
     private void hideAllRoleSpecificButtons() {
-        setVisibility(false, btnReservationsPassager, btnHistorique, btnAjouterAvis, 
-            btnReservationsChauffeur, btnModifierTrajet, btnModifierAnnonce, btnListeTrajet, 
-            btnAjoutTrajet, btnAjoutAnnonce, btnAjoutEvent, btnModifierEvent, btnAfficherVoitures, 
-            btnAjouterVoiture, btnModifierVoiture, btnAfficherCategories, btnAjouterCategorie, 
-            btnModifierCategorie, btnListeEvenements, btnListeAnnoncesEvent, btnListeAnnonces);
+        setVisibility(false, btnReservationsPassager, btnHistorique, btnAjouterAvis,
+                btnReservationsChauffeur, btnModifierTrajet, btnModifierAnnonce, btnListeTrajet,
+                btnAjoutTrajet, btnAjoutAnnonce, btnAjoutEvent, btnModifierEvent, btnAfficherVoitures,
+                btnAjouterVoiture, btnModifierVoiture, btnAfficherCategories, btnAjouterCategorie,
+                btnModifierCategorie, btnListeEvenements, btnListeAnnoncesEvent, btnListeAnnonces);
     }
-    
+
     private void showAllButtons() {
-        setVisibility(true, btnReservationsPassager, btnHistorique, btnAjouterAvis, 
-            btnReservationsChauffeur, btnModifierTrajet, btnModifierAnnonce, btnListeTrajet, 
-            btnAjoutTrajet, btnAjoutAnnonce, btnAjoutEvent, btnModifierEvent, btnAfficherVoitures, 
-            btnAjouterVoiture, btnModifierVoiture, btnAfficherCategories, btnAjouterCategorie, 
-            btnModifierCategorie, btnListeEvenements, btnListeAnnoncesEvent, btnListeAnnonces);
+        setVisibility(true, btnReservationsPassager, btnHistorique, btnAjouterAvis,
+                btnReservationsChauffeur, btnModifierTrajet, btnModifierAnnonce, btnListeTrajet,
+                btnAjoutTrajet, btnAjoutAnnonce, btnAjoutEvent, btnModifierEvent, btnAfficherVoitures,
+                btnAjouterVoiture, btnModifierVoiture, btnAfficherCategories, btnAjouterCategorie,
+                btnModifierCategorie, btnListeEvenements, btnListeAnnoncesEvent, btnListeAnnonces);
     }
-    
+
     private void setVisibility(boolean visible, Button... buttons) {
         for (Button btn : buttons) {
             if (btn != null) btn.setVisible(visible);
         }
     }
-    
+
     // Generic method to load a view
     private void loadView(String fxmlPath, String title, boolean asDialog) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             Parent root = loader.load();
-            
+
             // Try to set current user on controller if it supports it
             Object controller = loader.getController();
             if (controller != null && currentUser != null) {
@@ -157,7 +158,7 @@ public class DashboardUserController implements Initializable {
                     // Controller doesn't have setCurrentUser method - ignore
                 }
             }
-            
+
             if (asDialog) {
                 Stage stage = new Stage();
                 stage.setTitle(title);
@@ -174,7 +175,7 @@ public class DashboardUserController implements Initializable {
             showAlert(Alert.AlertType.ERROR, "Erreur", "Erreur de navigation: " + e.getMessage());
         }
     }
-    
+
     // Event handlers
     @FXML private void handleViewProfile() { loadView("/Users/ViewProfile.fxml", "Profile", false); }
     @FXML private void handleLogout() { loadView("/Users/LoginUser.fxml", "Login", false); }
@@ -205,7 +206,14 @@ public class DashboardUserController implements Initializable {
         // Use the path to the Users folder
         loadView("/Users/GoogleMapsView.fxml", "Cartographie", false);
     }
-    
+    @FXML private void handleOpenChatbot() {
+        loadView("/Users/ChatbotView.fxml", "Assistant Covoituni", false);
+    }
+
+    @FXML
+    private void handleOpenGoogleTranslator() {
+        loadView("/Users/GoogleTranslatorView.fxml", "Google Translator", false);
+    }
     private void showAlert(Alert.AlertType type, String title, String message) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
@@ -213,4 +221,4 @@ public class DashboardUserController implements Initializable {
         alert.setContentText(message);
         alert.showAndWait();
     }
-} 
+}

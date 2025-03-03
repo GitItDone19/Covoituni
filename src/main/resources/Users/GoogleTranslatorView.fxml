@@ -1,0 +1,27 @@
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.layout.HBox?>
+<VBox xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="gui.Users.GoogleTranslatorController"
+      spacing="15">
+
+    <!-- Text Input Field -->
+    <TextField fx:id="textInput" promptText="Enter text to translate..." />
+
+    <!-- Language Selectors -->
+    <HBox spacing="10">
+        <ComboBox fx:id="sourceLanguageSelector" />
+        <ComboBox fx:id="targetLanguageSelector" />
+    </HBox>
+
+    <!-- Translate Button -->
+    <Button fx:id="translateButton" text="Translate" onAction="#handleTranslateText"/>
+
+    <!-- Output Text Area -->
+    <TextArea fx:id="resultArea" editable="false" wrapText="true" prefRowCount="5"/>
+</VBox>

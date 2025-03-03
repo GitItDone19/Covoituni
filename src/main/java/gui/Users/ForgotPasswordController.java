@@ -62,10 +62,10 @@ public class ForgotPasswordController {
         mail.setSmtpPort(587);
         
         // Replace with your App Password (16 characters, no spaces)
-        mail.setAuthentication("hammamahmoud06@gmail.com", "your-16-character-app-password");
+        mail.setAuthentication("khairibouzid95@gmail.com", "ohdv puqy vwqg hoou");
         mail.setStartTLSRequired(true);
         
-        mail.setFrom("hammamahmoud06@gmail.com", "Covoituni Password Reset");
+        mail.setFrom("khairibouzid95@gmail.com", "Covoituni Password Reset");
         mail.setSubject("Password Reset Request");
 
         // Email Body
