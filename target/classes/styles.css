@@ -361,3 +361,34 @@
     -fx-scale-x: 0.95;
     -fx-scale-y: 0.95;
 }
+.root {
+    -fx-background-color: #f8f9fa;
+    -fx-padding: 20px;
+}
+
+.scroll-pane {
+    -fx-border-color: #ddd;
+    -fx-border-radius: 5px;
+    -fx-padding: 10px;
+    -fx-background-color: white;
+}
+
+.carbon-label {
+    -fx-font-weight: bold;
+    -fx-text-fill: #2d6a4f;
+    -fx-padding: 10px;
+}
+
+.button-primary {
+    -fx-background-color: #2d6a4f;
+    -fx-text-fill: white;
+    -fx-padding: 7px 15px;
+    -fx-border-radius: 5px;
+}
+
+.button-secondary {
+    -fx-background-color: #3a86ff;
+    -fx-text-fill: white;
+    -fx-padding: 7px 15px;
+    -fx-border-radius: 5px;
+}

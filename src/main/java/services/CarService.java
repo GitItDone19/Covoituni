@@ -4,9 +4,12 @@ import entities.Car;
 import entities.Categorie;
 import utils.DataSource;
 
+
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CarService implements IService<Car> {
     private Connection connection;
@@ -107,4 +110,37 @@ public class CarService implements IService<Car> {
         }
         return null;
     }
+    // New method to search cars by immatriculation
+    public List<Car> searchByImmatriculation(String immatriculation) throws SQLException {
+        String query = "SELECT * FROM car WHERE plaqueImatriculation LIKE ?";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setString(1, "%" + immatriculation + "%");
+
+        ResultSet rs = stmt.executeQuery();
+        List<Car> cars = new ArrayList<>();
+        while (rs.next()) {
+            cars.add(new Car(
+                    rs.getString("plaqueImatriculation"),
+                    rs.getString("description"),
+                    rs.getDate("dateImatriculation"),
+                    rs.getString("couleur"),
+                    rs.getString("marque"),
+                    rs.getString("modele"),
+                    rs.getInt("categorie_id")
+            ));
+        }
+        return cars;
+    }
+    public Map<String, Integer> getCarCountByYear() throws SQLException {
+        String query = "SELECT YEAR(dateImatriculation) AS year, COUNT(*) AS count FROM car GROUP BY year";
+        Statement stmt = connection.createStatement();
+        ResultSet rs = stmt.executeQuery(query);
+
+        Map<String, Integer> carStats = new HashMap<>();
+        while (rs.next()) {
+            carStats.put(rs.getString("year"), rs.getInt("count"));
+        }
+        return carStats;
+    }
+
 }

@@ -13,8 +13,8 @@ public class Main extends Application {
         // Load the main view
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/MainView.fxml"));
         Parent root = loader.load();
-        
         Scene scene = new Scene(root);
+        
         primaryStage.setTitle("Gestion du Parc Automobile");
         primaryStage.setScene(scene);
         primaryStage.show();

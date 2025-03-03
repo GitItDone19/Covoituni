@@ -78,4 +78,17 @@ public class CategorieService implements IService<Categorie> {
         }
         return null;
     }
+    // New method to search categories by name
+    public List<Categorie> searchByName(String name) throws SQLException {
+        String query = "SELECT * FROM categorie WHERE nom LIKE ?";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setString(1, "%" + name + "%");
+
+        ResultSet rs = stmt.executeQuery();
+        List<Categorie> categories = new ArrayList<>();
+        while (rs.next()) {
+            categories.add(new Categorie(rs.getString("nom"), rs.getString("description")));
+        }
+        return categories;
+    }
 } 

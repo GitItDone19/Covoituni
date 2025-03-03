@@ -13,7 +13,7 @@ public class TestJDBC {
 
     public static void main(String[] args) {
         // Test de la connexion à la base de données
-        DataSource.getInstance();
+        utils.MyConnection.getInstance();
 
         CarService carService = new CarService();
         CategorieService categorieService = new CategorieService();

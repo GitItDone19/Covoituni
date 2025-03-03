@@ -70,13 +70,13 @@ public class AjouterVoiture implements Initializable {
 
         try {
             Car car = new Car(
-                    plaqueField.getText(),
-                    descriptionField.getText(),
-                    Date.from(datePicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()),
-                    couleurField.getText(),
-                    marqueField.getText(),
-                    modeleField.getText(),
-                    categorieComboBox.getValue().getId()
+                plaqueField.getText(),
+                descriptionField.getText(),
+                Date.from(datePicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()),
+                couleurField.getText(),
+                marqueField.getText(),
+                modeleField.getText(),
+                categorieComboBox.getValue().getId()
             );
 
             carService.create(car);
@@ -136,4 +136,4 @@ public class AjouterVoiture implements Initializable {
         Stage stage = (Stage) plaqueField.getScene().getWindow();
         stage.close();
     }
-}
+} 

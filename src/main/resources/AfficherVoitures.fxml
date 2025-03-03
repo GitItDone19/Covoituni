@@ -3,35 +3,86 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.*?>
 
+<?import java.net.URL?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="gui.AfficherVoitures"
       spacing="20"
       styleClass="root">
 
+    <stylesheets>
+        <URL value="@styles.css"/>
+    </stylesheets>
+
+
     <padding>
         <Insets top="20" right="20" bottom="20" left="20"/>
     </padding>
 
-    <!-- Button to add a new car -->
+    <!-- Barre de recherche -->
     <HBox spacing="10" alignment="CENTER_LEFT">
-        <padding>
-            <Insets bottom="20"/>
-        </padding>
+        <TextField fx:id="searchVoitureField" promptText="Rechercher par immatriculation"/>
+        <Button text="Rechercher" onAction="#handleSearchVoiture" styleClass="button-primary"/>
+    </HBox>
+
+    <!-- Boutons principaux -->
+    <HBox spacing="10" alignment="CENTER">
         <Button text="Ajouter une voiture"
                 onAction="#handleAjouterButton"
                 styleClass="button-primary"/>
+        <Button text="Trier par date"
+                onAction="#handleSortByDate"
+                styleClass="button-secondary"/>
     </HBox>
 
-    <!-- Scroll pane to display car listings -->
-    <ScrollPane fitToWidth="true"
-                VBox.vgrow="ALWAYS"
-                styleClass="scroll-pane">
+    <!-- Zone de liste des voitures avec un ScrollPane -->
+    <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" styleClass="scroll-pane">
         <VBox fx:id="vboxContainer" spacing="15">
             <padding>
                 <Insets top="10" right="10" bottom="10" left="10"/>
             </padding>
         </VBox>
     </ScrollPane>
+
+    <!-- Section statistiques -->
+    <VBox spacing="10" alignment="CENTER">
+        <Button fx:id="statistiquesButton" text="Statistiques"
+                onAction="#toggleStatistics"
+                styleClass="button-secondary"/>
+        <BarChart fx:id="carAgeChart" title="Nombre de voitures par année d'immatriculation" visible="false">
+            <xAxis>
+                <CategoryAxis fx:id="xAxis" label="Année"/>
+            </xAxis>
+            <yAxis>
+                <NumberAxis fx:id="yAxis" label="Nombre de voitures"/>
+            </yAxis>
+        </BarChart>
+    </VBox>
+
+    <!-- Section estimation empreinte carbone -->
+    <VBox spacing="10">
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label text="Marque de voiture:"/>
+            <ComboBox fx:id="carMakeDropdown" promptText="Sélectionnez une marque" onAction="#handleMakeSelection"/>
+        </HBox>
+
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label text="Modèle de voiture:"/>
+            <ComboBox fx:id="carModelDropdown" promptText="Sélectionnez un modèle"/>
+        </HBox>
+
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label text="Consommation de carburant (L/100km):"/>
+            <TextField fx:id="fuelConsumptionField" promptText="Entrez la consommation"/>
+        </HBox>
+
+        <HBox spacing="10" alignment="CENTER">
+            <Button text="Calculer CO₂" onAction="#handleCalculateCarbon" styleClass="button-primary"/>
+        </HBox>
+
+        <Label fx:id="carbonLabel" text="Empreinte carbone: -- kg CO₂" styleClass="carbon-label"/>
+    </VBox>
+
 </VBox>

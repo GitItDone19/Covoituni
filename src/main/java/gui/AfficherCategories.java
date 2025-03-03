@@ -22,6 +22,8 @@ public class AfficherCategories implements Initializable {
 
     @FXML
     private VBox vboxContainer;
+    @FXML
+    private TextField searchCategorieField; // Search field for categories
 
     private final CategorieService categorieService = new CategorieService();
 
@@ -126,5 +128,39 @@ public class AfficherCategories implements Initializable {
         alert.setTitle(title);
         alert.setContentText(content);
         alert.showAndWait();
+    }
+    // Search button action
+    @FXML
+    private void handleSearchCategorie() {
+        String query = searchCategorieField.getText().trim();
+        if (query.isEmpty()) {
+            loadData(); // Reload all categories if search is empty
+            return;
+        }
+
+        try {
+            List<Categorie> filteredCategories = categorieService.searchByName(query);
+            updateCategoriesList(filteredCategories);
+        } catch (SQLException e) {
+            showError("Erreur", "Impossible de rechercher les catégories: " + e.getMessage());
+        }
+    }
+
+    // Method to update the UI with search results
+    private void updateCategoriesList(List<Categorie> categories) {
+        vboxContainer.getChildren().clear();
+        for (Categorie categorie : categories) {
+            VBox categoryCard = new VBox(10);
+            categoryCard.getStyleClass().add("category-card");
+
+            Label nameLabel = new Label(categorie.getNom());
+            nameLabel.getStyleClass().add("title");
+
+            Label descLabel = new Label(categorie.getDescription());
+            descLabel.getStyleClass().add("description");
+
+            categoryCard.getChildren().addAll(nameLabel, descLabel);
+            vboxContainer.getChildren().add(categoryCard);
+        }
     }
 }

@@ -7,22 +7,30 @@
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="gui.AfficherCategories"
-      spacing="10"
+      spacing="20"
       styleClass="root">
 
     <padding>
         <Insets top="20" right="20" bottom="20" left="20"/>
     </padding>
 
+    <!-- Search bar for searching categories by name -->
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <TextField fx:id="searchCategorieField" promptText="Rechercher par nom"/>
+        <Button text="Rechercher" onAction="#handleSearchCategorie" styleClass="button-primary"/>
+    </HBox>
+
+    <!-- Button to add a new category -->
     <HBox spacing="10" alignment="CENTER_LEFT">
         <padding>
             <Insets bottom="20"/>
         </padding>
         <Button text="Ajouter une catégorie"
                 onAction="#handleAjouterButton"
-                styleClass="button"/>
+                styleClass="button-primary"/>
     </HBox>
 
+    <!-- Scroll pane to display category listings -->
     <ScrollPane fitToWidth="true"
                 VBox.vgrow="ALWAYS"
                 styleClass="scroll-pane">
@@ -32,5 +40,4 @@
             </padding>
         </VBox>
     </ScrollPane>
-
 </VBox>
